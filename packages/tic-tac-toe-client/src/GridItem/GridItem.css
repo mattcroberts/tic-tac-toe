@@ -1,0 +1,7 @@
+.GridItem {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  width: 100%;
+  border: 1px solid #ccc;
+}
