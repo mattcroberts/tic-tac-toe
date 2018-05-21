@@ -132,10 +132,6 @@ class Grid extends React.Component<IGridProps, IGridState> {
       <div className="Grid-row" key={`${rowN}`}>
         {row.map((item, colN) => (
           <React.Fragment>
-            <span>
-              {rowN},
-              {colN}
-            </span>
             <GridItem
               colN={rowN}
               rowN={colN}
