@@ -3,16 +3,26 @@ type Query {
   getGrid: Grid!
 }`;
 
+export const mutation = `
+type Mutation {
+  executeTurn (
+    player: String!,
+    x: Int!,
+    y: Int!
+  ): Grid
+}
+`;
+
 export const Player = `
 type Player {
-  symbol: String!
+  symbol: String
 }
 `;
 
 export const GridItem = `type GridItem {
-  player: Player
+  player: String
 }`;
 
 export const Grid = `type Grid {
-  gridItems: [GridItem]
+  gridItems: [[GridItem]]
 }`;

@@ -1,4 +1,4 @@
-import { graphqlKoa, graphiqlKoa } from "apollo-server-koa";
+import { graphiqlKoa, graphqlKoa } from "apollo-server-koa";
 import Koa from "koa";
 import koabody from "koa-bodyparser";
 import Router from "koa-router";
