@@ -16,33 +16,20 @@ export interface IGridProps {
     onItemClick: (player: string, x: number, y: number) => void;
 }
 
-interface IGridState {
-    grid: IItemState[][];
-    currentPlayer: Player;
-    hasWon: boolean;
-    winner: Player | null;
-}
-
-class Grid extends React.Component<IGridProps, IGridState> {
+class Grid extends React.Component<IGridProps, {}> {
     public static defaultProps = {
         currentPlayer: Player.CROSS,
         hasWon: false
     };
     constructor(props: IGridProps) {
         super(props);
-        this.state = {
-            currentPlayer: props.currentPlayer as Player,
-            grid: props.grid,
-            hasWon: props.hasWon as boolean,
-            winner: null
-        };
     }
 
     public render() {
         return (
             <div className="Grid">
-                {this.state.hasWon
-                    ? `${this.state.winner} HAS WON`
+                {this.props.hasWon
+                    ? `${this.props.hasWon} HAS WON`
                     : this.renderGrid()}
             </div>
         );
@@ -50,15 +37,14 @@ class Grid extends React.Component<IGridProps, IGridState> {
 
     private renderGrid() {
         return (
-            this.state.grid &&
-            this.state.grid.map((row, rowN) => (
-                <div className="Grid-row" key={`${rowN}`}>
+            this.props.grid &&
+            this.props.grid.map((row, rowN) => (
+                <div className="Grid-row" key={`${rowN.toString()}`}>
                     {row.map((item, colN) => (
-                        <React.Fragment>
+                        <React.Fragment key={`${colN}-${rowN}`}>
                             <GridItem
                                 colN={rowN}
                                 rowN={colN}
-                                key={`${colN}-${rowN}`}
                                 onItemClick={this.props.onItemClick}
                                 itemState={item}
                             />

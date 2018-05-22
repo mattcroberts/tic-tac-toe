@@ -6,6 +6,7 @@ import Grid from "../Grid";
 const GET_GRID = gql`
     {
         getGrid {
+            id
             gridItems {
                 player
             }
@@ -14,8 +15,9 @@ const GET_GRID = gql`
 `;
 
 const EXECUTE_TURN = gql`
-    mutation executeTurn($player: String!, $x: Int!, $y: Int!) {
-        executeTurn(player: $player, x: $x, y: $y) {
+    mutation executeTurn($id: ID!, $player: String!, $x: Int!, $y: Int!) {
+        executeTurn(id: $id, player: $player, x: $x, y: $y) {
+            id
             gridItems {
                 player
             }
@@ -26,31 +28,33 @@ class GridContainer extends React.Component {
     public render() {
         const vars = {};
         return (
-            <Query query={GET_GRID}>
-                {({ data }) => {
-                    const { getGrid: grid } = data;
-                    return grid ? (
-                        <Mutation mutation={EXECUTE_TURN} variables={vars}>
-                            {executeTurn => (
-                                <Grid
-                                    grid={grid.gridItems}
-                                    // tslint:disable-next-line jsx-no-lambda
-                                    onItemClick={(player, x, y) => {
-                                        //
-                                        executeTurn({
-                                            variables: {
-                                                player: "X",
-                                                x,
-                                                y
-                                            }
-                                        });
-                                    }}
-                                />
-                            )}
-                        </Mutation>
-                    ) : null;
-                }}
-            </Query>
+            <div>
+                <Query query={GET_GRID}>
+                    {({ data }) => {
+                        const { getGrid: grid } = data;
+                        return grid ? (
+                            <Mutation mutation={EXECUTE_TURN} variables={vars}>
+                                {executeTurn => (
+                                    <Grid
+                                        grid={grid.gridItems}
+                                        // tslint:disable-next-line jsx-no-lambda
+                                        onItemClick={(player, x, y) => {
+                                            executeTurn({
+                                                variables: {
+                                                    id: "1",
+                                                    player: "X",
+                                                    x,
+                                                    y
+                                                }
+                                            });
+                                        }}
+                                    />
+                                )}
+                            </Mutation>
+                        ) : null;
+                    }}
+                </Query>
+            </div>
         );
     }
 }

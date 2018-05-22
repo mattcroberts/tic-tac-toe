@@ -6,7 +6,6 @@ import { ApolloProvider } from "react-apollo";
 import "./App.css";
 
 import GridContainer from "./GridContainer";
-// import { IItemState } from "./GridItem";
 
 const httplink = new HttpLink({
     uri: "http://localhost:3000/graphql"
@@ -15,12 +14,9 @@ const httplink = new HttpLink({
 const cache = new InMemoryCache();
 const client = new ApolloClient({
     cache,
+    connectToDevTools: true,
     link: httplink
 });
-
-// const columns: IItemState[][] = new Array(3)
-//     .fill(null)
-//     .map(col => new Array(3).fill({}));
 
 class App extends React.Component {
     public render() {
