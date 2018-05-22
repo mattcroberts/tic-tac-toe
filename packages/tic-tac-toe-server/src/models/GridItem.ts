@@ -1,7 +1,12 @@
 import Player from "./Player";
 
 class GridItem {
-    private player: Player | null = null;
+    public id: string;
+    public player: Player | null = null;
+
+    constructor(id: string) {
+        this.id = id;
+    }
 
     public placePlayer(player: Player) {
         this.player = player;

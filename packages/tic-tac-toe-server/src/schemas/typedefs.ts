@@ -6,6 +6,7 @@ type Query {
 export const mutation = `
 type Mutation {
   executeTurn (
+    id: ID!,
     player: String!,
     x: Int!,
     y: Int!
@@ -19,10 +20,13 @@ type Player {
 }
 `;
 
-export const GridItem = `type GridItem {
+export const GridItem = `
+type GridItem {
+  id: ID!
   player: String
 }`;
 
 export const Grid = `type Grid {
+  id: ID!
   gridItems: [[GridItem]]
 }`;
