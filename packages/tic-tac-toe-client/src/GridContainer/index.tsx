@@ -5,7 +5,7 @@ import Grid from "../Grid";
 
 const GET_GRID = gql`
     {
-        getGrid {
+        grid {
             id
             gridItems {
                 player
@@ -31,7 +31,7 @@ class GridContainer extends React.Component {
             <div>
                 <Query query={GET_GRID}>
                     {({ data }) => {
-                        const { getGrid: grid } = data;
+                        const { grid } = data;
                         return grid ? (
                             <Mutation mutation={EXECUTE_TURN} variables={vars}>
                                 {executeTurn => (

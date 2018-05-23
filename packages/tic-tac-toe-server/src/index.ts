@@ -1,16 +1,18 @@
 import cors from "@koa/cors";
 import { graphiqlKoa, graphqlKoa } from "apollo-server-koa";
+import * as fs from "fs";
 import Koa from "koa";
 import koabody from "koa-bodyparser";
 import Router from "koa-router";
-import { Schema } from "./schemas";
+import { join } from "path";
+import { Schema } from "./graphql";
 
 const app = new Koa();
 const router = new Router();
 
 app.use(cors());
-
 app.use(koabody());
+
 router.get("/ping", async ctx => {
     ctx.body = "pong";
 });
@@ -36,5 +38,6 @@ router.get(
 );
 
 app.use(router.routes());
-app.listen(3000);
-console.log("listening on 3000");
+app.listen(3000, () => {
+    console.log("listening on 3000");
+});

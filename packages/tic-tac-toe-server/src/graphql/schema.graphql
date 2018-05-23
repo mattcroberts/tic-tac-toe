@@ -1,0 +1,17 @@
+type Query {
+    grid: Grid!
+}
+
+type Mutation {
+    executeTurn(id: ID!, player: String!, x: Int!, y: Int!): Grid
+}
+
+type GridItem {
+    id: ID!
+    player: String
+}
+
+type Grid {
+    id: ID!
+    gridItems: [[GridItem]]
+}
