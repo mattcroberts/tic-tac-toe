@@ -1,6 +1,6 @@
 enum Player {
-    NAUGHT,
-    CROSS
+    NAUGHT = "NAUGHT",
+    CROSS = "CROSS"
 }
 
 export default Player;

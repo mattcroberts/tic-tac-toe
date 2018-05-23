@@ -15,13 +15,9 @@ export const mutation = {
     Mutation: {
         executeTurn(
             _: any,
-            { player, x, y }: { player: string; x: number; y: number }
+            { player, x, y }: { player: Player; x: number; y: number }
         ) {
-            grid.placePlayer(
-                player === "X" ? Player.CROSS : Player.NAUGHT,
-                x,
-                y
-            );
+            grid.placePlayer(player, x, y);
 
             return grid;
         }

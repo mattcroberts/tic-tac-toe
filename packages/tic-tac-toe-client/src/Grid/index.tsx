@@ -6,8 +6,8 @@ import GridItem, { IItemState } from "../GridItem";
 import "./Grid.css";
 
 export enum Player {
-    CROSS = "X",
-    NAUGHT = "0"
+    CROSS = "CROSS",
+    NAUGHT = "NAUGHT"
 }
 export interface IGridProps {
     grid: IItemState[][];

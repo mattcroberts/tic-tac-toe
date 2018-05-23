@@ -8,10 +8,16 @@ type Mutation {
 
 type GridItem {
     id: ID!
-    player: String
+    player: Player
+}
+
+enum Player {
+    NAUGHT
+    CROSS
 }
 
 type Grid {
     id: ID!
     gridItems: [[GridItem]]
+    currentPlayer: Player
 }

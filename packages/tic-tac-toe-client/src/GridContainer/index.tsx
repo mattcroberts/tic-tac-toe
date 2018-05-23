@@ -10,6 +10,7 @@ const GET_GRID = gql`
             gridItems {
                 player
             }
+            currentPlayer
         }
     }
 `;
@@ -21,6 +22,7 @@ const EXECUTE_TURN = gql`
             gridItems {
                 player
             }
+            currentPlayer
         }
     }
 `;
@@ -37,12 +39,13 @@ class GridContainer extends React.Component {
                                 {executeTurn => (
                                     <Grid
                                         grid={grid.gridItems}
+                                        currentPlayer={grid.currentPlayer}
                                         // tslint:disable-next-line jsx-no-lambda
                                         onItemClick={(player, x, y) => {
                                             executeTurn({
                                                 variables: {
                                                     id: "1",
-                                                    player: "X",
+                                                    player: grid.currentPlayer,
                                                     x,
                                                     y
                                                 }
