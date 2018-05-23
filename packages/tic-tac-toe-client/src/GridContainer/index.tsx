@@ -52,14 +52,20 @@ class GridContainer extends React.Component {
                                         }
                                         // tslint:disable-next-line jsx-no-lambda
                                         onItemClick={(player, x, y) => {
-                                            executeTurn({
-                                                variables: {
-                                                    id: "1",
-                                                    player: grid.currentPlayer,
-                                                    x,
-                                                    y
-                                                }
-                                            });
+                                            if (
+                                                grid.gridItems[x][y].player ===
+                                                null
+                                            ) {
+                                                executeTurn({
+                                                    variables: {
+                                                        id: "1",
+                                                        player:
+                                                            grid.currentPlayer,
+                                                        x,
+                                                        y
+                                                    }
+                                                });
+                                            }
                                         }}
                                     />
                                 )}

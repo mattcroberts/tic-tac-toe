@@ -9,7 +9,11 @@ class GridItem {
     }
 
     public placePlayer(player: Player) {
-        this.player = player;
+        if (this.player === null) {
+            this.player = player;
+        } else {
+            throw new Error(`SPACE TAKEN ${this.id}`);
+        }
     }
 }
 
