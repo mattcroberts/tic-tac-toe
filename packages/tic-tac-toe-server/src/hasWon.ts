@@ -1,47 +1,51 @@
-private hasWon(player: Player, grid: IItemState[][]): boolean {
-  const rowWin = grid.reduce((hasWon, row, i, all) => {
-      return (
-          hasWon ||
-          row.every(({ player: p }, j) => {
-              return p === player;
-          })
-      );
-  }, false);
+import Grid from "./models/Grid";
+import GridItem from "./models/GridItem";
+import Player from "./models/Player";
 
-  let colWin = false;
-  const forwardDiag: IItemState[] = [];
-  const backwardDiag: IItemState[] = [];
-  for (let i = 0; i < grid.length; i++) {
-      const col: IItemState[] = [];
-      forwardDiag.push(grid[i][i]);
-      backwardDiag.push(grid[i][grid.length - i - 1]);
+export const hasWon = (player: Player, grid: Grid): boolean => {
+    const rowWin = grid.gridItems.reduce((won, row, i, all) => {
+        return (
+            won ||
+            row.every(({ player: p }, j) => {
+                return p === player;
+            })
+        );
+    }, false);
 
-      for (let j = 0; j < grid[i].length; j++) {
-          col.push(grid[j][i]);
-      }
+    let colWin = false;
+    const forwardDiag: GridItem[] = [];
+    const backwardDiag: GridItem[] = [];
+    for (let i = 0; i < grid.gridItems.length; i++) {
+        const col: GridItem[] = [];
+        forwardDiag.push(grid.gridItems[i][i]);
+        backwardDiag.push(grid.gridItems[i][grid.gridItems.length - i - 1]);
 
-      colWin =
-          col[0].player === player &&
-          col.every(({ player: p }) => {
-              return p === col[0].player;
-          });
+        for (let j = 0; j < grid.gridItems[i].length; j++) {
+            col.push(grid.gridItems[j][i]);
+        }
 
-      if (colWin) {
-          break;
-      }
-  }
+        colWin =
+            col[0].player === player &&
+            col.every(({ player: p }) => {
+                return p === col[0].player;
+            });
 
-  const forwardDiagWin =
-      forwardDiag[0].player === player &&
-      forwardDiag.every(({ player: p }) => {
-          return p === forwardDiag[0].player;
-      });
+        if (colWin) {
+            break;
+        }
+    }
 
-  const backwardDiagWin =
-      backwardDiag[0].player === player &&
-      backwardDiag.every(({ player: p }) => {
-          return p === backwardDiag[0].player;
-      });
+    const forwardDiagWin =
+        forwardDiag[0].player === player &&
+        forwardDiag.every(({ player: p }) => {
+            return p === forwardDiag[0].player;
+        });
 
-  return rowWin || colWin || forwardDiagWin || backwardDiagWin;
-}
+    const backwardDiagWin =
+        backwardDiag[0].player === player &&
+        backwardDiag.every(({ player: p }) => {
+            return p === backwardDiag[0].player;
+        });
+
+    return rowWin || colWin || forwardDiagWin || backwardDiagWin;
+};

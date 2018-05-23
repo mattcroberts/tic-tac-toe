@@ -11,16 +11,13 @@ export enum Player {
 }
 export interface IGridProps {
     grid: IItemState[][];
-    currentPlayer?: Player;
-    hasWon?: boolean;
+    currentPlayer: Player;
+    winner: Player;
+    isDraw: boolean;
     onItemClick: (player: string, x: number, y: number) => void;
 }
 
 class Grid extends React.Component<IGridProps, {}> {
-    public static defaultProps = {
-        currentPlayer: Player.CROSS,
-        hasWon: false
-    };
     constructor(props: IGridProps) {
         super(props);
     }
@@ -28,31 +25,29 @@ class Grid extends React.Component<IGridProps, {}> {
     public render() {
         return (
             <div className="Grid">
-                {this.props.hasWon
-                    ? `${this.props.hasWon} HAS WON`
-                    : this.renderGrid()}
+                {this.props.winner === null
+                    ? this.props.isDraw
+                        ? "DRAW"
+                        : this.renderGrid()
+                    : `${this.props.winner} HAS WON`}
             </div>
         );
     }
 
     private renderGrid() {
-        return (
-            this.props.grid &&
-            this.props.grid.map((row, rowN) => (
-                <div className="Grid-row" key={`${rowN.toString()}`}>
-                    {row.map((item, colN) => (
-                        <React.Fragment key={`${colN}-${rowN}`}>
-                            <GridItem
-                                colN={rowN}
-                                rowN={colN}
-                                onItemClick={this.props.onItemClick}
-                                itemState={item}
-                            />
-                        </React.Fragment>
-                    ))}
-                </div>
-            ))
-        );
+        return this.props.grid.map((row, rowN) => (
+            <div className="Grid-row" key={`${rowN.toString()}`}>
+                {row.map((item, colN) => (
+                    <GridItem
+                        key={`${rowN}-${colN}`}
+                        colN={rowN}
+                        rowN={colN}
+                        onItemClick={this.props.onItemClick}
+                        itemState={item}
+                    />
+                ))}
+            </div>
+        ));
     }
 }
 

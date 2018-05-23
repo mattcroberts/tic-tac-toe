@@ -1,3 +1,4 @@
+import { hasWon } from "../hasWon";
 import GridItem from "./GridItem";
 import Player from "./Player";
 
@@ -5,6 +6,8 @@ class Grid {
     public id: string;
     public gridItems: GridItem[][];
     public currentPlayer: Player;
+    public winner: Player | null = null;
+    private isFinished: boolean = false;
 
     constructor(size: number = 3) {
         this.id = "1";
@@ -24,6 +27,26 @@ class Grid {
         this.currentPlayer =
             this.currentPlayer === Player.NAUGHT ? Player.CROSS : Player.NAUGHT;
         return this;
+    }
+
+    public checkWinner(): Grid {
+        if (hasWon(Player.NAUGHT, this)) {
+            this.winner = Player.NAUGHT;
+        } else if (hasWon(Player.CROSS, this)) {
+            this.winner = Player.CROSS;
+        }
+
+        if (this.isDraw()) {
+            this.isFinished = true;
+        }
+
+        return this;
+    }
+
+    private isDraw(): boolean {
+        return !this.gridItems.some(row => {
+            return row.some(item => item.player === null);
+        });
     }
 }
 

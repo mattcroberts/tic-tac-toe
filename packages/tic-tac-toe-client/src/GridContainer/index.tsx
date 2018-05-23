@@ -11,6 +11,8 @@ const GET_GRID = gql`
                 player
             }
             currentPlayer
+            winner
+            isFinished
         }
     }
 `;
@@ -23,6 +25,8 @@ const EXECUTE_TURN = gql`
                 player
             }
             currentPlayer
+            winner
+            isFinished
         }
     }
 `;
@@ -34,12 +38,18 @@ class GridContainer extends React.Component {
                 <Query query={GET_GRID}>
                     {({ data }) => {
                         const { grid } = data;
+
                         return grid ? (
                             <Mutation mutation={EXECUTE_TURN} variables={vars}>
                                 {executeTurn => (
                                     <Grid
                                         grid={grid.gridItems}
                                         currentPlayer={grid.currentPlayer}
+                                        winner={grid.winner}
+                                        isDraw={
+                                            grid.winner === null &&
+                                            grid.isFinished
+                                        }
                                         // tslint:disable-next-line jsx-no-lambda
                                         onItemClick={(player, x, y) => {
                                             executeTurn({

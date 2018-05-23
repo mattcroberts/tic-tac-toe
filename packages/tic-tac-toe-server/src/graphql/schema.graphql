@@ -20,4 +20,6 @@ type Grid {
     id: ID!
     gridItems: [[GridItem]]
     currentPlayer: Player
+    winner: Player
+    isFinished: Boolean
 }

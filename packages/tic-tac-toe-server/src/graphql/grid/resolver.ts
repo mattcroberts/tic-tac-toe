@@ -19,6 +19,7 @@ export const mutation = {
         ) {
             grid.placePlayer(player, x, y);
 
+            grid.checkWinner();
             return grid;
         }
     }
