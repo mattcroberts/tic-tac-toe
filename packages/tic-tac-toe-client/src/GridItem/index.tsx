@@ -1,15 +1,14 @@
 import * as React from "react";
 
+import { GridItem as TGridItem } from "../../typings/types";
+
 import "./GridItem.css";
 
-export interface IItemState {
-    player: string;
-}
 interface IGridItemProps {
     colN: number;
     rowN: number;
-    itemState: IItemState;
-    onItemClick: (player: string, x: number, y: number) => void;
+    itemState: TGridItem;
+    onItemClick: (player: string | null, x: number, y: number) => void;
 }
 
 class GridItem extends React.PureComponent<IGridItemProps, any> {
@@ -26,7 +25,7 @@ class GridItem extends React.PureComponent<IGridItemProps, any> {
     }
     private onClick() {
         this.props.onItemClick(
-            this.props.itemState.player,
+            this.props.itemState.player ? this.props.itemState.player : null,
             this.props.colN,
             this.props.rowN
         );

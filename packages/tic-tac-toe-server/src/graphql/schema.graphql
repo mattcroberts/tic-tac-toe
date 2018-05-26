@@ -3,7 +3,7 @@ type Query {
 }
 
 type Mutation {
-    executeTurn(id: ID!, player: String!, x: Int!, y: Int!): Grid
+    executeTurn(id: ID!, player: String!, x: Int!, y: Int!): Grid!
 }
 
 type GridItem {
@@ -18,8 +18,8 @@ enum Player {
 
 type Grid {
     id: ID!
-    gridItems: [[GridItem]]
-    currentPlayer: Player
+    gridItems: [[GridItem!]!]!
+    currentPlayer: Player!
     winner: Player
-    isFinished: Boolean
+    isFinished: Boolean!
 }

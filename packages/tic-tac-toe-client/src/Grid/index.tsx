@@ -1,27 +1,19 @@
 // import { merge } from "lodash";
 import * as React from "react";
-
-import GridItem, { IItemState } from "../GridItem";
+import { GridItem as TGridItem, Player as TPlayer } from "../../typings/types";
+import GridItem from "../GridItem";
 
 import "./Grid.css";
 
-export enum Player {
-    CROSS = "CROSS",
-    NAUGHT = "NAUGHT"
-}
 export interface IGridProps {
-    grid: IItemState[][];
-    currentPlayer: Player;
-    winner: Player;
+    grid: TGridItem[][];
+    currentPlayer: TPlayer;
+    winner?: TPlayer | null;
     isDraw: boolean;
     onItemClick: (player: string, x: number, y: number) => void;
 }
 
-class Grid extends React.Component<IGridProps, {}> {
-    constructor(props: IGridProps) {
-        super(props);
-    }
-
+class Grid extends React.Component<IGridProps> {
     public render() {
         return (
             <div className="Grid">

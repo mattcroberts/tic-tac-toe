@@ -1,10 +1,12 @@
 import gql from "graphql-tag";
 import * as React from "react";
-import { Mutation, Query } from "react-apollo";
+import { graphql } from "react-apollo";
+import { compose } from "recompose";
+import { Grid as TGrid, Player as TPlayer } from "../../typings/types";
 import Grid from "../Grid";
 
 const GET_GRID = gql`
-    {
+    query GET_GRID {
         grid {
             id
             gridItems {
@@ -30,52 +32,59 @@ const EXECUTE_TURN = gql`
         }
     }
 `;
-class GridContainer extends React.Component {
-    public render() {
-        const vars = {};
-        return (
-            <div>
-                <Query query={GET_GRID}>
-                    {({ data }) => {
-                        const { grid } = data;
 
-                        return grid ? (
-                            <Mutation mutation={EXECUTE_TURN} variables={vars}>
-                                {executeTurn => (
-                                    <Grid
-                                        grid={grid.gridItems}
-                                        currentPlayer={grid.currentPlayer}
-                                        winner={grid.winner}
-                                        isDraw={
-                                            grid.winner === null &&
-                                            grid.isFinished
-                                        }
-                                        // tslint:disable-next-line jsx-no-lambda
-                                        onItemClick={(player, x, y) => {
-                                            if (
-                                                grid.gridItems[x][y].player ===
-                                                null
-                                            ) {
-                                                executeTurn({
-                                                    variables: {
-                                                        id: "1",
-                                                        player:
-                                                            grid.currentPlayer,
-                                                        x,
-                                                        y
-                                                    }
-                                                });
-                                            }
-                                        }}
-                                    />
-                                )}
-                            </Mutation>
-                        ) : null;
-                    }}
-                </Query>
-            </div>
-        );
-    }
+interface IGridContainerProps {
+    executeTurn: (
+        options: {
+            variables: {
+                id: string;
+                player: TPlayer;
+                x: number;
+                y: number;
+            };
+        }
+    ) => TGrid;
+    data: {
+        grid: TGrid;
+        loading: boolean;
+    };
 }
 
-export default GridContainer;
+const GridContainer: React.SFC<IGridContainerProps> = ({
+    executeTurn,
+    data: { grid, loading }
+}) => {
+    if (loading) {
+        return null;
+    }
+    return (
+        <Grid
+            grid={grid.gridItems}
+            currentPlayer={grid.currentPlayer}
+            winner={grid.winner}
+            isDraw={grid.winner === null && grid.isFinished}
+            // tslint:disable-next-line jsx-no-lambda
+            onItemClick={(player, x, y) => {
+                if (grid.gridItems[x][y].player === null) {
+                    executeTurn({
+                        variables: {
+                            id: "1",
+                            player: grid.currentPlayer,
+                            x,
+                            y
+                        }
+                    });
+                }
+            }}
+        />
+    );
+};
+
+const enhance = compose<IGridContainerProps, {}>(
+    graphql(GET_GRID),
+    graphql(EXECUTE_TURN, {
+        name: "executeTurn"
+    })
+);
+
+export default enhance(GridContainer);
