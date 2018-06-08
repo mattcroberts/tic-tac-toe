@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  ui:
+    build: ./packages/tic-tac-toe-client
+    volumes:
+      - ./test:/home/nodejs/app/build
+  api:
+    build: ./packages/tic-tac-toe-server
+    expose:
+     - 3000
+  lb:
+    image: nginx
+    ports:
+      - 5000:8080
+    volumes:
+      - ./test:/public
+      - ./site.conf:/etc/nginx/conf.d/site.conf
+volumes:
+    public:
