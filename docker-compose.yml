@@ -2,9 +2,12 @@ version: '3'
 
 services:
   ui:
+    environment:
+      REACT_APP_API_URI:
+        /graphql
     build: ./packages/tic-tac-toe-client
     volumes:
-      - ./test:/home/nodejs/app/build
+      - ../../test:/home/nodejs/app/build
   api:
     build: ./packages/tic-tac-toe-server
     expose:
@@ -14,7 +17,7 @@ services:
     ports:
       - 5000:8080
     volumes:
-      - ./test:/public
+      - ../../test:/public
       - ./site.conf:/etc/nginx/conf.d/site.conf
 volumes:
     public:

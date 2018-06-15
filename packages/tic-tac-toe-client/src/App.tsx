@@ -8,7 +8,7 @@ import "./App.css";
 import GridContainer from "./GridContainer";
 
 const httplink = new HttpLink({
-    uri: "http://localhost:3000/graphql"
+    uri: process.env.REACT_APP_API_URI
 });
 
 const cache = new InMemoryCache();
