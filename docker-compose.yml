@@ -7,7 +7,7 @@ services:
         /graphql
     build: ./packages/tic-tac-toe-client
     volumes:
-      - ../../test:/home/nodejs/app/build
+      - public:/home/nodejs/app/build
   api:
     build: ./packages/tic-tac-toe-server
     expose:
@@ -17,7 +17,7 @@ services:
     ports:
       - 5000:8080
     volumes:
-      - ../../test:/public
+      - public:/public
       - ./site.conf:/etc/nginx/conf.d/site.conf
 volumes:
     public:
