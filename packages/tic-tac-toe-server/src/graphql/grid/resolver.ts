@@ -1,3 +1,4 @@
+import { IResolverObject } from 'graphql-tools';
 import Grid from "../../models/Grid";
 import Player from "../../models/Player";
 

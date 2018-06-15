@@ -1,5 +1,9 @@
 {
 	"devDependencies": {
 		"lerna": "^2.5.1"
+	},
+	"scripts": {
+		"build": "docker-compose build",
+		"start": "docker-compose up"
 	}
 }
