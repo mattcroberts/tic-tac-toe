@@ -1,38 +1,42 @@
 {
-  "name": "tic-tac-toe-server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "tsc && cpx \"src/**/*.graphql\" build",
-    "clean": "rm -rf build",
-    "dev": "nodemon --watch 'src/**/*' -e ts --exec 'ts-node' ./src/index.ts",
-    "lint": "tslint -t codeFrame 'src/**/*.ts'",
-    "start": "node build/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/koa": "^2.0.45",
-    "@types/koa-router": "^7.0.27",
-    "@types/koa__cors": "^2.2.2",
-    "cpx": "^1.5.0",
-    "nodemon": "^1.17.3",
-    "ts-node": "^6.0.0",
-    "tslint": "^5.9.1",
-    "tslint-config-prettier": "^1.12.0",
-    "typescript": "^2.8.3"
-  },
-  "dependencies": {
-    "@koa/cors": "^2.2.1",
-    "@types/graphql": "^0.13.1",
-    "@types/koa-bodyparser": "^4.2.0",
-    "apollo-server-koa": "^1.3.6",
-    "graphql": "^0.13.2",
-    "graphql-tools": "^3.0.1",
-    "koa": "^2.5.0",
-    "koa-bodyparser": "^4.2.1",
-    "koa-router": "^7.4.0"
-  }
+   "name": "tic-tac-toe-server",
+   "version": "1.0.0",
+   "description": "",
+   "main": "index.js",
+   "scripts": {
+      "build": "tsc && cpx \"src/**/*.graphql\" build",
+      "clean": "rm -rf build",
+      "dev": "nodemon --watch 'src/**/*' -e ts --exec 'ts-node' ./src/index.ts",
+      "lint": "tslint -t codeFrame 'src/**/*.ts'",
+      "start": "ts-node src/index.ts",
+      "test": "echo \"Error: no test specified\" && exit 1"
+   },
+   "author": "",
+   "license": "ISC",
+   "devDependencies": {
+      "@types/koa": "^2.0.45",
+      "@types/koa-router": "^7.0.27",
+      "@types/koa__cors": "^2.2.2",
+      "@types/node": "^8.0.29",
+      "cpx": "^1.5.0",
+      "nodemon": "^1.17.3",
+      "ts-node": "^6.1.1",
+      "tslint": "^5.9.1",
+      "tslint-config-prettier": "^1.12.0",
+      "typescript": "^2.9.2"
+   },
+   "dependencies": {
+      "@koa/cors": "^2.2.1",
+      "@types/graphql": "^0.13.1",
+      "@types/koa-bodyparser": "^4.2.0",
+      "apollo-server-koa": "^1.3.6",
+      "graphql": "^0.13.2",
+      "graphql-tools": "^3.0.1",
+      "koa": "^2.5.0",
+      "koa-bodyparser": "^4.2.1",
+      "koa-router": "^7.4.0",
+      "mongodb": "^3.0.10",
+      "reflect-metadata": "^0.1.12",
+      "typeorm": "^0.2.7"
+   }
 }

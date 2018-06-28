@@ -1,0 +1,37 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "ui",
+      "url": "http://localhost:3001",
+      "webRoot": "${workspaceFolder}/packages/tic-tac-toe-client/src",
+      "preLaunchTask": "start-react"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "server",
+      "runtimeExecutable": "nodemon",
+      "runtimeArgs": ["--nolazy", "--inspect", "--require", "ts-node/register"],
+      "cwd": "${workspaceFolder}/packages/tic-tac-toe-server",
+      "args": ["${cwd}/packages/tic-tac-toe-server/src/index.ts"],
+      "restart": true,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "openOnFirstSessionStart",
+      "protocol": "inspector",
+      "stopOnEntry": false,
+      "autoAttachChildProcesses": false
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Compound",
+      "configurations": ["ui", "server"]
+    }
+  ]
+}
