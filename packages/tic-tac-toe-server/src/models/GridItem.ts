@@ -1,20 +1,41 @@
+import { Document, model, Schema } from "mongoose";
 import Player from "./Player";
 
-class GridItem {
-    public id: string;
-    public player: Player | null = null;
-
-    constructor(id: string) {
-        this.id = id;
-    }
-
-    public placePlayer(player: Player) {
-        if (this.player === null) {
-            this.player = player;
-        } else {
-            throw new Error(`SPACE TAKEN ${this.id}`);
-        }
-    }
+export interface IGridItem {
+    x: number;
+    y: number;
+    player: Player | null;
 }
 
-export default GridItem;
+export interface IGridItemModel extends IGridItem, Document {}
+
+export const GridItemSchema = new Schema(
+    {
+        player: {
+            enum: Object.keys(Player),
+            type: String
+        },
+        x: {
+            required: true,
+            type: Number
+        },
+        y: {
+            required: true,
+            type: Number
+        }
+    },
+    {
+        toJSON: {
+            virtuals: true
+        },
+        toObject: {
+            virtuals: true
+        }
+    }
+);
+
+GridItemSchema.virtual("id").get(function(this: IGridItemModel) {
+    return this._id;
+});
+
+export default model<IGridItemModel>("GridItem", GridItemSchema);

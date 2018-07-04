@@ -1,10 +1,9 @@
 import cors from "@koa/cors";
 import { graphiqlKoa, graphqlKoa } from "apollo-server-koa";
-import * as fs from "fs";
 import Koa from "koa";
 import koabody from "koa-bodyparser";
 import Router from "koa-router";
-import { join } from "path";
+import mongoose from "mongoose";
 import { Schema } from "./graphql";
 
 const app = new Koa();
@@ -38,6 +37,10 @@ router.get(
 );
 
 app.use(router.routes());
-app.listen(3000, () => {
-    console.log("listening on 3000");
-});
+
+(async () => {
+    await mongoose.connect("mongodb://localhost/tictactoe");
+    app.listen(3000, () => {
+        console.log("listening on 3000");
+    });
+})();

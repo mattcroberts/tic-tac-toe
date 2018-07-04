@@ -5,6 +5,14 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "node",
+      "request": "launch",
+      "name": "Server",
+      "cwd": "${workspaceFolder}/packages/tic-tac-toe-server",
+      "args": ["${cwd}/packages/tic-tac-toe-server/src/index.ts"],
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"]
+    },
+    {
       "type": "chrome",
       "request": "launch",
       "name": "ui",
@@ -15,7 +23,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "server",
+      "name": "server (nodemon)",
       "runtimeExecutable": "nodemon",
       "runtimeArgs": ["--nolazy", "--inspect", "--require", "ts-node/register"],
       "cwd": "${workspaceFolder}/packages/tic-tac-toe-server",
@@ -31,7 +39,7 @@
   "compounds": [
     {
       "name": "Compound",
-      "configurations": ["ui", "server"]
+      "configurations": ["ui", "server (nodemon)"]
     }
   ]
 }

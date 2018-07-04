@@ -10,6 +10,7 @@ export interface IGridProps {
     currentPlayer: TPlayer;
     winner?: TPlayer | null;
     isDraw: boolean;
+    size: number;
     onItemClick: (player: string, x: number, y: number) => void;
 }
 

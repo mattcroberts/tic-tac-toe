@@ -15,6 +15,7 @@ const GET_GRID = gql`
             currentPlayer
             winner
             isFinished
+            size
         }
     }
 `;
@@ -24,6 +25,7 @@ const EXECUTE_TURN = gql`
         executeTurn(id: $id, player: $player, x: $x, y: $y) {
             id
             gridItems {
+                id
                 player
             }
             currentPlayer
@@ -63,12 +65,13 @@ const GridContainer: React.SFC<IGridContainerProps> = ({
             currentPlayer={grid.currentPlayer}
             winner={grid.winner}
             isDraw={grid.winner === null && grid.isFinished}
+            size={grid.size}
             // tslint:disable-next-line jsx-no-lambda
             onItemClick={(player, x, y) => {
                 if (grid.gridItems[x][y].player === null) {
                     executeTurn({
                         variables: {
-                            id: "1",
+                            id: grid.id,
                             player: grid.currentPlayer,
                             x,
                             y

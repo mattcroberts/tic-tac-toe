@@ -22,4 +22,5 @@ type Grid {
     currentPlayer: Player!
     winner: Player
     isFinished: Boolean!
+    size: Int!
 }

@@ -1,8 +1,8 @@
-import Grid from "./models/Grid";
-import GridItem from "./models/GridItem";
+import { IGridModel } from "./models/Grid";
+import { IGridItem } from "./models/GridItem";
 import Player from "./models/Player";
 
-export const hasWon = (player: Player, grid: Grid): boolean => {
+export const hasWon = (player: Player, grid: IGridModel): boolean => {
     const rowWin = grid.gridItems.reduce((won, row, i, all) => {
         return (
             won ||
@@ -13,10 +13,10 @@ export const hasWon = (player: Player, grid: Grid): boolean => {
     }, false);
 
     let colWin = false;
-    const forwardDiag: GridItem[] = [];
-    const backwardDiag: GridItem[] = [];
+    const forwardDiag: IGridItem[] = [];
+    const backwardDiag: IGridItem[] = [];
     for (let i = 0; i < grid.gridItems.length; i++) {
-        const col: GridItem[] = [];
+        const col: IGridItem[] = [];
         forwardDiag.push(grid.gridItems[i][i]);
         backwardDiag.push(grid.gridItems[i][grid.gridItems.length - i - 1]);
 

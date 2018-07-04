@@ -1,53 +1,110 @@
+import { Document, model, Schema } from "mongoose";
+
 import { hasWon } from "../hasWon";
-import GridItem from "./GridItem";
+import GridItem, {
+    GridItemSchema,
+    IGridItem,
+    IGridItemModel
+} from "./GridItem";
 import Player from "./Player";
 
-class Grid {
-    public id: string;
-    public gridItems: GridItem[][];
-    public currentPlayer: Player;
-    public winner: Player | null = null;
-    private isFinished: boolean = false;
-
-    constructor(size: number = 3) {
-        this.id = "1";
-        this.gridItems = new Array<GridItem[]>(size);
-        this.currentPlayer = Player.NAUGHT;
-
-        for (let i = 0; i < size; i++) {
-            this.gridItems[i] = new Array<GridItem>(size);
-            for (let j = 0; j < size; j++) {
-                this.gridItems[i][j] = new GridItem(`${this.id}=${i},${j}`);
-            }
-        }
-    }
-
-    public placePlayer(player: Player, x: number, y: number): Grid {
-        this.gridItems[x][y].placePlayer(player);
-        this.currentPlayer =
-            this.currentPlayer === Player.NAUGHT ? Player.CROSS : Player.NAUGHT;
-        return this;
-    }
-
-    public checkWinner(): Grid {
-        if (hasWon(Player.NAUGHT, this)) {
-            this.winner = Player.NAUGHT;
-        } else if (hasWon(Player.CROSS, this)) {
-            this.winner = Player.CROSS;
-        }
-
-        if (this.isDraw()) {
-            this.isFinished = true;
-        }
-
-        return this;
-    }
-
-    private isDraw(): boolean {
-        return !this.gridItems.some(row => {
-            return row.some(item => item.player === null);
-        });
-    }
+interface IGrid {
+    _gridItems: [IGridItemModel];
+    gridItems: [IGridItem[]];
+    currentPlayer: Player;
+    winner: Player | null;
+    isFinished: boolean;
+    size: number;
+    checkWinner(): void;
+    isDraw(): boolean;
+    placePlayer(player: Player, x: number, y: number): void;
 }
+
+export interface IGridModel extends IGrid, Document {}
+
+const gridSchema = new Schema(
+    {
+        _gridItems: {
+            default() {
+                return [...new Array<IGridItem>(9)].map(
+                    (_, i) => new GridItem({ x: Math.floor(i / 9), y: i % 9 })
+                );
+            },
+            // select: false,
+            type: [GridItemSchema]
+        },
+        currentPlayer: {
+            default: Player.NAUGHT,
+            enum: Object.keys(Player),
+            type: String
+        },
+        isFinished: {
+            default: false,
+            type: Boolean
+        },
+        size: {
+            default: 3,
+            type: Number
+        },
+        winner: {
+            enum: Object.keys(Player),
+            type: String
+        }
+    },
+    {
+        toJSON: {
+            virtuals: true
+        },
+        toObject: {
+            virtuals: true
+        }
+    }
+);
+
+gridSchema.virtual("gridItems").get(function(this: IGridModel) {
+    return this._gridItems.reduce<IGridItem[][]>((acc, item, i) => {
+        const x = Math.floor(i / this.size);
+        const y = i % this.size;
+        if (!acc[x]) {
+            acc[x] = new Array<IGridItem>();
+        }
+        acc[x][y] = item;
+        return acc;
+    }, new Array<IGridItem[]>());
+});
+
+gridSchema.method("placePlayer", function(
+    this: IGridModel,
+    player: Player,
+    x: number,
+    y: number
+) {
+    this._gridItems[x * this.size + y].set(`player`, player);
+
+    this.checkWinner();
+
+    this.currentPlayer =
+        this.currentPlayer === Player.NAUGHT ? Player.CROSS : Player.NAUGHT;
+});
+
+gridSchema.method("checkWinner", function(this: IGridModel) {
+    if (hasWon(Player.NAUGHT, this)) {
+        this.winner = Player.NAUGHT;
+    } else if (hasWon(Player.CROSS, this)) {
+        this.winner = Player.CROSS;
+    }
+
+    if (this.isDraw()) {
+        this.isFinished = true;
+    }
+});
+
+gridSchema.method("isDraw", function(this: IGridModel) {
+    return !this.gridItems.some(row => {
+        return row.some(item => !item.player);
+    });
+});
+
+const Grid = model<IGridModel>("Grid", gridSchema);
 
 export default Grid;

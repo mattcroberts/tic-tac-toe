@@ -1,12 +1,17 @@
-import { IResolverObject } from 'graphql-tools';
-import Grid from "../../models/Grid";
+import Grid, { IGridModel } from "../../models/Grid";
+import GridItem from "../../models/GridItem";
 import Player from "../../models/Player";
-
-const grid = new Grid();
 
 export const query = {
     Query: {
-        grid() {
+        async grid(_: any, { id }: { id: string }) {
+            let grid;
+            if (id) {
+                grid = Grid.findById(id);
+            } else {
+                grid = new Grid();
+                await grid.save();
+            }
             return grid;
         }
     }
@@ -14,14 +19,24 @@ export const query = {
 
 export const mutation = {
     Mutation: {
-        executeTurn(
+        async executeTurn(
             _: any,
-            { player, x, y }: { player: Player; x: number; y: number }
+            {
+                id,
+                player,
+                x,
+                y
+            }: { id: string; player: Player; x: number; y: number }
         ) {
-            grid.placePlayer(player, x, y);
+            const grid = await Grid.findById(id);
 
-            grid.checkWinner();
-            return grid;
+            if (grid) {
+                grid.placePlayer(player, x, y);
+                await grid.save();
+                return grid;
+            } else {
+                throw new Error("Grid not found:" + id);
+            }
         }
     }
 };
