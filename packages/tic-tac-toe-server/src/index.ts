@@ -1,10 +1,14 @@
 import cors from "@koa/cors";
 import { graphiqlKoa, graphqlKoa } from "apollo-server-koa";
+import dotenv from "dotenv";
 import Koa from "koa";
 import koabody from "koa-bodyparser";
 import Router from "koa-router";
 import mongoose from "mongoose";
+import { promisify } from "util";
 import { Schema } from "./graphql";
+
+dotenv.config();
 
 const app = new Koa();
 const router = new Router();
@@ -39,7 +43,33 @@ router.get(
 app.use(router.routes());
 
 (async () => {
-    await mongoose.connect("mongodb://localhost/tictactoe");
+    const mongoUri = process.env.MONGO_URI;
+
+    if (!mongoUri) {
+        throw new Error("Missing MONGO_URI");
+    }
+    console.log(`Connecting to DB at ${mongoUri}`);
+    const mongoConnection = mongoose.connection;
+
+    const connected = new Promise(resolve => {
+        mongoConnection.once("connected", (...args) => {
+            return resolve(args);
+        });
+    });
+
+    try {
+        mongoose.connect(
+            mongoUri,
+            {
+                autoReconnect: true,
+                reconnectInterval: 5
+            }
+        );
+    } catch (err) {
+        console.error(err, "connection faile");
+    }
+    await connected;
+
     app.listen(3000, () => {
         console.log("listening on 3000");
     });

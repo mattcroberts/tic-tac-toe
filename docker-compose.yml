@@ -2,20 +2,28 @@ version: '3'
 
 services:
   ui:
-    environment:
-      REACT_APP_API_URI:
-        /graphql
-    build: ./packages/tic-tac-toe-client
+    build:
+      context: ./packages/tic-tac-toe-client/
+      args:
+        - REACT_APP_API_URI=/graphql
     volumes:
       - public:/home/nodejs/app/build
   api:
     build: ./packages/tic-tac-toe-server
+    environment:
+      - MONGO_URI=mongodb://mongo/tictactoe
+    depends_on:
+      - mongo
     expose:
-     - 3000
+      - 3000
+  mongo:
+    image: mongo
   lb:
     image: nginx
     ports:
       - 5000:8080
+    depends_on:
+      - api
     volumes:
       - public:/public
       - ./site.conf:/etc/nginx/conf.d/site.conf
