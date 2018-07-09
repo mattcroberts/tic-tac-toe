@@ -22,7 +22,7 @@ class App extends React.Component {
     public render() {
         return (
             <ApolloProvider client={client}>
-                <GridContainer />;
+                <GridContainer />
             </ApolloProvider>
         );
     }
