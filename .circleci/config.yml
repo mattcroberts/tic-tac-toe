@@ -17,7 +17,7 @@ jobs:
           - v1-dependencies-
 
       - run:
-          command: yarn install
+          command: yarn
           working_directory: ./packages/tic-tac-toe-client
 
       - save_cache:
@@ -45,7 +45,7 @@ jobs:
           - v1-dependencies-
 
       - run:
-          command: yarn install
+          command: yarn
           working_directory: ./packages/tic-tac-toe-server
 
       - save_cache:
