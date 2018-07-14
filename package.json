@@ -11,5 +11,6 @@
 		"start-api-dev": "lerna exec --scope tic-tac-toe-server -- yarn dev",
 		"build": "docker-compose build",
 		"start": "docker-compose up"
-	}
+	},
+	"dependencies": {}
 }

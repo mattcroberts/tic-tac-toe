@@ -2,11 +2,21 @@
   "name": "tic-tac-toe-client",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "generate-types": "gql-gen --schema http://localhost:3000/graphql --template graphql-codegen-typescript-template --out ./typings/ \"./src/**/*.ts\"",
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject",
+    "lint": "tslint -t codeFrame 'src/**/*.ts'",
+    "deploy": "gh-pages -d build"
+  },
   "dependencies": {
     "@types/recompose": "^0.26.1",
     "apollo-cache-inmemory": "^1.2.1",
     "apollo-client": "^2.3.1",
     "apollo-link-http": "^1.5.4",
+    "gh-pages": "^1.2.0",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
     "lodash": "^4.17.10",
@@ -15,14 +25,6 @@
     "react-dom": "^16.3.2",
     "react-scripts-ts": "2.15.1",
     "recompose": "^0.27.1"
-  },
-  "scripts": {
-    "generate-types": "gql-gen --schema http://localhost:3000/graphql --template graphql-codegen-typescript-template --out ./typings/ \"./src/**/*.ts\"",
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject",
-    "lint": "tslint -t codeFrame 'src/**/*.ts'"
   },
   "devDependencies": {
     "@types/graphql": "^0.13.1",
