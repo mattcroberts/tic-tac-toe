@@ -2,6 +2,7 @@
   "name": "tic-tac-toe-client",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://mattcroberts.github.io/tic-tac-toe",
   "scripts": {
     "generate-types": "gql-gen --schema http://localhost:3000/graphql --template graphql-codegen-typescript-template --out ./typings/ \"./src/**/*.ts\"",
     "start": "react-scripts-ts start",
