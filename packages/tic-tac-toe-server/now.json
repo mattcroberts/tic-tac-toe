@@ -1,0 +1,5 @@
+{
+    "name": "tic-tac-toe-server",
+    "public": true,
+    "type": "docker"
+}

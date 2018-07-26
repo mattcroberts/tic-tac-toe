@@ -79,32 +79,6 @@ jobs:
       - run:
           command: yarn test
           working_directory: ./packages/tic-tac-toe-client
-  deploy-ui:
-    docker:
-      - image: circleci/node:8
-    
-    working_directory: ~/repo
-    
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "./packages/tic-tac-toe-client/package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-      - run:
-          command: yarn
-          working_directory: ./packages/tic-tac-toe-client
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "./packages/tic-tac-toe-client/package.json" }}
-      - run:
-          command: yarn build
-          working_directory: ./packages/tic-tac-toe-client
-      - run:
-          command: yarn deploy
-          working_directory: ./packages/tic-tac-toe-client
   test-server:
     docker:
       - image: circleci/node:8
@@ -128,6 +102,60 @@ jobs:
       - run:
           command: yarn test
           working_directory: ./packages/tic-tac-toe-server
+  deploy-ui:
+    docker:
+      - image: circleci/node:8
+    
+    working_directory: ~/repo
+    
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "./packages/tic-tac-toe-client/package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run:
+          command: yarn
+          working_directory: ./packages/tic-tac-toe-client
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "./packages/tic-tac-toe-client/package.json" }}
+      - run:
+          environment:
+            REACT_APP_API_URI: https://mcr-tictactoe.now.sh/graphql
+          command: yarn build
+          working_directory: ./packages/tic-tac-toe-client
+      - run:
+          command: yarn deploy
+          working_directory: ./packages/tic-tac-toe-client
+  deploy-server:
+    docker:
+      - image: circleci/node:8
+    
+    working_directory: ~/repo
+    
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run:
+          command: yarn
+          working_directory: ./packages/tic-tac-toe-server
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
+      - run:
+          command: yarn build
+          working_directory: ./packages/tic-tac-toe-server
+      - run:
+          command: npx now -e MONGO_URI=@tictactoe_db && now alias mcr-tictactoe.now.sh
+          working_directory: ./packages/tic-tac-toe-server
 workflows:
   version: 2
   test:
@@ -140,6 +168,11 @@ workflows:
       - test-server:
           requires:
             - build-server
-  deploy:
-    - build-ui
-    - deploy-ui
+      - deploy-server:
+          requires:
+            - test-ui
+            - test-server
+      - deploy-ui:
+          requires:
+            - test-ui
+            - test-server
