@@ -130,6 +130,8 @@ jobs:
             REACT_APP_API_URI: https://mcr-tictactoe.now.sh/graphql
           command: yarn build
           working_directory: ./packages/tic-tac-toe-client
+      - run: git config --global user.email circleci@circleci
+      - run: git config --global user.name CircleCI
       - run:
           command: yarn deploy
           working_directory: ./packages/tic-tac-toe-client
