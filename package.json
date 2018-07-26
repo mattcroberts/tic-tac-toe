@@ -6,9 +6,11 @@
 		"typescript": "^2.9.2"
 	},
 	"scripts": {
-		"dev": "run-p -l start-ui-dev start-api-dev",
-		"start-ui-dev": "lerna exec --scope tic-tac-toe-client -- PORT=3001 yarn start",
-		"start-api-dev": "lerna exec --scope tic-tac-toe-server -- yarn dev",
+		"prepare": "lerna bootstrap",
+		"dev": "run-p -l ui-dev api-dev mongo",
+		"mongo": "docker run -p 27017:27017 mongo",
+		"ui-dev": "lerna exec --scope tic-tac-toe-client -- PORT=3001 yarn start",
+		"api-dev": "lerna exec --scope tic-tac-toe-server -- yarn dev",
 		"build": "docker-compose build",
 		"start": "docker-compose up"
 	},

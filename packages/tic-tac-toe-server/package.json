@@ -6,7 +6,7 @@
    "scripts": {
       "build": "tsc && cpx \"src/**/*.graphql\" build",
       "clean": "rm -rf build",
-      "dev": "nodemon --watch 'src/**/*' -e ts --exec 'ts-node' ./src/index.ts",
+      "dev": "MONGO_URI=mongodb://localhost:27017/tictactoe nodemon --watch 'src/**/*' -e ts --exec 'ts-node' ./src/index.ts",
       "lint": "tslint -t codeFrame 'src/**/*.ts'",
       "startDev": "ts-node src/index.ts",
       "start": "node build/index.js",
