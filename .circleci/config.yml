@@ -159,7 +159,7 @@ jobs:
           command: yarn build
           working_directory: ./packages/tic-tac-toe-server
       - run:
-          command: npx now -e MONGO_URI=@tictactoe_db && now alias mcr-tictactoe.now.sh
+          command: npx now -t ${NOW_TOKEN} -e MONGO_URI=@tictactoe_db && now alias mcr-tictactoe.now.sh
           working_directory: ./packages/tic-tac-toe-server
 workflows:
   version: 2
