@@ -48,7 +48,11 @@ app.use(router.routes());
     if (!mongoUri) {
         throw new Error("Missing MONGO_URI");
     }
-    console.log(`Connecting to DB at ${mongoUri}`);
+
+    if (process.env.NODE_ENV === "development") {
+        console.log(`Connecting to DB at ${mongoUri}`);
+    }
+
     const mongoConnection = mongoose.connection;
 
     const connected = new Promise(resolve => {
