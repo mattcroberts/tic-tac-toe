@@ -10,7 +10,7 @@ WORKDIR /home/nodejs/app
 
 COPY . .
 
-RUN yarn install --production
+RUN yarn install --production && yarn cache clean
 
 EXPOSE 3000
 
