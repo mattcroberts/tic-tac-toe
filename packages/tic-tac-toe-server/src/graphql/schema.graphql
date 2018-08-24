@@ -1,9 +1,10 @@
 type Query {
-    grid: Grid!
+    grid(id: ID!): Grid!
 }
 
 type Mutation {
     executeTurn(id: ID!, player: String!, x: Int!, y: Int!): Grid!
+    newGame: Grid!
 }
 
 type GridItem {

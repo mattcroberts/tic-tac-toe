@@ -9,9 +9,9 @@ export const query = {
             if (id) {
                 grid = Grid.findById(id);
             } else {
-                grid = new Grid();
-                await grid.save();
+                throw new Error("No ID Provided");
             }
+
             return grid;
         }
     }
@@ -37,6 +37,11 @@ export const mutation = {
             } else {
                 throw new Error("Grid not found:" + id);
             }
+        },
+        async newGame() {
+            const grid = new Grid();
+            await grid.save();
+            return grid;
         }
     }
 };
