@@ -159,7 +159,7 @@ jobs:
           command: yarn build
           working_directory: ./packages/tic-tac-toe-server
       - run:
-          command: npx now -t ${NOW_TOKEN} --regions=bru -e MONGO_URI=@tictactoe_db && npx now rm tic-tac-toe-server --safe --yes
+          command: npx now -t ${NOW_TOKEN} --regions=bru -e MONGO_URI=@tictactoe_db && npx now -t ${NOW_TOKEN} rm tic-tac-toe-server --safe --yes
           working_directory: ./packages/tic-tac-toe-server
 workflows:
   version: 2
