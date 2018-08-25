@@ -12,9 +12,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "./packages/tic-tac-toe-client/package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "./packages/tic-tac-toe-client/package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
 
       - run:
           command: yarn
@@ -24,7 +24,7 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "./packages/tic-tac-toe-client/package.json" }}
-        
+
       - run:
           command: yarn build
           working_directory: ./packages/tic-tac-toe-client
@@ -40,9 +40,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
 
       - run:
           command: yarn
@@ -59,16 +59,16 @@ jobs:
   test-ui:
     docker:
       - image: circleci/node:8
-    
+
     working_directory: ~/repo
-    
+
     steps:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "./packages/tic-tac-toe-client/package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "./packages/tic-tac-toe-client/package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
       - run:
           command: yarn
           working_directory: ./packages/tic-tac-toe-client
@@ -82,16 +82,16 @@ jobs:
   test-server:
     docker:
       - image: circleci/node:8
-    
+
     working_directory: ~/repo
-    
+
     steps:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
       - run:
           command: yarn
           working_directory: ./packages/tic-tac-toe-server
@@ -105,9 +105,9 @@ jobs:
   deploy-ui:
     docker:
       - image: circleci/node:8
-    
+
     working_directory: ~/repo
-    
+
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -115,9 +115,9 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "./packages/tic-tac-toe-client/package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "./packages/tic-tac-toe-client/package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
       - run:
           command: yarn
           working_directory: ./packages/tic-tac-toe-client
@@ -138,16 +138,16 @@ jobs:
   deploy-server:
     docker:
       - image: circleci/node:8
-    
+
     working_directory: ~/repo
-    
+
     steps:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
       - run:
           command: yarn
           working_directory: ./packages/tic-tac-toe-server
@@ -159,7 +159,7 @@ jobs:
           command: yarn build
           working_directory: ./packages/tic-tac-toe-server
       - run:
-          command: npx now -t ${NOW_TOKEN} -e MONGO_URI=@tictactoe_db && npx now -t ${NOW_TOKEN} alias mcr-tictactoe.now.sh
+          command: npx now -t ${NOW_TOKEN} --regions=bru -e MONGO_URI=@tictactoe_db && npx now rm tic-tac-toe-server --safe --yes
           working_directory: ./packages/tic-tac-toe-server
 workflows:
   version: 2
