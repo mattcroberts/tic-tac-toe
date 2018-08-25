@@ -1,6 +1,5 @@
 {
     "name": "tic-tac-toe-server",
     "public": true,
-    "type": "docker",
-    "alias": ["mcr-tictactoe.now.sh"]
+    "type": "docker"
 }
