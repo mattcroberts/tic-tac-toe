@@ -1,6 +1,9 @@
 // import { merge } from "lodash";
 import * as React from "react";
-import { GridItem as TGridItem, Player as TPlayer } from "../../typings/types";
+import {
+    GridItem as TGridItem,
+    Player as TPlayer
+} from "../../../typings/types";
 import GridItem from "../GridItem";
 
 import "./Grid.css";

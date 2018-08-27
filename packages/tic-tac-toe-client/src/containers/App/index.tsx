@@ -7,7 +7,7 @@ import { ApolloProvider } from "react-apollo";
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 
-import Routes from "./routes";
+import Routes from "../../routes";
 
 const httplink = new HttpLink({
     uri: process.env.REACT_APP_API_URI

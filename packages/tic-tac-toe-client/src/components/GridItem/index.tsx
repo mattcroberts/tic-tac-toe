@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { GridItem as TGridItem } from "../../typings/types";
+import { GridItem as TGridItem } from "../../../typings/types";
 
 import "./GridItem.css";
 

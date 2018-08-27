@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Route } from "react-router-dom";
 
-import Home from "./components/Home";
-import GridContainer from "./GridContainer";
+import GridContainer from "./containers/Grid";
+import Home from "./containers/Home";
 
 export default () => (
     <>

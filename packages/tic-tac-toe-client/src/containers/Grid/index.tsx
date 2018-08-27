@@ -3,8 +3,8 @@ import * as React from "react";
 import { graphql } from "react-apollo";
 import { Link, withRouter } from "react-router-dom";
 import { compose } from "recompose";
-import { Grid as TGrid, Player as TPlayer } from "../../typings/types";
-import Grid from "../Grid";
+import { Grid as TGrid, Player as TPlayer } from "../../../typings/types";
+import Grid from "../../components/Grid";
 
 const GET_GRID = gql`
     query GET_GRID($id: ID!) {
