@@ -4,8 +4,8 @@ import { Link, withRouter } from "react-router-dom";
 import { compose } from "recompose";
 import { Grid as TGrid, Player as TPlayer } from "../../../typings/types";
 import Grid from "../../components/Grid";
-import EXECUTE_TURN from "./executeTurn.graphql";
-import GET_GRID from "./getGrid.graphql";
+import * as EXECUTE_TURN from "./executeTurn.graphql";
+import * as GET_GRID from "./getGrid.graphql";
 
 interface IGridContainerProps {
     executeTurn: (

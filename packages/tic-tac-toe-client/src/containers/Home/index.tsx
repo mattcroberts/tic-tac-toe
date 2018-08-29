@@ -4,7 +4,7 @@ import { Mutation } from "react-apollo";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
 import { Mutation as IMutation } from "../../../typings/types";
-import NEW_GAME from "./newGame.graphql";
+import * as NEW_GAME from "./newGame.graphql";
 interface IProps {
     history: H.History;
 }

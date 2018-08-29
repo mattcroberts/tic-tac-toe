@@ -8,7 +8,7 @@
     "start": "parcel serve --log-level 3 -p 3001 public/index.html",
     "prebuild": "rm -rf dist",
     "build": "parcel build --public-url https://mattcroberts.github.io/tic-tac-toe/ public/index.html",
-    "test": "jest",
+    "test": "jest --no-cache",
     "lint": "tslint -t codeFrame 'src/**/*.ts'",
     "deploy": "gh-pages -d dist"
   },
@@ -45,6 +45,7 @@
     "graphql-code-generator": "^0.11.0",
     "graphql-codegen-typescript-template": "^0.11.0",
     "jest": "^23.5.0",
+    "jest-transform-graphql": "^2.1.0",
     "jest-transform-stub": "^1.0.0",
     "parcel-bundler": "^1.9.7",
     "parcel-plugin-typescript": "^1.0.0",
