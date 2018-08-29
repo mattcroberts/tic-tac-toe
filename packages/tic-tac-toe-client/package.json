@@ -5,7 +5,7 @@
   "homepage": "https://mattcroberts.github.io/tic-tac-toe",
   "scripts": {
     "generate-types": "gql-gen --schema http://localhost:3000/graphql --template graphql-codegen-typescript-template --out ./typings/ \"./src/**/*.ts\"",
-    "start": "parcel -p 3001 public/index.html",
+    "start": "parcel serve --log-level 3 -p 3001 public/index.html",
     "prebuild": "rm -rf dist",
     "build": "parcel build --public-url https://mattcroberts.github.io/tic-tac-toe/ public/index.html",
     "test": "jest",
@@ -47,6 +47,7 @@
     "jest": "^23.5.0",
     "jest-transform-stub": "^1.0.0",
     "parcel-bundler": "^1.9.7",
+    "parcel-plugin-typescript": "^1.0.0",
     "ts-jest": "^23.1.4",
     "tslint": "^5.7.0",
     "tslint-config-prettier": "^1.10.0",
