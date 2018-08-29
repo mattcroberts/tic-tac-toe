@@ -8,7 +8,7 @@ Play the game here: https://mattcroberts.github.io/tic-tac-toe/
 
 ## Getting Started
 
-Prerequisites: Docker, MongoDB, Yarn
+Prerequisites: Docker, Node 8, Yarn
 
 1. Clone repo
 2. yarn

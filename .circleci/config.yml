@@ -114,7 +114,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - '3e:ef:a8:b3:d8:48:50:fd:c6:61:b9:c7:ec:b3:cb:c9'
+            - "3e:ef:a8:b3:d8:48:50:fd:c6:61:b9:c7:ec:b3:cb:c9"
       - checkout
       - restore_cache:
           keys:
@@ -169,7 +169,7 @@ jobs:
           command: npx now -t ${NOW_TOKEN} alias mcr-tictactoe.now.sh
           working_directory: ./packages/tic-tac-toe-server
       - run:
-          command: sleep 10 && npx now -t ${NOW_TOKEN} rm tic-tac-toe-server --safe --yes
+          command: sleep 10 && npx now -t ${NOW_TOKEN} rm tic-tac-toe-server --safe --yes || exit 0
           working_directory: ./packages/tic-tac-toe-server
 workflows:
   version: 2
