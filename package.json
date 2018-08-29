@@ -12,7 +12,8 @@
 		"ui-dev": "lerna exec --scope tic-tac-toe-client -- PORT=3001 yarn start",
 		"api-dev": "lerna exec --scope tic-tac-toe-server -- yarn dev",
 		"build": "docker-compose build",
-		"start": "docker-compose up"
+		"start": "docker-compose up",
+		"stop": "docker-compose down"
 	},
 	"dependencies": {}
 }

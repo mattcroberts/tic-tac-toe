@@ -5,9 +5,9 @@ services:
     build:
       context: ./packages/tic-tac-toe-client/
       args:
-        - REACT_APP_API_URI=/graphql
+        - API_URI=/graphql
     volumes:
-      - public:/home/nodejs/app/build
+      - public:/home/nodejs/app/dist
   api:
     build: ./packages/tic-tac-toe-server
     environment:

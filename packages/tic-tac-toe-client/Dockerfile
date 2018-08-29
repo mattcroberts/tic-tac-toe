@@ -1,9 +1,9 @@
 FROM node:8-alpine
 
-ENV NODE_ENV=production
+ARG API_URI
+ENV API_URI=$API_URI
 
-ARG REACT_APP_API_URI
-ENV REACT_APP_API_URI=$REACT_APP_API_URI
+RUN apk update && apk add util-linux alpine-sdk && rm -rf /var/cache/apk/*
 
 RUN addgroup -g 1001 -S nodejs && adduser -u 1001 -S nodejs -G nodejs
 RUN mkdir -p /home/nodejs/app
@@ -14,4 +14,4 @@ WORKDIR /home/nodejs/app
 COPY . .
 
 RUN yarn install
-RUN yarn build
+RUN yarn build --detailed-report --no-cache
