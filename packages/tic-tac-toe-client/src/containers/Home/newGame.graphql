@@ -1,0 +1,12 @@
+mutation newGame {
+    newGame {
+        id
+        gridItems {
+            id
+            player
+        }
+        currentPlayer
+        winner
+        isFinished
+    }
+}

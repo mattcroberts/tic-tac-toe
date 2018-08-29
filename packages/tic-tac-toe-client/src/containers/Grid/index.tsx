@@ -1,40 +1,11 @@
-import gql from "graphql-tag";
 import * as React from "react";
 import { graphql } from "react-apollo";
 import { Link, withRouter } from "react-router-dom";
 import { compose } from "recompose";
 import { Grid as TGrid, Player as TPlayer } from "../../../typings/types";
 import Grid from "../../components/Grid";
-
-const GET_GRID = gql`
-    query GET_GRID($id: ID!) {
-        grid(id: $id) {
-            id
-            gridItems {
-                player
-            }
-            currentPlayer
-            winner
-            isFinished
-            size
-        }
-    }
-`;
-
-const EXECUTE_TURN = gql`
-    mutation executeTurn($id: ID!, $player: String!, $x: Int!, $y: Int!) {
-        executeTurn(id: $id, player: $player, x: $x, y: $y) {
-            id
-            gridItems {
-                id
-                player
-            }
-            currentPlayer
-            winner
-            isFinished
-        }
-    }
-`;
+import EXECUTE_TURN from "./executeTurn.graphql";
+import GET_GRID from "./getGrid.graphql";
 
 interface IGridContainerProps {
     executeTurn: (

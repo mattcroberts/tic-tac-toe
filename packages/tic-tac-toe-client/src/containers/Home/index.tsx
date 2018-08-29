@@ -1,23 +1,8 @@
-import gql from "graphql-tag";
 import * as React from "react";
 import { graphql } from "react-apollo";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
-
-const NEW_GAME = gql`
-    mutation newGame {
-        newGame {
-            id
-            gridItems {
-                id
-                player
-            }
-            currentPlayer
-            winner
-            isFinished
-        }
-    }
-`;
+import NEW_GAME from "./newGame.graphql";
 
 interface IProps {
     newGame: () => undefined;

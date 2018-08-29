@@ -1,0 +1,12 @@
+query GET_GRID($id: ID!) {
+    grid(id: $id) {
+        id
+        gridItems {
+            player
+        }
+        currentPlayer
+        winner
+        isFinished
+        size
+    }
+}
