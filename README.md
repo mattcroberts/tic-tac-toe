@@ -1,7 +1,7 @@
-# tic-tac-toe
+# Tic Tac Toe
 
 Build Status: [![CircleCI](https://circleci.com/gh/mattcroberts/tic-tac-toe/tree/master.svg?style=svg)](https://circleci.com/gh/mattcroberts/tic-tac-toe/tree/master)
 
-Monorepo for react/node/graphql game of tic-tac-toe
+A tic tac toe game built using node, Typescript, Graphql (Apollo), Koa, React, Jest, now.sh, CircleCI
 
-See packages for info.
+Play the game here: https://mattcroberts.github.io/tic-tac-toe/
