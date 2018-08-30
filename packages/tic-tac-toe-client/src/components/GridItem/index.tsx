@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { GridItem as TGridItem } from "../../../typings/types";
 
-import "./GridItem.css";
+import style from "./GridItem.css";
 
 interface IGridItemProps {
     colN: number;
@@ -18,7 +18,7 @@ class GridItem extends React.PureComponent<IGridItemProps, any> {
     }
     public render() {
         return (
-            <div className="GridItem" onClick={this.onClick}>
+            <div className={style.GridItem} onClick={this.onClick}>
                 {this.props.itemState.player}
             </div>
         );

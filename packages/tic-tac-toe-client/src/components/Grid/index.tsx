@@ -6,7 +6,7 @@ import {
 } from "../../../typings/types";
 import GridItem from "../GridItem";
 
-import "./Grid.css";
+import style from "./Grid.css";
 
 export interface IGridProps {
     grid: TGridItem[][];
@@ -20,7 +20,7 @@ export interface IGridProps {
 class Grid extends React.Component<IGridProps> {
     public render() {
         return (
-            <div className="Grid">
+            <div className={style.Grid}>
                 {this.props.winner === null
                     ? this.props.isDraw
                         ? "DRAW"
@@ -32,7 +32,7 @@ class Grid extends React.Component<IGridProps> {
 
     private renderGrid() {
         return this.props.grid.map((row, rowN) => (
-            <div className="Grid-row" key={`${rowN.toString()}`}>
+            <div className={style["Grid-row"]} key={`${rowN.toString()}`}>
                 {row.map((item, colN) => (
                     <GridItem
                         key={`${rowN}-${colN}`}

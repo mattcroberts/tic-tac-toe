@@ -5,7 +5,6 @@ import * as React from "react";
 import { ApolloProvider } from "react-apollo";
 import { BrowserRouter } from "react-router-dom";
 import "whatwg-fetch";
-import "./App.css";
 
 import Routes from "../../routes";
 
