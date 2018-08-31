@@ -1,10 +1,18 @@
 import * as React from "react";
 
+import { Link } from "react-router-dom";
 import style from "./Wrapper.css";
 
 export default ({ children }: { children: any }) => (
     <div className={style.root}>
-        <h1>TIC TAC TOE</h1>
-        {children}
+        <div className={style.inner}>
+            <div className={style.top}>
+                <h1>TIC TAC TOE</h1>
+                <Link to="/" className={style.link}>
+                    Home
+                </Link>
+            </div>
+            <div className={style.content}>{children}</div>
+        </div>
     </div>
 );

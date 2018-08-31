@@ -1,6 +1,6 @@
 import * as React from "react";
 import { graphql } from "react-apollo";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
 import { Grid as TGrid, Player as TPlayer } from "../../../typings/types";
 import Grid from "../../components/Grid";
@@ -44,7 +44,6 @@ class GridContainer extends React.Component<IGridContainerProps> {
 
         return (
             <React.Fragment>
-                <Link to="/">Home</Link>
                 <Grid
                     grid={grid.gridItems}
                     currentPlayer={grid.currentPlayer}

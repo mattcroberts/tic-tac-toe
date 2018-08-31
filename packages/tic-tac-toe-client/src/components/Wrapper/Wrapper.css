@@ -3,3 +3,25 @@
     flex-direction: column;
     height: 100vh;
 }
+
+.inner {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 12px;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.link {
+    padding: 6px;
+}
