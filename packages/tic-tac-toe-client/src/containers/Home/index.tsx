@@ -3,7 +3,9 @@ import * as React from "react";
 import { Mutation } from "react-apollo";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
+
 import { Mutation as IMutation } from "../../../typings/types";
+import HomePage from "../../pages/Home";
 import * as NEW_GAME from "./newGame.graphql";
 interface IProps {
     history: H.History;
@@ -18,12 +20,7 @@ class Home extends React.Component<IProps> {
         return (
             <Mutation mutation={NEW_GAME} onCompleted={this.onNewGame}>
                 {(newGame, { loading }) => {
-                    const onClick = () => newGame();
-                    return (
-                        <button onClick={onClick} disabled={loading}>
-                            {loading ? "Loading..." : "New Game"}
-                        </button>
-                    );
+                    return <HomePage loading={loading} newGame={newGame} />;
                 }}
             </Mutation>
         );
