@@ -20,7 +20,7 @@ export interface IGridProps {
 class Grid extends React.Component<IGridProps> {
     public render() {
         return (
-            <div className={style.Grid}>
+            <div className={style.root}>
                 {this.props.winner === null
                     ? this.props.isDraw
                         ? "DRAW"
@@ -32,7 +32,7 @@ class Grid extends React.Component<IGridProps> {
 
     private renderGrid() {
         return this.props.grid.map((row, rowN) => (
-            <div className={style["Grid-row"]} key={`${rowN.toString()}`}>
+            <div className={style.row} key={`${rowN.toString()}`}>
                 {row.map((item, colN) => (
                     <GridItem
                         key={`${rowN}-${colN}`}
@@ -40,6 +40,12 @@ class Grid extends React.Component<IGridProps> {
                         rowN={colN}
                         onItemClick={this.props.onItemClick}
                         itemState={item}
+                        position={{
+                            bottom: rowN === 2,
+                            left: colN === 0,
+                            right: colN === 2,
+                            top: rowN === 0
+                        }}
                     />
                 ))}
             </div>

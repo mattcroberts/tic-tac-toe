@@ -1,7 +1,20 @@
-.GridItem {
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  width: 100%;
-  border: 1px solid #ccc;
+.root {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    width: 100%;
+    border: 6px solid #ccc;
+}
+
+.top {
+    border-top: none;
+}
+.bottom {
+    border-bottom: none;
+}
+.left {
+    border-left: none;
+}
+.right {
+    border-right: none;
 }
