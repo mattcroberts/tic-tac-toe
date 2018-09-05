@@ -9,5 +9,6 @@ module.exports = {
     },
     testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
     moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node", "graphql"],
-    setupTestFrameworkScriptFile: "./testSetup.ts"
+    setupTestFrameworkScriptFile: "./testSetup.ts",
+    snapshotSerializers: ["enzyme-to-json/serializer"]
 };
