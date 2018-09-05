@@ -28,6 +28,11 @@ interface IGridContainerProps {
 export class GridContainer extends React.Component<IGridContainerProps> {
     public state = {};
 
+    constructor(props: IGridContainerProps) {
+        super(props);
+        this.onItemClick = this.onItemClick.bind(this);
+    }
+
     public render() {
         const {
             data: { error, grid, loading }
