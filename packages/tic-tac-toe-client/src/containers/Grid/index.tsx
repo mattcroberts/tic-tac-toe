@@ -2,7 +2,7 @@ import * as React from "react";
 import { graphql } from "react-apollo";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
-import { Grid as TGrid, Player as TPlayer } from "../../../typings/types";
+import { Grid as IGrid, Player as IPlayer } from "../../../typings/types";
 import Grid from "../../components/Grid";
 import * as EXECUTE_TURN from "./executeTurn.graphql";
 import * as GET_GRID from "./getGrid.graphql";
@@ -12,26 +12,24 @@ interface IGridContainerProps {
         options: {
             variables: {
                 id: string;
-                player: TPlayer;
+                player: IPlayer;
                 x: number;
                 y: number;
             };
         }
-    ) => TGrid;
+    ) => IGrid;
     data: {
         error: any;
-        grid: TGrid;
+        grid: IGrid;
         loading: boolean;
     };
-    history: any;
 }
 
-class GridContainer extends React.Component<IGridContainerProps> {
+export class GridContainer extends React.Component<IGridContainerProps> {
     public state = {};
 
     public render() {
         const {
-            executeTurn,
             data: { error, grid, loading }
         } = this.props;
         if (loading) {
@@ -50,22 +48,28 @@ class GridContainer extends React.Component<IGridContainerProps> {
                     winner={grid.winner}
                     isDraw={grid.winner === null && grid.isFinished}
                     size={grid.size}
-                    // tslint:disable-next-line jsx-no-lambda
-                    onItemClick={(player, x, y) => {
-                        if (grid.gridItems[x][y].player === null) {
-                            executeTurn({
-                                variables: {
-                                    id: grid.id,
-                                    player: grid.currentPlayer,
-                                    x,
-                                    y
-                                }
-                            });
-                        }
-                    }}
+                    onItemClick={this.onItemClick}
                 />
             </React.Fragment>
         );
+    }
+
+    private onItemClick(player: IPlayer, x: number, y: number): void {
+        const {
+            executeTurn,
+            data: { grid }
+        } = this.props;
+
+        if (grid.gridItems[x][y].player === null) {
+            executeTurn({
+                variables: {
+                    id: grid.id,
+                    player: grid.currentPlayer,
+                    x,
+                    y
+                }
+            });
+        }
     }
 }
 
