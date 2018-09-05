@@ -175,8 +175,14 @@ workflows:
   version: 2
   test:
     jobs:
-      - build-ui
-      - build-server
+      - build-ui:
+          filters:
+            branches:
+              only: master
+      - build-server:
+          filters:
+            branches:
+              only: master
       - test-ui:
           requires:
             - build-ui
