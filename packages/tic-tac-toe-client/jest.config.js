@@ -1,4 +1,6 @@
 module.exports = {
+    collectCoverage: true,
+    collectCoverageFrom: ["src/**/*.{js,jsx,ts,tsx}"],
     moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node", "graphql"],
     roots: ["<rootDir>/src"],
     setupTestFrameworkScriptFile: "./testSetup.ts",
