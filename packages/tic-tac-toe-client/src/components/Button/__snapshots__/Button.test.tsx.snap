@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button should render 1`] = `
+<button
+  disabled={false}
+  onClick={[Function]}
+/>
+`;
+
+exports[`Button should render children 1`] = `
+<button
+  disabled={false}
+  onClick={[Function]}
+>
+  Button Text
+</button>
+`;
+
+exports[`Button should render disabled 1`] = `
+<button
+  disabled={true}
+  onClick={[Function]}
+/>
+`;

@@ -3,10 +3,10 @@ import * as React from "react";
 export default ({
     children,
     disabled = false,
-    onClick
+    onClick = () => undefined
 }: {
-    children: any;
-    disabled: boolean;
+    children?: any;
+    disabled?: boolean;
     onClick?: () => undefined;
 }) => (
     <button onClick={onClick} disabled={disabled}>
