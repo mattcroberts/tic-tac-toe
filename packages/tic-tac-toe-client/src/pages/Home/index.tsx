@@ -3,7 +3,7 @@ import Button from "../../components/Button";
 
 import style from "./Home.css";
 
-export default ({
+const Home = ({
     loading = false,
     newGame
 }: {
@@ -16,3 +16,5 @@ export default ({
         </Button>
     </div>
 );
+
+export default Home;

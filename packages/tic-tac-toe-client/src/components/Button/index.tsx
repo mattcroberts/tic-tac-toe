@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export default ({
+const Button = ({
     children,
     disabled = false,
     onClick = () => undefined
@@ -13,3 +13,5 @@ export default ({
         {children}
     </button>
 );
+
+export default Button;

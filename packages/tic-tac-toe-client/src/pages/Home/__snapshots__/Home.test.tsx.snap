@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home should render 1`] = `
+<div
+  className="root"
+>
+  <Button
+    disabled={false}
+    onClick={[MockFunction]}
+  >
+    New Game
+  </Button>
+</div>
+`;
+
+exports[`Home should render loading indicator 1`] = `
+<div
+  className="root"
+>
+  <Button
+    disabled={true}
+    onClick={[MockFunction]}
+  >
+    Loading...
+  </Button>
+</div>
+`;
