@@ -90,6 +90,9 @@ jobs:
             JEST_JUNIT_OUTPUT: ./reports/junit/js-test-results.xml
           command: yarn run jest --ci --reporters=default --reporters=jest-junit
           working_directory: ./packages/tic-tac-toe-client
+      - run:
+          command: bash <(curl -s https://codecov.io/bash)
+          working_directory: ./packages/tic-tac-toe-server
       - store_test_results:
           path: ./packages/tic-tac-toe-client/reports/junit
       - store_artifacts:
@@ -124,6 +127,9 @@ jobs:
           environment:
             JEST_JUNIT_OUTPUT: ./reports/junit/js-test-results.xml
           command: yarn run jest --ci --reporters=default --reporters=jest-junit
+          working_directory: ./packages/tic-tac-toe-server
+      - run:
+          command: bash <(curl -s https://codecov.io/bash)
           working_directory: ./packages/tic-tac-toe-server
       - store_test_results:
           path: ./packages/tic-tac-toe-server/reports/junit
@@ -195,6 +201,7 @@ jobs:
       - run:
           command: sleep 10 && npx now -t ${NOW_TOKEN} rm tic-tac-toe-server --safe --yes || exit 0
           working_directory: ./packages/tic-tac-toe-server
+      
 workflows:
   version: 2
   test:
