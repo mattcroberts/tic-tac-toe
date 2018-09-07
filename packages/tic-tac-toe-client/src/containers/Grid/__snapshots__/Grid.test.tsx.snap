@@ -7,59 +7,57 @@ exports[`GridContainer renders loading state 1`] = `
 `;
 
 exports[`GridContainer renders without crashing 1`] = `
-<Fragment>
-  <Grid
-    currentPlayer="NAUGHT"
-    grid={
+<Grid
+  currentPlayer="NAUGHT"
+  grid={
+    Array [
       Array [
-        Array [
-          Object {
-            "id": "0_0",
-            "player": undefined,
-          },
-          Object {
-            "id": "0_1",
-            "player": undefined,
-          },
-          Object {
-            "id": "0_2",
-            "player": undefined,
-          },
-        ],
-        Array [
-          Object {
-            "id": "1_0",
-            "player": undefined,
-          },
-          Object {
-            "id": "1_1",
-            "player": undefined,
-          },
-          Object {
-            "id": "1_2",
-            "player": undefined,
-          },
-        ],
-        Array [
-          Object {
-            "id": "2_0",
-            "player": undefined,
-          },
-          Object {
-            "id": "2_1",
-            "player": undefined,
-          },
-          Object {
-            "id": "2_2",
-            "player": undefined,
-          },
-        ],
-      ]
-    }
-    isDraw={false}
-    onItemClick={[Function]}
-    size={9}
-    winner={null}
-  />
-</Fragment>
+        Object {
+          "id": "0_0",
+          "player": null,
+        },
+        Object {
+          "id": "0_1",
+          "player": null,
+        },
+        Object {
+          "id": "0_2",
+          "player": null,
+        },
+      ],
+      Array [
+        Object {
+          "id": "1_0",
+          "player": null,
+        },
+        Object {
+          "id": "1_1",
+          "player": null,
+        },
+        Object {
+          "id": "1_2",
+          "player": null,
+        },
+      ],
+      Array [
+        Object {
+          "id": "2_0",
+          "player": null,
+        },
+        Object {
+          "id": "2_1",
+          "player": null,
+        },
+        Object {
+          "id": "2_2",
+          "player": null,
+        },
+      ],
+    ]
+  }
+  isDraw={false}
+  onItemClick={[Function]}
+  size={9}
+  winner={null}
+/>
 `;

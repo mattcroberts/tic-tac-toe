@@ -46,16 +46,14 @@ export class GridContainer extends React.Component<IGridContainerProps> {
         }
 
         return (
-            <React.Fragment>
-                <Grid
-                    grid={grid.gridItems}
-                    currentPlayer={grid.currentPlayer}
-                    winner={grid.winner}
-                    isDraw={grid.winner === null && grid.isFinished}
-                    size={grid.size}
-                    onItemClick={this.onItemClick}
-                />
-            </React.Fragment>
+            <Grid
+                grid={grid.gridItems}
+                currentPlayer={grid.currentPlayer}
+                winner={grid.winner}
+                isDraw={grid.winner === null && grid.isFinished}
+                size={grid.size}
+                onItemClick={this.onItemClick}
+            />
         );
     }
 

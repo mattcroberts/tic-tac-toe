@@ -10,7 +10,7 @@ export const createGrid = (size: number): GridItem[][] => {
             }
             result[i][j] = {
                 id: `${i}_${j}`,
-                player: undefined
+                player: null
             } as GridItem;
         }
     }
