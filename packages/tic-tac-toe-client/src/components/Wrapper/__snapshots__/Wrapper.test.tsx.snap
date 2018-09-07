@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Wrapper should render 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="inner"
+  >
+    <div
+      className="top"
+    >
+      <h1>
+        TIC TAC TOE
+      </h1>
+      <Link
+        className="link"
+        replace={false}
+        to="/"
+      >
+        Home
+      </Link>
+    </div>
+    <div
+      className="content"
+    >
+      <div>
+        Test
+      </div>
+    </div>
+  </div>
+</div>
+`;
