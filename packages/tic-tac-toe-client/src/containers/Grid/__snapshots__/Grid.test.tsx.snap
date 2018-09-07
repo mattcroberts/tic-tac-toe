@@ -59,6 +59,7 @@ exports[`GridContainer renders without crashing 1`] = `
     isDraw={false}
     onItemClick={[Function]}
     size={9}
+    winner={null}
   />
 </Fragment>
 `;

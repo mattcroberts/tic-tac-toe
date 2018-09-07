@@ -1,22 +1,27 @@
 import * as React from "react";
 import {
-    GridItem as TGridItem,
-    Player as TPlayer
+    GridItem as IGridItem,
+    Player as IPlayer
 } from "../../../typings/types";
 import GridItem from "../GridItem";
 
 import style from "./Grid.css";
 
 export interface IGridProps {
-    grid: TGridItem[][];
-    currentPlayer: TPlayer;
-    winner?: TPlayer | null;
+    grid: IGridItem[][];
+    currentPlayer: IPlayer;
+    winner?: IPlayer | null;
     isDraw: boolean;
     size: number;
     onItemClick: (player: string, x: number, y: number) => void;
 }
 
 class Grid extends React.Component<IGridProps> {
+    public static defaultProps = {
+        isDraw: false,
+        onItemClick: () => undefined,
+        winner: null
+    };
     public render() {
         return (
             <div className={style.root}>
