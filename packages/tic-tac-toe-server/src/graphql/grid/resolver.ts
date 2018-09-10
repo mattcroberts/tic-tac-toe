@@ -1,5 +1,4 @@
 import Grid, { IGridModel } from "../../models/Grid";
-import GridItem from "../../models/GridItem";
 import Player from "../../models/Player";
 
 export const query = {

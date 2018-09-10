@@ -2,7 +2,7 @@ import { IGridModel } from "./models/Grid";
 import { IGridItem } from "./models/GridItem";
 import Player from "./models/Player";
 
-export const hasWon = (player: Player, grid: IGridModel): boolean => {
+export default (player: Player, grid: IGridModel): boolean => {
     const rowWin = grid.gridItems.reduce((won, row, i, all) => {
         return (
             won ||
@@ -46,6 +46,8 @@ export const hasWon = (player: Player, grid: IGridModel): boolean => {
         backwardDiag.every(({ player: p }) => {
             return p === backwardDiag[0].player;
         });
+
+    // console.log({ rowWin, colWin, forwardDiagWin, backwardDiagWin });
 
     return rowWin || colWin || forwardDiagWin || backwardDiagWin;
 };

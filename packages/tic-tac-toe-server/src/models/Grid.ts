@@ -1,6 +1,6 @@
 import { Document, model, Schema } from "mongoose";
 
-import { hasWon } from "../hasWon";
+import hasWon from "../hasWon";
 import GridItem, {
     GridItemSchema,
     IGridItem,
@@ -30,7 +30,6 @@ const gridSchema = new Schema(
                     (_, i) => new GridItem({ x: Math.floor(i / 9), y: i % 9 })
                 );
             },
-            // select: false,
             type: [GridItemSchema]
         },
         currentPlayer: {

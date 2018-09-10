@@ -34,6 +34,17 @@
       "protocol": "inspector",
       "stopOnEntry": false,
       "autoAttachChildProcesses": false
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest All (Server)",
+      "cwd": "${workspaceFolder}/packages/tic-tac-toe-server",
+      "args": ["--runInBand", "--no-coverage"],
+      "program": "${workspaceRoot}/packages/tic-tac-toe-server/node_modules/.bin/jest",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "sourceMaps": true
     }
   ],
   "compounds": [
