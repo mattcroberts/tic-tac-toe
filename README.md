@@ -1,6 +1,6 @@
 # Tic Tac Toe
 
-Build Status: [![CircleCI](https://circleci.com/gh/mattcroberts/tic-tac-toe/tree/master.svg?style=svg)](https://circleci.com/gh/mattcroberts/tic-tac-toe/tree/master)
+Build Status: [![CircleCI](https://circleci.com/gh/mattcroberts/tic-tac-toe/tree/master.svg?style=svg)](https://circleci.com/gh/mattcroberts/tic-tac-toe/tree/master) [![codecov](https://codecov.io/gh/mattcroberts/tic-tac-toe/branch/master/graph/badge.svg)](https://codecov.io/gh/mattcroberts/tic-tac-toe)
 
 A tic tac toe game built using node, Typescript, Graphql (Apollo), Koa, React, Jest, now.sh, Docker, MongoDB, CircleCI
 
