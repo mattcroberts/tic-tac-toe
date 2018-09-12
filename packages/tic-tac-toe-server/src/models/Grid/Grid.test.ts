@@ -2,7 +2,7 @@ import Grid from ".";
 import hasWon from "../../utils/hasWon";
 import Player from "../Player";
 
-jest.mock("../../hasWon");
+jest.mock("../../utils/hasWon");
 
 describe("Grid", () => {
     beforeEach(() => {
@@ -11,7 +11,7 @@ describe("Grid", () => {
 
     describe("checkWinner", () => {
         it("should call hasWon", () => {
-            hasWon.mockReturnValue(false);
+            (hasWon as jest.Mock).mockReturnValue(false);
             const grid = new Grid();
 
             grid.checkWinner();
@@ -30,7 +30,7 @@ describe("Grid", () => {
         });
 
         it("should set winner if there is one", () => {
-            hasWon.mockReturnValueOnce(true);
+            (hasWon as jest.Mock).mockReturnValueOnce(true);
             const grid = new Grid();
 
             grid.placePlayer(Player.NAUGHT, 0, 0);
@@ -42,8 +42,8 @@ describe("Grid", () => {
         });
 
         it("should set winner if there is one", () => {
-            hasWon.mockReturnValueOnce(false);
-            hasWon.mockReturnValueOnce(true);
+            (hasWon as jest.Mock).mockReturnValueOnce(false);
+            (hasWon as jest.Mock).mockReturnValueOnce(true);
 
             const grid = new Grid();
 
@@ -58,7 +58,7 @@ describe("Grid", () => {
 
     describe("placePlayer", () => {
         beforeEach(() => {
-            hasWon.mockReturnValue(false);
+            (hasWon as jest.Mock).mockReturnValue(false);
         });
 
         it("should set player property", () => {
