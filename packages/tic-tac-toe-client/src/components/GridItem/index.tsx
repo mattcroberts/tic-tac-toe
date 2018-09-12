@@ -15,7 +15,7 @@ interface IGridItemProps {
         right: boolean;
     };
     itemState: TGridItem;
-    onItemClick: (player: string | null, x: number, y: number) => void;
+    onItemClick: (x: number, y: number) => void;
 }
 
 class GridItem extends React.PureComponent<IGridItemProps, any> {
@@ -41,11 +41,7 @@ class GridItem extends React.PureComponent<IGridItemProps, any> {
         );
     }
     private onClick() {
-        this.props.onItemClick(
-            this.props.itemState.player ? this.props.itemState.player : null,
-            this.props.colN,
-            this.props.rowN
-        );
+        this.props.onItemClick(this.props.colN, this.props.rowN);
     }
 }
 

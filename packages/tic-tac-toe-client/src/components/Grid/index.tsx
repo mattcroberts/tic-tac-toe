@@ -13,7 +13,7 @@ export interface IGridProps {
     winner?: IPlayer | null;
     isDraw: boolean;
     size: number;
-    onItemClick: (player: string, x: number, y: number) => void;
+    onItemClick: (x: number, y: number) => void;
 }
 
 class Grid extends React.Component<IGridProps> {

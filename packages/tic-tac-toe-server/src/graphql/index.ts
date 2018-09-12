@@ -1,9 +1,7 @@
 import * as fs from "fs";
-import { ILogger, makeExecutableSchema } from "graphql-tools";
+import { makeExecutableSchema } from "graphql-tools";
 import { join } from "path";
 
-import Grid from "../models/Grid";
-import Player from "../models/Player";
 import { mutation, query } from "./grid/resolver";
 
 const schema = fs.readFileSync(join(__dirname, "./schema.graphql"), "utf8");

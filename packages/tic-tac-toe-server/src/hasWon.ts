@@ -3,10 +3,10 @@ import { IGridItem } from "./models/GridItem";
 import Player from "./models/Player";
 
 export default (player: Player, grid: IGridModel): boolean => {
-    const rowWin = grid.gridItems.reduce((won, row, i, all) => {
+    const rowWin = grid.gridItems.reduce((won, row) => {
         return (
             won ||
-            row.every(({ player: p }, j) => {
+            row.every(({ player: p }) => {
                 return p === player;
             })
         );

@@ -57,7 +57,7 @@ export class GridContainer extends React.Component<IGridContainerProps> {
         );
     }
 
-    private onItemClick(player: IPlayer, x: number, y: number): void {
+    private onItemClick(x: number, y: number): void {
         const {
             executeTurn,
             data: { grid }

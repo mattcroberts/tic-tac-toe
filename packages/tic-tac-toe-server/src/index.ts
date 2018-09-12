@@ -5,7 +5,6 @@ import Koa from "koa";
 import koabody from "koa-bodyparser";
 import Router from "koa-router";
 import mongoose from "mongoose";
-import { promisify } from "util";
 import { Schema } from "./graphql";
 
 dotenv.config();

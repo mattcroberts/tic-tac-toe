@@ -1,12 +1,13 @@
 {
     "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
     "linterOptions": {
-        "exclude": ["dist/**/*", "node_modules/**/*.ts"]
+        "exclude": ["dist/**/*", "coverage/**/*", "node_modules/**/*.ts"]
     },
     "rules": {
         "no-console": [false, "log", "error"],
         "interface-name": [true, "always-prefix"],
         "ordered-imports": [false],
-        "object-literal-sort-keys": [false]
+        "object-literal-sort-keys": [false],
+        "no-unused-variable": true
     }
 }
