@@ -1,7 +1,7 @@
 import hasWon from "./hasWon";
-import Player from "./models/Player";
-import Grid from "./models/Grid";
-import GridItem, { IGridItem } from "./models/GridItem";
+import Player from "../models/Player";
+import Grid from "../models/Grid";
+import GridItem, { IGridItem } from "../models/GridItem";
 
 const newGrid = () =>
     [...new Array<IGridItem>(9)].map(

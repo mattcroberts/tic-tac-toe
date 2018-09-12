@@ -1,6 +1,6 @@
 import { Document, model, Schema } from "mongoose";
 
-import hasWon from "../../hasWon";
+import hasWon from "../../utils/hasWon";
 import GridItem, {
     GridItemSchema,
     IGridItem,

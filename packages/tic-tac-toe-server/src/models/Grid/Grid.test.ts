@@ -1,5 +1,5 @@
 import Grid from ".";
-import hasWon from "../../hasWon";
+import hasWon from "../../utils/hasWon";
 import Player from "../Player";
 
 jest.mock("../../hasWon");

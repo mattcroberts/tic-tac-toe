@@ -1,6 +1,6 @@
-import { IGridModel } from "./models/Grid";
-import { IGridItem } from "./models/GridItem";
-import Player from "./models/Player";
+import { IGridModel } from "../models/Grid";
+import { IGridItem } from "../models/GridItem";
+import Player from "../models/Player";
 
 export default (player: Player, grid: IGridModel): boolean => {
     const rowWin = grid.gridItems.reduce((won, row) => {
