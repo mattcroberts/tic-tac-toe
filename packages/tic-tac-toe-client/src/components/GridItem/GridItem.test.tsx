@@ -65,6 +65,6 @@ describe("GridItem", () => {
         component.simulate("click");
 
         expect(props.onItemClick).toHaveBeenCalled();
-        expect(props.onItemClick).toHaveBeenCalledWith(Player.NAUGHT, 0, 0);
+        expect(props.onItemClick).toHaveBeenCalledWith(0, 0);
     });
 });

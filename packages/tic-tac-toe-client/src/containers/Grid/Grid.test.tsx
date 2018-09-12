@@ -51,7 +51,7 @@ describe("GridContainer", () => {
 
             const click = grid.find(Grid).prop("onItemClick");
 
-            click(Player.NAUGHT, 1, 2);
+            click(1, 2);
 
             expect(defaultProps.executeTurn).toHaveBeenCalled();
             expect(defaultProps.executeTurn).toHaveBeenCalledWith({
@@ -82,7 +82,7 @@ describe("GridContainer", () => {
 
             const click = grid.find(Grid).prop("onItemClick");
 
-            click(Player.NAUGHT, 1, 2);
+            click(1, 2);
 
             expect(defaultProps.executeTurn).not.toHaveBeenCalled();
         });
