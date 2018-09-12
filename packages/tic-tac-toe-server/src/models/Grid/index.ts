@@ -1,12 +1,12 @@
 import { Document, model, Schema } from "mongoose";
 
-import hasWon from "../hasWon";
+import hasWon from "../../hasWon";
 import GridItem, {
     GridItemSchema,
     IGridItem,
     IGridItemModel
-} from "./GridItem";
-import Player from "./Player";
+} from "../GridItem";
+import Player from "../Player";
 
 interface IGrid {
     _gridItems: [IGridItemModel];
@@ -27,7 +27,7 @@ const gridSchema = new Schema(
         _gridItems: {
             default() {
                 return [...new Array<IGridItem>(9)].map(
-                    (_, i) => new GridItem({ x: Math.floor(i / 9), y: i % 9 })
+                    (_, i) => new GridItem({ x: Math.floor(i / 3), y: i % 3 })
                 );
             },
             type: [GridItemSchema]
@@ -93,7 +93,7 @@ gridSchema.method("checkWinner", function(this: IGridModel) {
         this.winner = Player.CROSS;
     }
 
-    if (this.isDraw()) {
+    if (this.winner || this.isDraw()) {
         this.isFinished = true;
     }
 });

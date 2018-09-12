@@ -1,5 +1,5 @@
 import { Document, model, Schema } from "mongoose";
-import Player from "./Player";
+import Player from "../Player";
 
 export interface IGridItem {
     x: number;
