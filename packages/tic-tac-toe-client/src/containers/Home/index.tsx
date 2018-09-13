@@ -19,9 +19,9 @@ class Home extends React.Component<IProps> {
     public render() {
         return (
             <Mutation mutation={NEW_GAME} onCompleted={this.onNewGame}>
-                {(newGame, { loading }) => {
-                    return <HomePage loading={loading} newGame={newGame} />;
-                }}
+                {(newGame, { loading }) => (
+                    <HomePage loading={loading} newGame={newGame} />
+                )}
             </Mutation>
         );
     }

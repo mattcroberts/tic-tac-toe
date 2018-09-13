@@ -44,7 +44,7 @@ describe("Grid resolver", () => {
             expect(placePlayerSpy).toHaveBeenCalledWith("NAUGHT", 1, 2);
         });
         it("should throw if grid not found", async () => {
-            const testGrid = new Grid();
+            
             jest.spyOn(Grid, "findById").mockResolvedValueOnce(null);
             const params: any = {
                 id: "123",
