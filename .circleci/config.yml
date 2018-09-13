@@ -1,5 +1,20 @@
 version: 2
 jobs:
+  install-dependencies:
+    docker:
+      - image: circleci/node:8
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          command: yarn
+
+      - save_cache:
+          paths:
+            - node_modules
+            - packages/tic-tac-toe-client/node_modules
+            - packages/tic-tac-toe-server/node_modules
+          key: npm-deps-{{ checksum "./package.json" }}-{{ checksum "./packages/tic-tac-toe-client/package.json" }}-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
   build-ui:
     docker:
       - image: circleci/node:8
@@ -12,18 +27,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "./packages/tic-tac-toe-client/package.json" }}
+            - npm-deps-{{ checksum "./package.json" }}-{{ checksum "./packages/tic-tac-toe-client/package.json" }}-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
-      - run:
-          command: yarn
-          working_directory: ./packages/tic-tac-toe-client
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "./packages/tic-tac-toe-client/package.json" }}
+            - npm-deps-
 
       - run:
           environment:
@@ -43,18 +49,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
+            - npm-deps-{{ checksum "./package.json" }}-{{ checksum "./packages/tic-tac-toe-client/package.json" }}-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
-      - run:
-          command: yarn
-          working_directory: ./packages/tic-tac-toe-server
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
+            - npm-deps-
 
       - run:
           command: yarn build
@@ -69,16 +66,9 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "./packages/tic-tac-toe-client/package.json" }}
+            - npm-deps-{{ checksum "./package.json" }}-{{ checksum "./packages/tic-tac-toe-client/package.json" }}-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - run:
-          command: yarn
-          working_directory: ./packages/tic-tac-toe-client
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "./packages/tic-tac-toe-client/package.json" }}
+            - npm-deps-
       - run:
           command: mkdir -p reports/junit
           working_directory: ./packages/tic-tac-toe-client
@@ -107,16 +97,9 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
+            - npm-deps-{{ checksum "./package.json" }}-{{ checksum "./packages/tic-tac-toe-client/package.json" }}-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - run:
-          command: yarn
-          working_directory: ./packages/tic-tac-toe-server
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
+            - npm-deps-
       - run:
           command: mkdir -p reports/junit
           working_directory: ./packages/tic-tac-toe-server
@@ -148,16 +131,9 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "./packages/tic-tac-toe-client/package.json" }}
+            - npm-deps-{{ checksum "./package.json" }}-{{ checksum "./packages/tic-tac-toe-client/package.json" }}-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - run:
-          command: yarn
-          working_directory: ./packages/tic-tac-toe-client
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "./packages/tic-tac-toe-client/package.json" }}
+            - npm-deps-
       - run:
           environment:
             API_URI: https://mcr-tictactoe.now.sh/graphql
@@ -179,16 +155,9 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
+            - npm-deps-{{ checksum "./package.json" }}-{{ checksum "./packages/tic-tac-toe-client/package.json" }}-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - run:
-          command: yarn
-          working_directory: ./packages/tic-tac-toe-server
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
+            - npm-deps-
       - run:
           command: yarn build
           working_directory: ./packages/tic-tac-toe-server
@@ -201,16 +170,21 @@ jobs:
       - run:
           command: sleep 10 && npx now -t ${NOW_TOKEN} rm tic-tac-toe-server --safe --yes || exit 0
           working_directory: ./packages/tic-tac-toe-server
-      
+
 workflows:
   version: 2
   test:
     jobs:
+      - install-dependencies
       - build-ui:
+          requires:
+            - install-dependencies
           filters:
             branches:
               only: master
       - build-server:
+          requires:
+            - install-dependencies
           filters:
             branches:
               only: master
