@@ -2,5 +2,6 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    background: url("../public/TexturesCom_MetalBare0234_2_S.jpg");
+    background-color: #484349;
+    font-family: "Syncopate", sans-serif;
 }

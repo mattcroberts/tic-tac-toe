@@ -7,7 +7,7 @@ import GridItem from "../GridItem";
 
 import style from "./Grid.css";
 
-export interface IGridProps {
+export interface IProps {
     grid: IGridItem[][];
     currentPlayer: IPlayer;
     winner?: IPlayer | null;
@@ -16,7 +16,7 @@ export interface IGridProps {
     onItemClick: (x: number, y: number) => void;
 }
 
-class Grid extends React.Component<IGridProps> {
+class Grid extends React.Component<IProps> {
     public static defaultProps = {
         isDraw: false,
         onItemClick: () => undefined,

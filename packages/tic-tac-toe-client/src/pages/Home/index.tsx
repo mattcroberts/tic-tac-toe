@@ -11,9 +11,14 @@ const Home = ({
     newGame: () => any;
 }) => (
     <div className={style.root}>
-        <Button disabled={loading} onClick={newGame}>
-            {loading ? "Loading..." : "New Game"}
-        </Button>
+        <div>
+            <h1 className={style.heading}>Tic Tac Toe</h1>
+        </div>
+        <div>
+            <Button className={style.button} disabled={loading} onClick={newGame}>
+                {loading ? "Loading..." : "New Game"}
+            </Button>
+        </div>
     </div>
 );
 

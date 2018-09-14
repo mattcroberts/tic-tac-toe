@@ -6,7 +6,6 @@ import { ApolloProvider } from "react-apollo";
 import { BrowserRouter } from "react-router-dom";
 import "whatwg-fetch";
 
-import Wrapper from "../../components/Wrapper";
 import Routes from "../../routes";
 
 const httplink = new HttpLink({
@@ -25,9 +24,7 @@ class App extends React.Component {
         return (
             <ApolloProvider client={client}>
                 <BrowserRouter basename={process.env.PUBLIC_URL}>
-                    <Wrapper>
-                        <Routes />
-                    </Wrapper>
+                    <Routes />
                 </BrowserRouter>
             </ApolloProvider>
         );

@@ -7,7 +7,7 @@ export default ({ children }: { children: React.ReactNode }) => (
     <div className={style.root}>
         <div className={style.inner}>
             <div className={style.top}>
-                <h1>TIC TAC TOE</h1>
+                <h1 className={style.heading}>TIC TAC TOE</h1>
                 <Link to="/" className={style.link}>
                     Home
                 </Link>

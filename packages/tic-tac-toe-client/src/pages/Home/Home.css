@@ -1,1 +1,33 @@
-.root {}
+.root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+.root > * {
+    flex: 1 1;
+    display: flex;
+}
+
+.root > *:first-child {
+    flex-direction: column-reverse;
+}
+
+.root > *:nth-child(2) {
+    flex-direction: column;
+}
+
+.heading {
+    font-family: "Syncopate", sans-serif;
+    font-size: 42px;
+    font-weight: 800;
+    color: #fffbfe;
+}
+
+.button {
+    color: white;
+    border: 1px solid black;
+    border-radius: 20px;
+    background-color: #134611;
+}

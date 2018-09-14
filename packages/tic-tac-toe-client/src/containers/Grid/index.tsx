@@ -3,11 +3,11 @@ import { graphql } from "react-apollo";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
 import { Grid as IGrid, Player as IPlayer } from "../../../typings/types";
-import Grid from "../../components/Grid";
+import Grid from "../../pages/Grid";
 import * as EXECUTE_TURN from "./executeTurn.graphql";
 import * as GET_GRID from "./getGrid.graphql";
 
-interface IGridContainerProps {
+export interface IProps {
     executeTurn: (
         options: {
             variables: {
@@ -25,10 +25,10 @@ interface IGridContainerProps {
     };
 }
 
-export class GridContainer extends React.Component<IGridContainerProps> {
+export class GridContainer extends React.Component<IProps> {
     public state = {};
 
-    constructor(props: IGridContainerProps) {
+    constructor(props: IProps) {
         super(props);
         this.onItemClick = this.onItemClick.bind(this);
     }
