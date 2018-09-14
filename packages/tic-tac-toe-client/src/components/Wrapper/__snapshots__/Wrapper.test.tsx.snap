@@ -10,7 +10,9 @@ exports[`Wrapper should render 1`] = `
     <div
       className="top"
     >
-      <h1>
+      <h1
+        className="heading"
+      >
         TIC TAC TOE
       </h1>
       <Link

@@ -4,12 +4,22 @@ exports[`Home should render 1`] = `
 <div
   className="root"
 >
-  <Button
-    disabled={false}
-    onClick={[MockFunction]}
-  >
-    New Game
-  </Button>
+  <div>
+    <h1
+      className="heading"
+    >
+      Tic Tac Toe
+    </h1>
+  </div>
+  <div>
+    <Button
+      className="button"
+      disabled={false}
+      onClick={[MockFunction]}
+    >
+      New Game
+    </Button>
+  </div>
 </div>
 `;
 
@@ -17,11 +27,21 @@ exports[`Home should render loading indicator 1`] = `
 <div
   className="root"
 >
-  <Button
-    disabled={true}
-    onClick={[MockFunction]}
-  >
-    Loading...
-  </Button>
+  <div>
+    <h1
+      className="heading"
+    >
+      Tic Tac Toe
+    </h1>
+  </div>
+  <div>
+    <Button
+      className="button"
+      disabled={true}
+      onClick={[MockFunction]}
+    >
+      Loading...
+    </Button>
+  </div>
 </div>
 `;

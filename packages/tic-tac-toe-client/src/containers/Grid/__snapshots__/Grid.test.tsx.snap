@@ -7,7 +7,7 @@ exports[`GridContainer renders loading state 1`] = `
 `;
 
 exports[`GridContainer renders without crashing 1`] = `
-<Grid
+<GridPage
   currentPlayer="NAUGHT"
   grid={
     Array [
@@ -58,6 +58,5 @@ exports[`GridContainer renders without crashing 1`] = `
   isDraw={false}
   onItemClick={[Function]}
   size={9}
-  winner={null}
 />
 `;
