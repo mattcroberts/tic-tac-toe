@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GridPage should render 1`] = `
+<Component>
+  <Grid
+    isDraw={false}
+    onItemClick={[Function]}
+    winner={null}
+  />
+</Component>
+`;

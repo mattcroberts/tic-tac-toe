@@ -5,7 +5,7 @@ import { GridContainer } from ".";
 
 import { Player } from "../../../typings/types";
 import { createGrid } from "../../../test/utils";
-import Grid from "../../components/Grid";
+import Grid from "../../pages/Grid";
 
 describe("GridContainer", () => {
     const defaultProps = {
