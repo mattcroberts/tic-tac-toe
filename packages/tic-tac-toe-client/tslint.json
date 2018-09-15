@@ -5,6 +5,7 @@
     },
     "rules": {
         "jsx-no-multiline-js": false,
+        "jsx-wrap-multiline": false,
         "no-submodule-imports": [true, "react-apollo"]
     }
 }

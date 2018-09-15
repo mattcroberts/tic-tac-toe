@@ -1,8 +1,7 @@
 {
   "modules": true,
   "plugins": {
-    "autoprefixer": {
-      "grid": true
-    }
+    "postcss-cssnext": {},
+    "postcss-import":{}
   }
 }

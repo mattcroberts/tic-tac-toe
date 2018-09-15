@@ -4,6 +4,7 @@ import {
     Player as IPlayer
 } from "../../../typings/types";
 import GridItem from "../GridItem";
+import Winner from "../Winner";
 
 import style from "./Grid.css";
 
@@ -25,11 +26,10 @@ class Grid extends React.Component<IProps> {
     public render() {
         return (
             <div className={style.root}>
-                {this.props.winner === null
-                    ? this.props.isDraw
-                        ? "DRAW"
-                        : this.renderGrid()
-                    : `${this.props.winner} HAS WON`}
+                {this.renderGrid()}
+                {this.props.winner || this.props.isDraw ? (
+                    <Winner winner={this.props.winner} />
+                ) : null}
             </div>
         );
     }
@@ -44,6 +44,9 @@ class Grid extends React.Component<IProps> {
                         rowN={colN}
                         onItemClick={this.props.onItemClick}
                         itemState={item}
+                        isFinished={
+                            this.props.winner !== null || this.props.isDraw
+                        }
                         position={{
                             bottom: rowN === 2,
                             left: colN === 0,

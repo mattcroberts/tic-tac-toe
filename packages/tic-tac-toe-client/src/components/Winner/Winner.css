@@ -1,0 +1,19 @@
+.root {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.inner {
+    color: #fffbfe;
+    font-size: 80px;
+    font-weight: 800;
+}
+
+.naught {
+    composes: naught from "../GridItem/GridItem.css";
+    font-family: Montserrat, sans-serif;
+}
