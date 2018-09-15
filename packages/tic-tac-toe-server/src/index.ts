@@ -12,7 +12,11 @@ dotenv.config();
 const app = new Koa();
 const router = new Router();
 
-app.use(cors());
+app.use(
+    cors({
+        maxAge: 86400 // One day
+    })
+);
 app.use(koabody());
 
 router.get("/ping", async ctx => {
