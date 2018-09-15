@@ -10,7 +10,7 @@
     "build": "parcel build --public-url https://mattcroberts.github.io/tic-tac-toe/ public/index.html",
     "test": "jest",
     "lint": "tslint -t codeFrame -p .",
-    "deploy": "gh-pages -d dist -m 'auto commit [ci-skip]'"
+    "deploy": "gh-pages -d dist -m 'auto commit [ci skip]'"
   },
   "dependencies": {
     "apollo-cache-inmemory": "^1.2.1",
