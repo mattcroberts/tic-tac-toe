@@ -12,27 +12,27 @@ const renderStats = (stats: TicTacToe) => {
     }
 
     return (
-        <table>
+        <table className={style.stats}>
             <tbody>
                 <tr>
-                    <td>Games In Progress</td>
-                    <td>{stats.gamesInProgress}</td>
+                    <td className={style.cell}>Games In Progress</td>
+                    <td className={style.cell}>{stats.gamesInProgress}</td>
                 </tr>
                 <tr>
-                    <td>Games Finished</td>
-                    <td>{stats.gamesFinished}</td>
+                    <td className={style.cell}>Games Finished</td>
+                    <td className={style.cell}>{stats.gamesFinished}</td>
                 </tr>
                 <tr>
-                    <td>Naught Wins</td>
-                    <td>{stats.naughtWins}</td>
+                    <td className={style.cell}>Naught Wins</td>
+                    <td className={style.cell}>{stats.naughtWins}</td>
                 </tr>
                 <tr>
-                    <td>Cross Wins</td>
-                    <td>{stats.crossWins}</td>
+                    <td className={style.cell}>Cross Wins</td>
+                    <td className={style.cell}>{stats.crossWins}</td>
                 </tr>
                 <tr>
-                    <td>Games Drawn</td>
-                    <td>{stats.gamesDrawn}</td>
+                    <td className={style.cell}>Games Drawn</td>
+                    <td className={style.cell}>{stats.gamesDrawn}</td>
                 </tr>
             </tbody>
         </table>
@@ -57,13 +57,15 @@ const Home = ({
             </h1>
         </div>
         <div>
-            <Button
-                className={style.button}
-                disabled={loading}
-                onClick={newGame}
-            >
-                {loading ? "Loading..." : "New Game"}
-            </Button>
+            <div className={style.buttonContainer}>
+                <Button
+                    className={style.button}
+                    disabled={loading}
+                    onClick={newGame}
+                >
+                    {loading ? "Loading..." : "New Game"}
+                </Button>
+            </div>
             {renderStats(gameInfo)}
         </div>
     </div>
