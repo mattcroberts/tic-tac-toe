@@ -23,7 +23,7 @@ class App extends React.Component {
     public render() {
         return (
             <ApolloProvider client={client}>
-                <BrowserRouter basename={process.env.PUBLIC_URL}>
+                <BrowserRouter>
                     <Routes />
                 </BrowserRouter>
             </ApolloProvider>

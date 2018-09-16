@@ -7,17 +7,15 @@
     "generate-types": "gql-gen --schema http://localhost:3000/graphql --template graphql-codegen-typescript-template --out ./typings/ \"./src/**/*.ts\"",
     "start": "parcel serve --log-level 3 -p 3001 public/index.html",
     "prebuild": "rm -rf dist",
-    "build": "parcel build --public-url https://mattcroberts.github.io/tic-tac-toe/ public/index.html",
+    "build": "parcel build public/index.html",
     "test": "jest",
-    "lint": "tslint -t codeFrame -p .",
-    "deploy": "gh-pages -d dist -m 'auto commit [ci skip]'"
+    "lint": "tslint -t codeFrame -p ."
   },
   "dependencies": {
     "apollo-cache-inmemory": "^1.2.1",
     "apollo-client": "^2.3.1",
     "apollo-link-http": "^1.5.4",
     "classnames": "^2.2.6",
-    "gh-pages": "^1.2.0",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
     "history": "^4.7.2",

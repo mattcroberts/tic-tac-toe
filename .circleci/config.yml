@@ -33,8 +33,7 @@ jobs:
 
       - run:
           environment:
-            API_URI: https://mcr-tictactoe.now.sh/graphql
-            PUBLIC_URL: /tic-tac-toe
+            API_URI: https://mcr-tictactoe-api.now.sh/graphql
           command: yarn build
           working_directory: ./packages/tic-tac-toe-client
   build-server:
@@ -125,9 +124,6 @@ jobs:
     working_directory: ~/repo
 
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "3e:ef:a8:b3:d8:48:50:fd:c6:61:b9:c7:ec:b3:cb:c9"
       - checkout
       - restore_cache:
           keys:
@@ -136,14 +132,14 @@ jobs:
             - npm-deps-
       - run:
           environment:
-            API_URI: https://mcr-tictactoe.now.sh/graphql
-            PUBLIC_URL: /tic-tac-toe
+            API_URI: https://mcr-tictactoe-api.now.sh/graphql
           command: yarn build
           working_directory: ./packages/tic-tac-toe-client
-      - run: git config --global user.email circleci@circleci
-      - run: git config --global user.name CircleCI
       - run:
-          command: yarn deploy
+          command: npx now -t ${NOW_TOKEN}
+          working_directory: ./packages/tic-tac-toe-client
+      - run:
+          command: npx now -t ${NOW_TOKEN} alias mcr-tictactoe.now.sh
           working_directory: ./packages/tic-tac-toe-client
   deploy-server:
     docker:
@@ -165,7 +161,7 @@ jobs:
           command: npx now -t ${NOW_TOKEN} --regions=bru -e MONGO_URI=@tictactoe_db
           working_directory: ./packages/tic-tac-toe-server
       - run:
-          command: npx now -t ${NOW_TOKEN} alias mcr-tictactoe.now.sh
+          command: npx now -t ${NOW_TOKEN} alias mcr-tictactoe-api.now.sh
           working_directory: ./packages/tic-tac-toe-server
       - run:
           command: sleep 10 && npx now -t ${NOW_TOKEN} rm tic-tac-toe-server --safe --yes || exit 0
