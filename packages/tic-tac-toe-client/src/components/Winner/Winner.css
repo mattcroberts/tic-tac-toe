@@ -17,3 +17,8 @@
     composes: naught from "../GridItem/GridItem.css";
     font-family: Montserrat, sans-serif;
 }
+
+.cross {
+    composes: cross from "../GridItem/GridItem.css";
+    font-family: Montserrat, sans-serif;
+}
