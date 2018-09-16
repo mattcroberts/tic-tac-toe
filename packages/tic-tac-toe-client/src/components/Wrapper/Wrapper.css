@@ -1,14 +1,13 @@
 .root {
     display: flex;
     flex-direction: column;
-    height: 100vh;
 }
 
 .inner {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    margin: 12px;
+    min-height: 100vh;
+    padding: 12px;
 }
 
 .top {
@@ -19,7 +18,7 @@
 .content {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    flex: 1;
 }
 
 .link {
@@ -28,5 +27,6 @@
 }
 
 .heading {
-    font-size: 36px;
+    font-size: 32px;
+    margin: 6px;
 }

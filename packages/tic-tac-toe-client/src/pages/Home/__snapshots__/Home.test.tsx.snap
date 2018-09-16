@@ -12,52 +12,78 @@ exports[`Home should render 1`] = `
     </h1>
   </div>
   <div>
-    <Button
-      className="button"
-      disabled={false}
-      onClick={[MockFunction]}
+    <div
+      className="buttonContainer"
     >
-      New Game
-    </Button>
-    <table>
+      <Button
+        className="button"
+        disabled={false}
+        onClick={[MockFunction]}
+      >
+        New Game
+      </Button>
+    </div>
+    <table
+      className="stats"
+    >
       <tbody>
         <tr>
-          <td>
+          <td
+            className="cell"
+          >
             Games In Progress
           </td>
-          <td>
+          <td
+            className="cell"
+          >
             0
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            className="cell"
+          >
             Games Finished
           </td>
-          <td>
+          <td
+            className="cell"
+          >
             0
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            className="cell"
+          >
             Naught Wins
           </td>
-          <td>
+          <td
+            className="cell"
+          >
             0
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            className="cell"
+          >
             Cross Wins
           </td>
-          <td>
+          <td
+            className="cell"
+          >
             0
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            className="cell"
+          >
             Games Drawn
           </td>
-          <td>
+          <td
+            className="cell"
+          >
             0
           </td>
         </tr>
@@ -79,52 +105,78 @@ exports[`Home should render loading indicator 1`] = `
     </h1>
   </div>
   <div>
-    <Button
-      className="button"
-      disabled={true}
-      onClick={[MockFunction]}
+    <div
+      className="buttonContainer"
     >
-      Loading...
-    </Button>
-    <table>
+      <Button
+        className="button"
+        disabled={true}
+        onClick={[MockFunction]}
+      >
+        New Game
+      </Button>
+    </div>
+    <table
+      className="stats"
+    >
       <tbody>
         <tr>
-          <td>
+          <td
+            className="cell"
+          >
             Games In Progress
           </td>
-          <td>
+          <td
+            className="cell"
+          >
             0
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            className="cell"
+          >
             Games Finished
           </td>
-          <td>
+          <td
+            className="cell"
+          >
             0
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            className="cell"
+          >
             Naught Wins
           </td>
-          <td>
+          <td
+            className="cell"
+          >
             0
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            className="cell"
+          >
             Cross Wins
           </td>
-          <td>
+          <td
+            className="cell"
+          >
             0
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            className="cell"
+          >
             Games Drawn
           </td>
-          <td>
+          <td
+            className="cell"
+          >
             0
           </td>
         </tr>

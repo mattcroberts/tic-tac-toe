@@ -5,3 +5,7 @@ body {
     background-color: #484349;
     font-family: "Syncopate", sans-serif;
 }
+
+* {
+    box-sizing: border-box;
+}

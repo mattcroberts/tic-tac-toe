@@ -4,10 +4,11 @@
     flex: 1;
     text-align: center;
     position: relative;
+    user-select: none;
+    /* height: 100%; */
 }
 
 .row {
     display: flex;
-    height: 100%;
-    flex-direction: row;
+    flex: 1;
 }

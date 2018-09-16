@@ -63,7 +63,7 @@ const Home = ({
                     disabled={loading}
                     onClick={newGame}
                 >
-                    {loading ? "Loading..." : "New Game"}
+                    {"New Game"}
                 </Button>
             </div>
             {renderStats(gameInfo)}

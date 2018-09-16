@@ -20,8 +20,6 @@ interface IGridItemProps {
     onItemClick: (x: number, y: number) => void;
 }
 
-
-
 class GridItem extends React.PureComponent<IGridItemProps, any> {
     constructor(props: IGridItemProps) {
         super(props);
@@ -52,9 +50,13 @@ class GridItem extends React.PureComponent<IGridItemProps, any> {
                 )}
                 onClick={this.onClick}
             >
-                {this.props.itemState.player
-                    ? getPlayerSymbol(this.props.itemState.player)
-                    : ""}
+                <span>
+                    {this.props.itemState.player ? (
+                        getPlayerSymbol(this.props.itemState.player)
+                    ) : (
+                        <>&nbsp;</>
+                    )}
+                </span>
             </div>
         );
     }

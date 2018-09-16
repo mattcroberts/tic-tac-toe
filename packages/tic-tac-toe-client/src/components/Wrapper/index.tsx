@@ -8,10 +8,12 @@ export default ({ children }: { children: React.ReactNode }) => (
         <div className={style.inner}>
             <div className={style.top}>
                 <h1 className={style.heading}>TIC TAC TOE</h1>
+            </div>
+            <nav>
                 <Link to="/" className={style.link}>
                     Home
                 </Link>
-            </div>
+            </nav>
             <div className={style.content}>{children}</div>
         </div>
     </div>

@@ -4,7 +4,11 @@ exports[`GridItem should render 1`] = `
 <div
   className="root"
   onClick={[Function]}
-/>
+>
+  <span>
+     
+  </span>
+</div>
 `;
 
 exports[`GridItem should render CROSS 1`] = `
@@ -12,7 +16,9 @@ exports[`GridItem should render CROSS 1`] = `
   className="cross root"
   onClick={[Function]}
 >
-  X
+  <span>
+    X
+  </span>
 </div>
 `;
 
@@ -21,6 +27,8 @@ exports[`GridItem should render NAUGHT 1`] = `
   className="naught root"
   onClick={[Function]}
 >
-  0
+  <span>
+    0
+  </span>
 </div>
 `;
