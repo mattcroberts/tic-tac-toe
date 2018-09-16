@@ -1,3 +1,8 @@
+:root {
+    --heading-color: #fffbfe;
+    --button-border-color: #282528;
+}
+
 .root {
     display: flex;
     flex-direction: column;
@@ -18,16 +23,37 @@
     flex-direction: column;
 }
 
+@keyframes glow {
+    from {
+        text-shadow: 0 0 0 var(--heading-color);
+    }
+
+    to {
+        text-shadow: 0 0 20px var(--heading-color);
+    }
+}
+
 .heading {
     font-family: "Syncopate", sans-serif;
     font-size: 42px;
     font-weight: 800;
-    color: #fffbfe;
+    color: var(--heading-color);
+}
+
+.heading.glow {
+    animation-duration: 1s;
+    animation-name: glow;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 
 .button {
-    color: white;
-    border: 1px solid black;
+    color: var(--heading-color);
+    border: 1px solid var(--button-border-color);
     border-radius: 20px;
     background-color: #134611;
+}
+
+.button:disabled {
+    background-color: var(--button-border-color);
 }

@@ -14,7 +14,7 @@ exports[`Home should render 1`] = `
   <div>
     <Button
       className="button"
-      disabled={false}
+      disabled={true}
       onClick={[MockFunction]}
     >
       New Game
@@ -29,7 +29,7 @@ exports[`Home should render loading indicator 1`] = `
 >
   <div>
     <h1
-      className="heading"
+      className="heading glow"
     >
       Tic Tac Toe
     </h1>
