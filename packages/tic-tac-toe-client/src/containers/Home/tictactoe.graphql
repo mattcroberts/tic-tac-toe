@@ -1,0 +1,9 @@
+query tictactoe {
+    tictactoe {
+        gamesInProgress
+        gamesFinished
+        gamesDrawn
+        naughtWins
+        crossWins
+    }
+}

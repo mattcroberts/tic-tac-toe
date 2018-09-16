@@ -1,5 +1,6 @@
 type Query {
     grid(id: ID!): Grid!
+    tictactoe: TicTacToe
 }
 
 type Mutation {
@@ -24,4 +25,12 @@ type Grid {
     winner: Player
     isFinished: Boolean!
     size: Int!
+}
+
+type TicTacToe {
+    gamesInProgress: Int!
+    gamesFinished: Int!
+    crossWins: Int!
+    naughtWins: Int!
+    gamesDrawn: Int!
 }

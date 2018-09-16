@@ -6,7 +6,14 @@ describe("Home", () => {
     const defaultProps = {
         children: <div>Test</div>,
         loading: false,
-        newGame: jest.fn()
+        newGame: jest.fn(),
+        gameInfo: {
+            gamesInProgress: 0,
+            gamesFinished: 0,
+            gamesDrawn: 0,
+            naughtWins: 0,
+            crossWins: 0
+        }
     };
 
     beforeEach(() => {

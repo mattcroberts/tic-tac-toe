@@ -30,6 +30,7 @@ export type SubscriptionResolver<
 
 export interface Query {
     grid: Grid;
+    tictactoe?: TicTacToe | null;
 }
 
 export interface Grid {
@@ -44,6 +45,14 @@ export interface Grid {
 export interface GridItem {
     id: string;
     player?: Player | null;
+}
+
+export interface TicTacToe {
+    gamesInProgress: number;
+    gamesFinished: number;
+    crossWins: number;
+    naughtWins: number;
+    gamesDrawn: number;
 }
 
 export interface Mutation {
@@ -68,6 +77,7 @@ export enum Player {
 export namespace QueryResolvers {
     export interface Resolvers<Context = any> {
         grid?: GridResolver<Grid, any, Context>;
+        tictactoe?: TictactoeResolver<TicTacToe | null, any, Context>;
     }
 
     export type GridResolver<R = Grid, Parent = any, Context = any> = Resolver<
@@ -79,6 +89,12 @@ export namespace QueryResolvers {
     export interface GridArgs {
         id: string;
     }
+
+    export type TictactoeResolver<
+        R = TicTacToe | null,
+        Parent = any,
+        Context = any
+    > = Resolver<R, Parent, Context>;
 }
 
 export namespace GridResolvers {
@@ -136,6 +152,42 @@ export namespace GridItemResolvers {
     >;
     export type PlayerResolver<
         R = Player | null,
+        Parent = any,
+        Context = any
+    > = Resolver<R, Parent, Context>;
+}
+
+export namespace TicTacToeResolvers {
+    export interface Resolvers<Context = any> {
+        gamesInProgress?: GamesInProgressResolver<number, any, Context>;
+        gamesFinished?: GamesFinishedResolver<number, any, Context>;
+        crossWins?: CrossWinsResolver<number, any, Context>;
+        naughtWins?: NaughtWinsResolver<number, any, Context>;
+        gamesDrawn?: GamesDrawnResolver<number, any, Context>;
+    }
+
+    export type GamesInProgressResolver<
+        R = number,
+        Parent = any,
+        Context = any
+    > = Resolver<R, Parent, Context>;
+    export type GamesFinishedResolver<
+        R = number,
+        Parent = any,
+        Context = any
+    > = Resolver<R, Parent, Context>;
+    export type CrossWinsResolver<
+        R = number,
+        Parent = any,
+        Context = any
+    > = Resolver<R, Parent, Context>;
+    export type NaughtWinsResolver<
+        R = number,
+        Parent = any,
+        Context = any
+    > = Resolver<R, Parent, Context>;
+    export type GamesDrawnResolver<
+        R = number,
         Parent = any,
         Context = any
     > = Resolver<R, Parent, Context>;

@@ -1,12 +1,14 @@
 import * as H from "history";
 import * as React from "react";
-import { Mutation } from "react-apollo";
+import { Mutation, Query } from "react-apollo";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
 
 import { Mutation as IMutation } from "../../../typings/types";
 import HomePage from "../../pages/Home";
 import * as NEW_GAME from "./newGame.graphql";
+import * as TIC_TAC_TOE from "./tictactoe.graphql";
+
 interface IProps {
     history: H.History;
 }
@@ -18,11 +20,19 @@ class Home extends React.Component<IProps> {
     }
     public render() {
         return (
-            <Mutation mutation={NEW_GAME} onCompleted={this.onNewGame}>
-                {(newGame, { loading }) => (
-                    <HomePage loading={loading} newGame={newGame} />
+            <Query query={TIC_TAC_TOE}>
+                {result => (
+                    <Mutation mutation={NEW_GAME} onCompleted={this.onNewGame}>
+                        {(newGame, { loading }) => (
+                            <HomePage
+                                loading={loading}
+                                newGame={newGame}
+                                gameInfo={result.data.tictactoe}
+                            />
+                        )}
+                    </Mutation>
                 )}
-            </Mutation>
+            </Query>
         );
     }
 
