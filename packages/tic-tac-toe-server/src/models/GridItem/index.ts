@@ -1,10 +1,10 @@
 import { Document, model, Schema } from "mongoose";
-import Player from "../Player";
+import { IPlayerModel } from "../Player";
 
 export interface IGridItem {
     x: number;
     y: number;
-    player: Player | null;
+    player: IPlayerModel | null;
 }
 
 export interface IGridItemModel extends IGridItem, Document {}
@@ -12,8 +12,8 @@ export interface IGridItemModel extends IGridItem, Document {}
 export const GridItemSchema = new Schema(
     {
         player: {
-            enum: Object.keys(Player),
-            type: String
+            type: Schema.Types.ObjectId,
+            ref: "Player"
         },
         x: {
             required: true,

@@ -6,18 +6,19 @@ import GridItem, {
     IGridItem,
     IGridItemModel
 } from "../GridItem";
-import Player from "../Player";
+import { IPlayerModel, SYMBOL } from "../Player";
 
 interface IGrid {
     _gridItems: [IGridItemModel];
     gridItems: [IGridItem[]];
-    currentPlayer: Player;
-    winner: Player | null;
+    players: [IPlayerModel];
+    currentPlayer: IPlayerModel;
+    winner: IPlayerModel | null;
     isFinished: boolean;
     size: number;
     checkWinner(): void;
     isDraw(): boolean;
-    placePlayer(player: Player, x: number, y: number): void;
+    placePlayer(player: IPlayerModel, x: number, y: number): void;
 }
 
 export interface IGridModel extends IGrid, Document {}
@@ -33,10 +34,15 @@ const gridSchema = new Schema(
             type: [GridItemSchema]
         },
         currentPlayer: {
-            default: Player.NAUGHT,
-            enum: Object.keys(Player),
-            type: String
+            type: Schema.Types.ObjectId,
+            ref: "Player"
         },
+        players: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Player"
+            }
+        ],
         isFinished: {
             default: false,
             type: Boolean
@@ -46,8 +52,8 @@ const gridSchema = new Schema(
             type: Number
         },
         winner: {
-            enum: Object.keys(Player),
-            type: String
+            type: Schema.Types.ObjectId,
+            ref: "Player"
         }
     },
     {
@@ -74,7 +80,7 @@ gridSchema.virtual("gridItems").get(function(this: IGridModel) {
 
 gridSchema.method("placePlayer", function(
     this: IGridModel,
-    player: Player,
+    player: IPlayerModel,
     x: number,
     y: number
 ) {
@@ -82,15 +88,16 @@ gridSchema.method("placePlayer", function(
 
     this.checkWinner();
 
-    this.currentPlayer =
-        this.currentPlayer === Player.NAUGHT ? Player.CROSS : Player.NAUGHT;
+    this.currentPlayer = this.players.find(
+        p => p.symbol !== this.currentPlayer.symbol
+    )!;
 });
 
 gridSchema.method("checkWinner", function(this: IGridModel) {
-    if (hasWon(Player.NAUGHT, this)) {
-        this.winner = Player.NAUGHT;
-    } else if (hasWon(Player.CROSS, this)) {
-        this.winner = Player.CROSS;
+    if (hasWon(SYMBOL.NAUGHT, this)) {
+        this.winner = this.players.find(p => p.symbol === SYMBOL.NAUGHT)!;
+    } else if (hasWon(SYMBOL.CROSS, this)) {
+        this.winner = this.players.find(p => p.symbol === SYMBOL.CROSS)!;
     }
 
     if (this.winner || this.isDraw()) {

@@ -1,13 +1,13 @@
 import { IGridModel } from "../models/Grid";
 import { IGridItem } from "../models/GridItem";
-import Player from "../models/Player";
+import { SYMBOL } from "../models/Player";
 
-export default (player: Player, grid: IGridModel): boolean => {
+export default (player: SYMBOL, grid: IGridModel): boolean => {
     const rowWin = grid.gridItems.reduce((won, row) => {
         return (
             won ||
-            row.every(({ player: p }) => {
-                return p === player;
+            row.every(({ player: { symbol } }) => {
+                return symbol === player;
             })
         );
     }, false);

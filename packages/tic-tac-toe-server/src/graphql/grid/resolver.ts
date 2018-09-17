@@ -1,5 +1,5 @@
 import Grid from "../../models/Grid";
-import Player from "../../models/Player";
+import { IPlayerModel } from "../../models/Player";
 
 export const query = {
     Query: {
@@ -25,7 +25,7 @@ export const mutation = {
                 player,
                 x,
                 y
-            }: { id: string; player: Player; x: number; y: number }
+            }: { id: string; player: IPlayerModel; x: number; y: number }
         ) {
             const grid = await Grid.findById(id);
 

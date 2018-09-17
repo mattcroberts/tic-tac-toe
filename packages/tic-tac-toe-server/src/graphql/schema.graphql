@@ -13,9 +13,14 @@ type GridItem {
     player: Player
 }
 
-enum Player {
+enum Symbol {
     NAUGHT
     CROSS
+}
+
+type Player {
+    id: ID!
+    symbol: Symbol
 }
 
 type Grid {
