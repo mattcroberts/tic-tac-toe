@@ -1,5 +1,5 @@
 import hasWon from "./hasWon";
-import Player from "../models/Player";
+import Player, { ISymbol } from "../models/Player";
 import Grid from "../models/Grid";
 import GridItem, { IGridItem } from "../models/GridItem";
 
@@ -8,14 +8,18 @@ const newGrid = () =>
         (_, i) => new GridItem({ x: Math.floor(i / 3), y: i % 3 })
     );
 describe("hasWon", () => {
+    const naughtPlayer = new Player({
+        symbol: ISymbol.NAUGHT
+    });
+
     it("should detect horizontal wins 1", () => {
         const gridItems = newGrid();
-        gridItems[0].set("player", Player.NAUGHT);
-        gridItems[1].set("player", Player.NAUGHT);
-        gridItems[2].set("player", Player.NAUGHT);
+        gridItems[0].set("player", ISymbol.NAUGHT);
+        gridItems[1].set("player", ISymbol.NAUGHT);
+        gridItems[2].set("player", ISymbol.NAUGHT);
 
         const result = hasWon(
-            Player.NAUGHT,
+            naughtPlayer,
             new Grid({
                 _gridItems: gridItems
             })
@@ -26,12 +30,12 @@ describe("hasWon", () => {
 
     it("should detect horizontal wins 2", () => {
         const gridItems = newGrid();
-        gridItems[3].set("player", Player.NAUGHT);
-        gridItems[4].set("player", Player.NAUGHT);
-        gridItems[5].set("player", Player.NAUGHT);
+        gridItems[3].set("player", ISymbol.NAUGHT);
+        gridItems[4].set("player", ISymbol.NAUGHT);
+        gridItems[5].set("player", ISymbol.NAUGHT);
 
         const result = hasWon(
-            Player.NAUGHT,
+            naughtPlayer,
             new Grid({
                 _gridItems: gridItems
             })
@@ -42,12 +46,12 @@ describe("hasWon", () => {
 
     it("should detect horizontal wins 3", () => {
         const gridItems = newGrid();
-        gridItems[6].set("player", Player.NAUGHT);
-        gridItems[7].set("player", Player.NAUGHT);
-        gridItems[8].set("player", Player.NAUGHT);
+        gridItems[6].set("player", ISymbol.NAUGHT);
+        gridItems[7].set("player", ISymbol.NAUGHT);
+        gridItems[8].set("player", ISymbol.NAUGHT);
 
         const result = hasWon(
-            Player.NAUGHT,
+            naughtPlayer,
             new Grid({
                 _gridItems: gridItems
             })
@@ -61,10 +65,10 @@ describe("hasWon", () => {
             _gridItems: newGrid()
         });
 
-        grid.get("_gridItems")[0].set("player", Player.NAUGHT);
-        grid.get("_gridItems")[3].set("player", Player.NAUGHT);
-        grid.get("_gridItems")[6].set("player", Player.NAUGHT);
-        const result = hasWon(Player.NAUGHT, grid);
+        grid.get("_gridItems")[0].set("player", ISymbol.NAUGHT);
+        grid.get("_gridItems")[3].set("player", ISymbol.NAUGHT);
+        grid.get("_gridItems")[6].set("player", ISymbol.NAUGHT);
+        const result = hasWon(naughtPlayer, grid);
 
         expect(result).toBe(true);
     });
@@ -74,10 +78,10 @@ describe("hasWon", () => {
             _gridItems: newGrid()
         });
 
-        grid.get("_gridItems")[1].set("player", Player.NAUGHT);
-        grid.get("_gridItems")[4].set("player", Player.NAUGHT);
-        grid.get("_gridItems")[7].set("player", Player.NAUGHT);
-        const result = hasWon(Player.NAUGHT, grid);
+        grid.get("_gridItems")[1].set("player", ISymbol.NAUGHT);
+        grid.get("_gridItems")[4].set("player", ISymbol.NAUGHT);
+        grid.get("_gridItems")[7].set("player", ISymbol.NAUGHT);
+        const result = hasWon(naughtPlayer, grid);
 
         expect(result).toBe(true);
     });
@@ -87,10 +91,10 @@ describe("hasWon", () => {
             _gridItems: newGrid()
         });
 
-        grid.get("_gridItems")[2].set("player", Player.NAUGHT);
-        grid.get("_gridItems")[5].set("player", Player.NAUGHT);
-        grid.get("_gridItems")[8].set("player", Player.NAUGHT);
-        const result = hasWon(Player.NAUGHT, grid);
+        grid.get("_gridItems")[2].set("player", ISymbol.NAUGHT);
+        grid.get("_gridItems")[5].set("player", ISymbol.NAUGHT);
+        grid.get("_gridItems")[8].set("player", ISymbol.NAUGHT);
+        const result = hasWon(naughtPlayer, grid);
 
         expect(result).toBe(true);
     });
@@ -100,10 +104,10 @@ describe("hasWon", () => {
             _gridItems: newGrid()
         });
 
-        grid.get("_gridItems")[0].set("player", Player.NAUGHT);
-        grid.get("_gridItems")[4].set("player", Player.NAUGHT);
-        grid.get("_gridItems")[8].set("player", Player.NAUGHT);
-        const result = hasWon(Player.NAUGHT, grid);
+        grid.get("_gridItems")[0].set("player", ISymbol.NAUGHT);
+        grid.get("_gridItems")[4].set("player", ISymbol.NAUGHT);
+        grid.get("_gridItems")[8].set("player", ISymbol.NAUGHT);
+        const result = hasWon(naughtPlayer, grid);
 
         expect(result).toBe(true);
     });
@@ -113,10 +117,10 @@ describe("hasWon", () => {
             _gridItems: newGrid()
         });
 
-        grid.get("_gridItems")[2].set("player", Player.NAUGHT);
-        grid.get("_gridItems")[4].set("player", Player.NAUGHT);
-        grid.get("_gridItems")[6].set("player", Player.NAUGHT);
-        const result = hasWon(Player.NAUGHT, grid);
+        grid.get("_gridItems")[2].set("player", ISymbol.NAUGHT);
+        grid.get("_gridItems")[4].set("player", ISymbol.NAUGHT);
+        grid.get("_gridItems")[6].set("player", ISymbol.NAUGHT);
+        const result = hasWon(naughtPlayer, grid);
 
         expect(result).toBe(true);
     });

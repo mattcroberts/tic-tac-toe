@@ -3,7 +3,6 @@ import { shallow } from "enzyme";
 import { merge } from "lodash";
 import { GridContainer } from ".";
 
-import { Player } from "../../../typings/types";
 import { createGrid } from "../../../test/utils";
 import Grid from "../../pages/Grid";
 

@@ -2,7 +2,6 @@ import * as React from "react";
 import { shallow } from "enzyme";
 import Grid from ".";
 import { createGrid } from "../../../test/utils";
-import { Player } from "../../../typings/types";
 import GridItem from "../GridItem";
 
 describe("Grid", () => {

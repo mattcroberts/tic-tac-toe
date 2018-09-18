@@ -1,7 +1,6 @@
 import * as React from "react";
 import { shallow } from "enzyme";
 import GridItem from ".";
-import { Player } from "../../../typings/types";
 
 describe("GridItem", () => {
     const defaultProps = {
