@@ -175,15 +175,9 @@ workflows:
       - build-ui:
           requires:
             - install-dependencies
-          filters:
-            branches:
-              only: master
       - build-server:
           requires:
             - install-dependencies
-          filters:
-            branches:
-              only: master
       - test-ui:
           requires:
             - build-ui
@@ -194,7 +188,13 @@ workflows:
           requires:
             - test-ui
             - test-server
+          filters:
+            branches:
+              only: master
       - deploy-ui:
           requires:
             - test-ui
             - test-server
+          filters:
+            branches:
+              only: master
