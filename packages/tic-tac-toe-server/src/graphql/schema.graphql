@@ -1,32 +1,33 @@
+enum Symbol {
+    NAUGHT
+    CROSS
+}
+
 type Query {
     grid(id: ID!): Grid!
     tictactoe: TicTacToe
 }
 
 type Mutation {
-    executeTurn(id: ID!, player: String!, x: Int!, y: Int!): Grid!
+    executeTurn(id: ID!, player: Symbol!, x: Int!, y: Int!): Grid!
     newGame: Grid!
 }
 
 type GridItem {
     id: ID!
-    player: Player
-}
-
-enum Symbol {
-    NAUGHT
-    CROSS
+    player: Symbol
 }
 
 type Player {
     id: ID!
-    symbol: Symbol
+    symbol: Symbol!
 }
 
 type Grid {
     id: ID!
     gridItems: [[GridItem!]!]!
     currentPlayer: Player!
+    players: [Player]
     winner: Player
     isFinished: Boolean!
     size: Int!

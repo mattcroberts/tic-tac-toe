@@ -2,7 +2,7 @@ import * as React from "react";
 import { graphql } from "react-apollo";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
-import { Grid as IGrid, Player as IPlayer } from "../../../typings/types";
+import { Grid as IGrid, Symbol as ISymbol } from "../../../typings/types";
 import Grid from "../../pages/Grid";
 import * as EXECUTE_TURN from "./executeTurn.graphql";
 import * as GET_GRID from "./getGrid.graphql";
@@ -12,7 +12,7 @@ export interface IProps {
         options: {
             variables: {
                 id: string;
-                player: IPlayer;
+                player: ISymbol;
                 x: number;
                 y: number;
             };
@@ -67,7 +67,7 @@ export class GridContainer extends React.Component<IProps> {
             executeTurn({
                 variables: {
                     id: grid.id,
-                    player: grid.currentPlayer,
+                    player: grid.currentPlayer.symbol,
                     x,
                     y
                 }

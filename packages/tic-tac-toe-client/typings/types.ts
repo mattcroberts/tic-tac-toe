@@ -37,6 +37,7 @@ export interface Grid {
     id: string;
     gridItems: GridItem[][];
     currentPlayer: Player;
+    players?: (Player | null)[] | null;
     winner?: Player | null;
     isFinished: boolean;
     size: number;
@@ -44,7 +45,12 @@ export interface Grid {
 
 export interface GridItem {
     id: string;
-    player?: Player | null;
+    player?: Symbol | null;
+}
+
+export interface Player {
+    id: string;
+    symbol: Symbol;
 }
 
 export interface TicTacToe {
@@ -64,12 +70,12 @@ export interface GridQueryArgs {
 }
 export interface ExecuteTurnMutationArgs {
     id: string;
-    player: string;
+    player: Symbol;
     x: number;
     y: number;
 }
 
-export enum Player {
+export enum Symbol {
     NAUGHT = "NAUGHT",
     CROSS = "CROSS"
 }
@@ -102,6 +108,7 @@ export namespace GridResolvers {
         id?: IdResolver<string, any, Context>;
         gridItems?: GridItemsResolver<GridItem[][], any, Context>;
         currentPlayer?: CurrentPlayerResolver<Player, any, Context>;
+        players?: PlayersResolver<(Player | null)[] | null, any, Context>;
         winner?: WinnerResolver<Player | null, any, Context>;
         isFinished?: IsFinishedResolver<boolean, any, Context>;
         size?: SizeResolver<number, any, Context>;
@@ -119,6 +126,11 @@ export namespace GridResolvers {
     > = Resolver<R, Parent, Context>;
     export type CurrentPlayerResolver<
         R = Player,
+        Parent = any,
+        Context = any
+    > = Resolver<R, Parent, Context>;
+    export type PlayersResolver<
+        R = (Player | null)[] | null,
         Parent = any,
         Context = any
     > = Resolver<R, Parent, Context>;
@@ -142,7 +154,7 @@ export namespace GridResolvers {
 export namespace GridItemResolvers {
     export interface Resolvers<Context = any> {
         id?: IdResolver<string, any, Context>;
-        player?: PlayerResolver<Player | null, any, Context>;
+        player?: PlayerResolver<Symbol | null, any, Context>;
     }
 
     export type IdResolver<R = string, Parent = any, Context = any> = Resolver<
@@ -151,7 +163,25 @@ export namespace GridItemResolvers {
         Context
     >;
     export type PlayerResolver<
-        R = Player | null,
+        R = Symbol | null,
+        Parent = any,
+        Context = any
+    > = Resolver<R, Parent, Context>;
+}
+
+export namespace PlayerResolvers {
+    export interface Resolvers<Context = any> {
+        id?: IdResolver<string, any, Context>;
+        symbol?: SymbolResolver<Symbol, any, Context>;
+    }
+
+    export type IdResolver<R = string, Parent = any, Context = any> = Resolver<
+        R,
+        Parent,
+        Context
+    >;
+    export type SymbolResolver<
+        R = Symbol,
         Parent = any,
         Context = any
     > = Resolver<R, Parent, Context>;
@@ -206,7 +236,7 @@ export namespace MutationResolvers {
     > = Resolver<R, Parent, Context, ExecuteTurnArgs>;
     export interface ExecuteTurnArgs {
         id: string;
-        player: string;
+        player: Symbol;
         x: number;
         y: number;
     }

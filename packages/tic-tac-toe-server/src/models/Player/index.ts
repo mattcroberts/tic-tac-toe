@@ -1,6 +1,6 @@
 import { Document, model, Schema } from "mongoose";
 
-export enum SYMBOL {
+export enum ISymbol {
     NAUGHT = "NAUGHT",
     CROSS = "CROSS"
 }
@@ -10,7 +10,7 @@ enum PlayerType {
 }
 
 interface IPlayer {
-    symbol: SYMBOL;
+    symbol: ISymbol;
     type: PlayerType;
 }
 
@@ -18,12 +18,13 @@ export interface IPlayerModel extends IPlayer, Document {}
 
 const PlayerSchema = new Schema({
     symbol: {
-        enum: Object.keys(SYMBOL),
+        enum: Object.keys(ISymbol),
         type: String
     },
     type: {
         enum: Object.keys(PlayerType),
-        type: String
+        type: String,
+        default: PlayerType.ANONYMOUS
     }
 });
 

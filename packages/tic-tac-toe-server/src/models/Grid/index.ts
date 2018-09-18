@@ -6,11 +6,11 @@ import GridItem, {
     IGridItem,
     IGridItemModel
 } from "../GridItem";
-import { IPlayerModel, SYMBOL } from "../Player";
+import Player, { IPlayerModel, ISymbol } from "../Player";
 
 interface IGrid {
     _gridItems: [IGridItemModel];
-    gridItems: [IGridItem[]];
+    gridItems: [IGridItemModel[]];
     players: [IPlayerModel];
     currentPlayer: IPlayerModel;
     winner: IPlayerModel | null;
@@ -18,7 +18,7 @@ interface IGrid {
     size: number;
     checkWinner(): void;
     isDraw(): boolean;
-    placePlayer(player: IPlayerModel, x: number, y: number): void;
+    placePlayer(player: ISymbol, x: number, y: number): void;
 }
 
 export interface IGridModel extends IGrid, Document {}
@@ -66,6 +66,16 @@ const gridSchema = new Schema(
     }
 );
 
+gridSchema.pre("save", async function(this: IGridModel) {
+    if (this.isNew) {
+        this.players.push(new Player({ symbol: ISymbol.NAUGHT }));
+        this.players.push(new Player({ symbol: ISymbol.CROSS }));
+
+        this.currentPlayer = this.players[0];
+        return this.players.map(p => p.save());
+    }
+});
+
 gridSchema.virtual("gridItems").get(function(this: IGridModel) {
     return this._gridItems.reduce<IGridItem[][]>((acc, item, i) => {
         const x = Math.floor(i / this.size);
@@ -80,11 +90,11 @@ gridSchema.virtual("gridItems").get(function(this: IGridModel) {
 
 gridSchema.method("placePlayer", function(
     this: IGridModel,
-    player: IPlayerModel,
+    symbol: ISymbol,
     x: number,
     y: number
 ) {
-    this._gridItems[x * this.size + y].set(`player`, player);
+    this._gridItems[x * this.size + y].set(`player`, symbol);
 
     this.checkWinner();
 
@@ -94,10 +104,12 @@ gridSchema.method("placePlayer", function(
 });
 
 gridSchema.method("checkWinner", function(this: IGridModel) {
-    if (hasWon(SYMBOL.NAUGHT, this)) {
-        this.winner = this.players.find(p => p.symbol === SYMBOL.NAUGHT)!;
-    } else if (hasWon(SYMBOL.CROSS, this)) {
-        this.winner = this.players.find(p => p.symbol === SYMBOL.CROSS)!;
+    const crossPlayer = this.players.find(p => p.symbol === ISymbol.CROSS)!;
+    const naughtPlayer = this.players.find(p => p.symbol === ISymbol.NAUGHT)!;
+    if (hasWon(crossPlayer, this)) {
+        this.winner = crossPlayer;
+    } else if (hasWon(naughtPlayer, this)) {
+        this.winner = naughtPlayer;
     }
 
     if (this.winner || this.isDraw()) {

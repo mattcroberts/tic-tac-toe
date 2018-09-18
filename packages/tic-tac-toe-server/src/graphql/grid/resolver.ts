@@ -1,14 +1,21 @@
 import Grid from "../../models/Grid";
-import { IPlayerModel } from "../../models/Player";
+import { ISymbol } from "../../models/Player";
 
 export const query = {
     Query: {
         async grid(_: any, { id }: { id: string }) {
             let grid;
             if (id) {
-                grid = Grid.findById(id);
+                grid = await Grid.findById(id)
+                    .populate("players")
+                    .populate("currentPlayer")
+                    .exec();
             } else {
                 throw new Error("No ID Provided");
+            }
+
+            if (!grid) {
+                throw new Error("Grid not found");
             }
 
             return grid;
@@ -25,9 +32,12 @@ export const mutation = {
                 player,
                 x,
                 y
-            }: { id: string; player: IPlayerModel; x: number; y: number }
+            }: { id: string; player: ISymbol; x: number; y: number }
         ) {
-            const grid = await Grid.findById(id);
+            const grid = await Grid.findById(id)
+                .populate("players")
+                .populate("currentPlayer")
+                .exec();
 
             if (grid) {
                 grid.placePlayer(player, x, y);
