@@ -41,6 +41,7 @@ export interface Grid {
     winner?: Player | null;
     isFinished: boolean;
     size: number;
+    gameUrls: GameUrls;
 }
 
 export interface GridItem {
@@ -51,6 +52,11 @@ export interface GridItem {
 export interface Player {
     id: string;
     symbol: Symbol;
+}
+
+export interface GameUrls {
+    NAUGHT?: string | null;
+    CROSS?: string | null;
 }
 
 export interface TicTacToe {
@@ -112,6 +118,7 @@ export namespace GridResolvers {
         winner?: WinnerResolver<Player | null, any, Context>;
         isFinished?: IsFinishedResolver<boolean, any, Context>;
         size?: SizeResolver<number, any, Context>;
+        gameUrls?: GameUrlsResolver<GameUrls, any, Context>;
     }
 
     export type IdResolver<R = string, Parent = any, Context = any> = Resolver<
@@ -149,6 +156,11 @@ export namespace GridResolvers {
         Parent = any,
         Context = any
     > = Resolver<R, Parent, Context>;
+    export type GameUrlsResolver<
+        R = GameUrls,
+        Parent = any,
+        Context = any
+    > = Resolver<R, Parent, Context>;
 }
 
 export namespace GridItemResolvers {
@@ -182,6 +194,24 @@ export namespace PlayerResolvers {
     >;
     export type SymbolResolver<
         R = Symbol,
+        Parent = any,
+        Context = any
+    > = Resolver<R, Parent, Context>;
+}
+
+export namespace GameUrlsResolvers {
+    export interface Resolvers<Context = any> {
+        NAUGHT?: NaughtResolver<string | null, any, Context>;
+        CROSS?: CrossResolver<string | null, any, Context>;
+    }
+
+    export type NaughtResolver<
+        R = string | null,
+        Parent = any,
+        Context = any
+    > = Resolver<R, Parent, Context>;
+    export type CrossResolver<
+        R = string | null,
         Parent = any,
         Context = any
     > = Resolver<R, Parent, Context>;

@@ -1,7 +1,7 @@
 import * as H from "history";
 import * as React from "react";
 import { Mutation, Query } from "react-apollo";
-import { withRouter } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { compose } from "recompose";
 
 import { Mutation as IMutation } from "../../../typings/types";
@@ -9,9 +9,7 @@ import HomePage from "../../pages/Home";
 import * as NEW_GAME from "./newGame.graphql";
 import * as TIC_TAC_TOE from "./tictactoe.graphql";
 
-interface IProps {
-    history: H.History;
-}
+interface IProps extends RouteComponentProps<{}> {}
 
 class Home extends React.Component<IProps> {
     constructor(props: IProps) {

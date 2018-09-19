@@ -14,5 +14,9 @@ query GET_GRID($id: ID!) {
         }
         isFinished
         size
+        gameUrls {
+            NAUGHT
+            CROSS
+        }
     }
 }

@@ -1,13 +1,13 @@
 import * as React from "react";
 import { graphql } from "react-apollo";
-import { withRouter } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { compose } from "recompose";
 import { Grid as IGrid, Symbol as ISymbol } from "../../../typings/types";
 import Grid from "../../pages/Grid";
 import * as EXECUTE_TURN from "./executeTurn.graphql";
 import * as GET_GRID from "./getGrid.graphql";
 
-export interface IProps {
+export interface IProps extends RouteComponentProps<{ playerId: string }> {
     executeTurn: (
         options: {
             variables: {
@@ -18,6 +18,8 @@ export interface IProps {
             };
         }
     ) => IGrid;
+    isMultiplayer: boolean;
+    playerId: string;
     data: {
         error: any;
         grid: IGrid;
@@ -37,6 +39,7 @@ export class GridContainer extends React.Component<IProps> {
         const {
             data: { error, grid, loading }
         } = this.props;
+
         if (loading) {
             return <p>Loading...</p>;
         }
@@ -53,6 +56,7 @@ export class GridContainer extends React.Component<IProps> {
                 isDraw={grid.winner === null && grid.isFinished}
                 size={grid.size}
                 onItemClick={this.onItemClick}
+                gameUrls={grid.gameUrls}
             />
         );
     }
@@ -76,7 +80,7 @@ export class GridContainer extends React.Component<IProps> {
     }
 }
 
-const enhance = compose(
+const enhance = compose<{}, IProps>(
     withRouter,
     graphql(GET_GRID, {
         options: (props: any) => ({

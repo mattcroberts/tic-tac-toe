@@ -88,6 +88,19 @@ gridSchema.virtual("gridItems").get(function(this: IGridModel) {
     }, new Array<IGridItem[]>());
 });
 
+gridSchema.virtual("gameUrls").get(function(this: IGridModel) {
+    const crossPlayer = this.players.find(p => p.symbol === ISymbol.CROSS);
+    const naughtPlayer = this.players.find(p => p.symbol === ISymbol.NAUGHT);
+    return {
+        [ISymbol.NAUGHT]: crossPlayer
+            ? `/game/${this.id}/${crossPlayer.id}`
+            : "",
+        [ISymbol.CROSS]: naughtPlayer
+            ? `/game/${this.id}/${naughtPlayer.id}`
+            : ""
+    };
+});
+
 gridSchema.method("placePlayer", function(
     this: IGridModel,
     symbol: ISymbol,

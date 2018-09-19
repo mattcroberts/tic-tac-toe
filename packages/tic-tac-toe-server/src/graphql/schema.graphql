@@ -23,6 +23,11 @@ type Player {
     symbol: Symbol!
 }
 
+type GameUrls {
+    NAUGHT: String
+    CROSS: String
+}
+
 type Grid {
     id: ID!
     gridItems: [[GridItem!]!]!
@@ -31,6 +36,7 @@ type Grid {
     winner: Player
     isFinished: Boolean!
     size: Int!
+    gameUrls: GameUrls!
 }
 
 type TicTacToe {

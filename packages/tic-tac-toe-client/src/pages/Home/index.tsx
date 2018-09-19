@@ -65,6 +65,13 @@ const Home = ({
                 >
                     {"New Game"}
                 </Button>
+                <Button
+                    className={style.button}
+                    disabled={loading}
+                    onClick={newGame}
+                >
+                    {"Multiplayer"}
+                </Button>
             </div>
             {renderStats(gameInfo)}
         </div>
