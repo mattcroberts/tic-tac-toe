@@ -18,5 +18,9 @@ query GET_GRID($id: ID!) {
             NAUGHT
             CROSS
         }
+        players {
+            id
+            symbol
+        }
     }
 }

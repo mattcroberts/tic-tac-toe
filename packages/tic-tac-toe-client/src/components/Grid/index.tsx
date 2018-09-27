@@ -10,6 +10,7 @@ import style from "./Grid.css";
 
 export interface IProps {
     grid: IGridItem[][];
+    controllingPlayer: IPlayer;
     currentPlayer: IPlayer;
     winner?: IPlayer | null;
     isDraw: boolean;

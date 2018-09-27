@@ -19,7 +19,7 @@ export interface IProps extends RouteComponentProps<{ playerId: string }> {
         }
     ) => IGrid;
     isMultiplayer: boolean;
-    playerId: string;
+    invitedPlayerId: string;
     data: {
         error: any;
         grid: IGrid;
@@ -37,11 +37,24 @@ export class GridContainer extends React.Component<IProps> {
 
     public render() {
         const {
+            invitedPlayerId,
             data: { error, grid, loading }
         } = this.props;
 
         if (loading) {
             return <p>Loading...</p>;
+        }
+
+        if (!grid.players || grid.players.length < 2) {
+            return <p>Player error</p>;
+        }
+
+        const controllingPlayer =
+            grid.players.find(p => p !== null && p.id === invitedPlayerId) ||
+            grid.players[0];
+
+        if (!controllingPlayer) {
+            return <p>Player not found</p>;
         }
 
         if (error) {
@@ -57,6 +70,7 @@ export class GridContainer extends React.Component<IProps> {
                 size={grid.size}
                 onItemClick={this.onItemClick}
                 gameUrls={grid.gameUrls}
+                controllingPlayer={controllingPlayer}
             />
         );
     }

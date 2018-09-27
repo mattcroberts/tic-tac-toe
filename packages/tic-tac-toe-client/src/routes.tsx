@@ -20,7 +20,7 @@ export default () => (
                         RouteComponentProps<{ playerId: string }>
                 ) => ({
                     isMultiplayer: true,
-                    playerId: props.match.params.playerId
+                    invitedPlayerId: props.match.params.playerId
                 })
             )(GridContainer)}
         />

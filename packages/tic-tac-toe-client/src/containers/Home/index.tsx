@@ -1,4 +1,3 @@
-import * as H from "history";
 import * as React from "react";
 import { Mutation, Query } from "react-apollo";
 import { withRouter, RouteComponentProps } from "react-router-dom";

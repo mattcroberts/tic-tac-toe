@@ -40,6 +40,13 @@ export const mutation = {
                 .exec();
 
             if (grid) {
+                if (grid.currentPlayer.symbol !== player) {
+                    throw new Error(
+                        `Not current player ${
+                            grid.currentPlayer.symbol
+                        }:${player}`
+                    );
+                }
                 grid.placePlayer(player, x, y);
                 await grid.save();
                 return grid;
