@@ -11,8 +11,9 @@ export default () => (
     <>
         <Route exact={true} path="/" component={Home} />
         <Route exact={true} path="/game" component={GridContainer} />
-        <Route path="/game/:gameId" component={GridContainer} />
+        <Route exact={true} path="/game/:gameId" component={GridContainer} />
         <Route
+            exact={true}
             path="/game/:gameId/:playerId"
             component={withProps(
                 (

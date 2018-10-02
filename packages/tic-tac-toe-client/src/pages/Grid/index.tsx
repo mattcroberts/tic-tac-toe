@@ -1,7 +1,10 @@
 import * as React from "react";
 import Wrapper from "../../components/Wrapper";
 import Grid, { IProps as IGridProps } from "../../components/Grid";
-import { GameUrls as IGameUrls, Symbol } from "../../../typings/types";
+import {
+    GameUrls as IGameUrls,
+    Symbol as ISymbol
+} from "../../../typings/types";
 
 type IProps = IGridProps & {
     gameUrls: IGameUrls;
@@ -13,7 +16,7 @@ const GridPage: React.SFC<IProps> = props => (
             readOnly={true}
             value={
                 window.location.origin +
-                (props.controllingPlayer.symbol === Symbol.CROSS
+                (props.controllingPlayer.symbol === ISymbol.CROSS
                     ? props.gameUrls.NAUGHT
                     : props.gameUrls.CROSS)
             }

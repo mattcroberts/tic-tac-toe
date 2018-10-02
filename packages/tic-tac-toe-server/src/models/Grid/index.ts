@@ -92,10 +92,10 @@ gridSchema.virtual("gameUrls").get(function(this: IGridModel) {
     const crossPlayer = this.players.find(p => p.symbol === ISymbol.CROSS);
     const naughtPlayer = this.players.find(p => p.symbol === ISymbol.NAUGHT);
     return {
-        [ISymbol.NAUGHT]: crossPlayer
+        [ISymbol.CROSS]: crossPlayer
             ? `/game/${this.id}/${crossPlayer.id}`
             : "",
-        [ISymbol.CROSS]: naughtPlayer
+        [ISymbol.NAUGHT]: naughtPlayer
             ? `/game/${this.id}/${naughtPlayer.id}`
             : ""
     };
