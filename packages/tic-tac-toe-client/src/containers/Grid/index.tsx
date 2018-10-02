@@ -3,7 +3,7 @@ import { graphql } from "react-apollo";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { compose } from "recompose";
 import { Grid as IGrid, Symbol as ISymbol } from "../../../typings/types";
-import Grid from "../../pages/Grid";
+import GridPage from "../../pages/Grid";
 import * as EXECUTE_TURN from "./executeTurn.graphql";
 import * as GET_GRID from "./getGrid.graphql";
 
@@ -49,9 +49,9 @@ export class GridContainer extends React.Component<IProps> {
             return <p>Player error</p>;
         }
 
-        const controllingPlayer =
-            grid.players.find(p => p !== null && p.id === invitedPlayerId) ||
-            grid.players[0];
+        const controllingPlayer = this.props.isMultiplayer
+            ? this.getControllingPlayer(grid, invitedPlayerId)
+            : grid.currentPlayer;
 
         if (!controllingPlayer) {
             return <p>Player not found</p>;
@@ -62,7 +62,7 @@ export class GridContainer extends React.Component<IProps> {
         }
 
         return (
-            <Grid
+            <GridPage
                 grid={grid.gridItems}
                 currentPlayer={grid.currentPlayer}
                 winner={grid.winner}
@@ -70,8 +70,20 @@ export class GridContainer extends React.Component<IProps> {
                 size={grid.size}
                 onItemClick={this.onItemClick}
                 gameUrls={grid.gameUrls}
+                isMultiplayer={this.props.isMultiplayer}
                 controllingPlayer={controllingPlayer}
             />
+        );
+    }
+
+    private getControllingPlayer(grid: IGrid, invitedPlayerId: string) {
+        if (!grid.players || grid.players.length < 2) {
+            return null;
+        }
+
+        return (
+            grid.players.find(p => p !== null && p.id === invitedPlayerId) ||
+            grid.players[0]
         );
     }
 
@@ -81,11 +93,20 @@ export class GridContainer extends React.Component<IProps> {
             data: { grid }
         } = this.props;
 
-        if (grid.gridItems[x][y].player === null) {
+        const controllingPlayer = this.props.isMultiplayer
+            ? this.getControllingPlayer(grid, this.props.invitedPlayerId)
+            : this.props.data.grid.currentPlayer;
+
+        console.log("click", this.props.invitedPlayerId);
+        if (
+            grid.gridItems[x][y].player === null &&
+            controllingPlayer !== null &&
+            controllingPlayer.symbol === grid.currentPlayer.symbol
+        ) {
             executeTurn({
                 variables: {
                     id: grid.id,
-                    player: grid.currentPlayer.symbol,
+                    player: controllingPlayer.symbol,
                     x,
                     y
                 }

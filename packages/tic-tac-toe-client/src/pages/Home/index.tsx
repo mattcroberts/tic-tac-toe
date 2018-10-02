@@ -45,7 +45,7 @@ const Home = ({
     gameInfo
 }: {
     loading: boolean;
-    newGame: () => any;
+    newGame: (isMultiplayer: boolean) => any;
     gameInfo: TicTacToe;
 }) => (
     <div className={style.root}>
@@ -61,16 +61,16 @@ const Home = ({
                 <Button
                     className={style.button}
                     disabled={loading}
-                    onClick={newGame}
+                    onClick={() => newGame(false)}
                 >
-                    {"New Game"}
+                    New Game
                 </Button>
                 <Button
                     className={style.button}
                     disabled={loading}
-                    onClick={newGame}
+                    onClick={() => newGame(true)}
                 >
-                    {"Multiplayer"}
+                    Multiplayer
                 </Button>
             </div>
             {renderStats(gameInfo)}
