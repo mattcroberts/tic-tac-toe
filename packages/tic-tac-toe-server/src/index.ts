@@ -5,13 +5,15 @@ import Koa from "koa";
 import koabody from "koa-bodyparser";
 import Router from "koa-router";
 import mongoose from "mongoose";
+import { ApolloServer } from "apollo-server";
 import { Schema } from "./graphql";
 
 dotenv.config();
 
 const app = new Koa();
 const router = new Router();
-
+const apolloServer = new ApolloServer({ schema: Schema });
+apolloServer.applyMiddleware({ app });
 app.use(
     cors({
         maxAge: 86400 // One day

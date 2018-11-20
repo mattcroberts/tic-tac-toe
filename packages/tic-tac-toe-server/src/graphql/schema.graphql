@@ -13,6 +13,10 @@ type Mutation {
     newGame: Grid!
 }
 
+type Subscription {
+    gridUpdated(id: ID!): Grid!
+}
+
 type GridItem {
     id: ID!
     player: Symbol

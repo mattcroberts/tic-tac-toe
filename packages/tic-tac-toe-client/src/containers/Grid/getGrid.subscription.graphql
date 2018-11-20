@@ -1,0 +1,26 @@
+subscription GET_GRID($id: ID!) {
+    gridUpdated(id: $id) {
+        id
+        gridItems {
+            player
+        }
+        currentPlayer {
+            id
+            symbol
+        }
+        winner {
+            id
+            symbol
+        }
+        isFinished
+        size
+        gameUrls {
+            NAUGHT
+            CROSS
+        }
+        players {
+            id
+            symbol
+        }
+    }
+}

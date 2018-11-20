@@ -7,5 +7,6 @@ declare module "*.graphql";
 declare var process: {
     env: {
         API_URI?: string;
+        WS_URI: string;
     };
 };

@@ -1,11 +1,13 @@
 import * as React from "react";
-import { graphql } from "react-apollo";
+import { graphql, Query, Subscription } from "react-apollo";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { compose } from "recompose";
 import { Grid as IGrid, Symbol as ISymbol } from "../../../typings/types";
 import GridPage from "../../pages/Grid";
+
 import * as EXECUTE_TURN from "./executeTurn.graphql";
 import * as GET_GRID from "./getGrid.graphql";
+import * as GET_GRID_SUBS from "./getGrid.subscription.graphql";
 
 export interface IProps extends RouteComponentProps<{ playerId: string }> {
     executeTurn: (
@@ -62,17 +64,27 @@ export class GridContainer extends React.Component<IProps> {
         }
 
         return (
-            <GridPage
-                grid={grid.gridItems}
-                currentPlayer={grid.currentPlayer}
-                winner={grid.winner}
-                isDraw={grid.winner === null && grid.isFinished}
-                size={grid.size}
-                onItemClick={this.onItemClick}
-                gameUrls={grid.gameUrls}
-                isMultiplayer={this.props.isMultiplayer}
-                controllingPlayer={controllingPlayer}
-            />
+            <Subscription
+                subscription={GET_GRID_SUBS}
+                variables={{ id: grid.id }}
+            >
+                {({ data: { gridUpdated }, loading }) => {
+                    console.log(gridUpdated);
+                    return (
+                        <GridPage
+                            grid={grid.gridItems}
+                            currentPlayer={grid.currentPlayer}
+                            winner={grid.winner}
+                            isDraw={grid.winner === null && grid.isFinished}
+                            size={grid.size}
+                            onItemClick={this.onItemClick}
+                            gameUrls={grid.gameUrls}
+                            isMultiplayer={this.props.isMultiplayer}
+                            controllingPlayer={controllingPlayer}
+                        />
+                    );
+                }}
+            </Subscription>
         );
     }
 

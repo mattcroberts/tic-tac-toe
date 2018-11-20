@@ -16,5 +16,7 @@
 		"start": "docker-compose up",
 		"stop": "docker-compose down"
 	},
-	"dependencies": {}
+	"dependencies": {
+		"apollo-server": "^2.1.0"
+	}
 }
