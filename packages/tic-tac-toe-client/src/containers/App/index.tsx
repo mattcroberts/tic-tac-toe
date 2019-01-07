@@ -16,7 +16,7 @@ const httplink = new HttpLink({
 });
 
 const wsLink = new WebSocketLink({
-    uri: process.env.WS_URI,
+    uri: process.env.WS_URI || "ws://localhost:5000/graphql",
     options: {
         reconnect: true
     }

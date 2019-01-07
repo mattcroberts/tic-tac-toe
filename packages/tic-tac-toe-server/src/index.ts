@@ -1,19 +1,25 @@
 import cors from "@koa/cors";
-import { graphiqlKoa, graphqlKoa } from "apollo-server-koa";
+import { ApolloServer } from "apollo-server-koa";
+import koaPlayground from "graphql-playground-middleware-koa";
+import { execute, subscribe } from "graphql";
 import dotenv from "dotenv";
 import Koa from "koa";
+import { createServer } from "http";
 import koabody from "koa-bodyparser";
 import Router from "koa-router";
 import mongoose from "mongoose";
-import { ApolloServer } from "apollo-server";
+import { SubscriptionServer } from "subscriptions-transport-ws";
+
 import { Schema } from "./graphql";
 
 dotenv.config();
 
+const WS_PORT = 5000;
 const app = new Koa();
 const router = new Router();
-const apolloServer = new ApolloServer({ schema: Schema });
+const apolloServer = new ApolloServer({ schema: Schema, playground: {} });
 apolloServer.applyMiddleware({ app });
+
 app.use(
     cors({
         maxAge: 86400 // One day
@@ -25,23 +31,11 @@ router.get("/ping", async ctx => {
     ctx.body = "pong";
 });
 
-router.get(
-    "/graphql",
-    graphqlKoa({
-        schema: Schema
-    })
-);
-router.post(
-    "/graphql",
-    graphqlKoa({
-        schema: Schema
-    })
-);
-
-router.get(
-    "/graphiql",
-    graphiqlKoa({
-        endpointURL: "/graphql"
+router.all(
+    "/playground",
+    koaPlayground({
+        endpoint: "/graphql",
+        subscriptionEndpoint: "ws://localhost:5000/graphql"
     })
 );
 
@@ -78,6 +72,31 @@ app.use(router.routes());
         console.error(err, "connection faile");
     }
     await connected;
+
+
+    const websocketServer = createServer((request, response) => {
+        response.writeHead(404);
+        response.end();
+    });
+
+    // Bind it to port and start listening
+    websocketServer.listen(WS_PORT, () =>
+        console.log(
+            `Websocket Server is now running on http://localhost:${WS_PORT}`
+        )
+    );
+
+    SubscriptionServer.create(
+        {
+            schema: Schema,
+            execute,
+            subscribe
+        },
+        {
+            server: websocketServer,
+            path: "/graphql"
+        }
+    );
 
     app.listen(3000, () => {
         console.log("listening on 3000");

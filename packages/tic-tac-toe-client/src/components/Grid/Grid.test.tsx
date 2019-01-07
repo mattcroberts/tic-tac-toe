@@ -3,11 +3,12 @@ import { shallow } from "enzyme";
 import Grid from ".";
 import { createGrid } from "../../../test/utils";
 import GridItem from "../GridItem";
+import { Symbol as ISymbol } from "../../../typings/types";
 
 describe("Grid", () => {
     const GRID_SIZE = 3;
     const defaultProps = {
-        currentPlayer: Player.NAUGHT,
+        currentPlayer: ISymbol.NAUGHT,
         grid: createGrid(GRID_SIZE),
         size: GRID_SIZE
     };
@@ -25,7 +26,7 @@ describe("Grid", () => {
 
     it("should render NAUGHT Winner", () => {
         const component = shallow(
-            <Grid {...defaultProps} winner={Player.NAUGHT} />
+            <Grid {...defaultProps} winner={ISymbol.NAUGHT} />
         );
 
         expect(component).toMatchSnapshot();
@@ -33,7 +34,7 @@ describe("Grid", () => {
 
     it("should render CROSS Winner", () => {
         const component = shallow(
-            <Grid {...defaultProps} winner={Player.CROSS} />
+            <Grid {...defaultProps} winner={ISymbol.CROSS} />
         );
 
         expect(component).toMatchSnapshot();

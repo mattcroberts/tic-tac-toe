@@ -1,7 +1,6 @@
-import { PubSub } from 'apollo-server';
-
 import Grid from "../../models/Grid";
 import { ISymbol } from "../../models/Player";
+import pubsub from "../pubsub";
 
 export const query = {
     Query: {
@@ -51,6 +50,7 @@ export const mutation = {
                 }
                 grid.placePlayer(player, x, y);
                 await grid.save();
+                pubsub.publish("gridUpdated", { gridUpdated: grid });
                 return grid;
             } else {
                 throw new Error("Grid not found:" + id);

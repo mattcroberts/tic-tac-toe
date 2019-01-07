@@ -1,6 +1,7 @@
 import * as React from "react";
 import { shallow } from "enzyme";
 import GridItem from ".";
+import { Symbol as ISymbol } from "../../../typings/types";
 
 describe("GridItem", () => {
     const defaultProps = {
@@ -31,7 +32,7 @@ describe("GridItem", () => {
             ...defaultProps,
             itemState: {
                 ...defaultProps.itemState,
-                player: Player.CROSS
+                player: ISymbol.CROSS
             }
         };
         const component = shallow(<GridItem {...props} />);
@@ -43,7 +44,7 @@ describe("GridItem", () => {
             ...defaultProps,
             itemState: {
                 ...defaultProps.itemState,
-                player: Player.NAUGHT
+                player: ISymbol.NAUGHT
             }
         };
         const component = shallow(<GridItem {...props} />);
@@ -55,7 +56,7 @@ describe("GridItem", () => {
             ...defaultProps,
             itemState: {
                 ...defaultProps.itemState,
-                player: Player.NAUGHT
+                player: ISymbol.NAUGHT
             },
             onItemClick: jest.fn()
         };

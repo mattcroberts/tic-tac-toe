@@ -1,5 +1,5 @@
 import * as React from "react";
-import { graphql, Query, Subscription } from "react-apollo";
+import { graphql, Subscription } from "react-apollo";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { compose } from "recompose";
 import { Grid as IGrid, Symbol as ISymbol } from "../../../typings/types";
@@ -68,17 +68,26 @@ export class GridContainer extends React.Component<IProps> {
                 subscription={GET_GRID_SUBS}
                 variables={{ id: grid.id }}
             >
-                {({ data: { gridUpdated }, loading }) => {
-                    console.log(gridUpdated);
+                {({
+                    data: { gridUpdated } = { gridUpdated: undefined },
+                    loading: subsLoading
+                }: {
+                    data: { gridUpdated: IGrid | undefined };
+                    loading: boolean;
+                }) => {
+                    const g =
+                        subsLoading || gridUpdated === undefined
+                            ? grid
+                            : gridUpdated;
                     return (
                         <GridPage
-                            grid={grid.gridItems}
-                            currentPlayer={grid.currentPlayer}
-                            winner={grid.winner}
-                            isDraw={grid.winner === null && grid.isFinished}
-                            size={grid.size}
+                            grid={g.gridItems}
+                            currentPlayer={g.currentPlayer}
+                            winner={g.winner}
+                            isDraw={g.winner === null && g.isFinished}
+                            size={g.size}
                             onItemClick={this.onItemClick}
-                            gameUrls={grid.gameUrls}
+                            gameUrls={g.gameUrls}
                             isMultiplayer={this.props.isMultiplayer}
                             controllingPlayer={controllingPlayer}
                         />
@@ -109,7 +118,6 @@ export class GridContainer extends React.Component<IProps> {
             ? this.getControllingPlayer(grid, this.props.invitedPlayerId)
             : this.props.data.grid.currentPlayer;
 
-        console.log("click", this.props.invitedPlayerId);
         if (
             grid.gridItems[x][y].player === null &&
             controllingPlayer !== null &&
