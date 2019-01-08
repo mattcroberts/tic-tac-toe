@@ -1,5 +1,5 @@
 import Grid from "../../models/Grid";
-// import Player, { SYMBOL } from "../../models/Player";
+import { ISymbol } from "../../models/Player";
 
 export const query = {
     Query: {
@@ -12,15 +12,15 @@ export const query = {
                 isFinished: true
             });
 
-            // const crossWins = await Grid.find({
-            //     isFinished: true
-            // }).then((grids) => {
-            //     Player.find()
-            // })
+            const gridsWithWinners = await Grid.find().populate("winner");
 
-            // const naughtWins = await Grid.countDocuments({
-            //     winner: { symbol: SYMBOL.NAUGHT }
-            // });
+            const crossWins = gridsWithWinners.filter(
+                grid => grid.winner && grid.winner.symbol === ISymbol.CROSS
+            ).length;
+
+            const naughtWins = gridsWithWinners.filter(
+                grid => grid.winner && grid.winner.symbol === ISymbol.NAUGHT
+            ).length;
 
             const gamesDrawn = await Grid.countDocuments({
                 winner: null,
@@ -30,8 +30,8 @@ export const query = {
             return {
                 gamesInProgress,
                 gamesFinished,
-                crossWins: 0,
-                naughtWins: 0,
+                crossWins,
+                naughtWins,
                 gamesDrawn
             };
         }
