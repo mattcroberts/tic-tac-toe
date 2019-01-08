@@ -5,7 +5,7 @@ import { execute, subscribe } from "graphql";
 import dotenv from "dotenv";
 import Koa from "koa";
 import { createServer } from "http";
-import koabody from "koa-bodyparser";
+import koabody from "koa-body";
 import Router from "koa-router";
 import mongoose from "mongoose";
 import { SubscriptionServer } from "subscriptions-transport-ws";
@@ -36,7 +36,7 @@ router.all(
     koaPlayground({
         endpoint: "/graphql",
         subscriptionEndpoint: "ws://localhost:5000/graphql"
-    })
+    }) as any
 );
 
 app.use(router.routes());
@@ -72,7 +72,6 @@ app.use(router.routes());
         console.error(err, "connection faile");
     }
     await connected;
-
 
     const websocketServer = createServer((request, response) => {
         response.writeHead(404);

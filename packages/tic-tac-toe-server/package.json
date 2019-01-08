@@ -19,11 +19,9 @@
       "@types/graphql": "^14.0.4",
       "@types/jest": "^23.1.4",
       "@types/koa": "^2.0.48",
-      "@types/koa-bodyparser": "^4.2.0",
-      "@types/koa-router": "^7.0.37",
-      "@types/koa__cors": "^2.2.2",
+      "@types/koa-router": "7.0.35",
       "@types/mongoose": "^5.0.18",
-      "@types/node": "^8.0.29",
+      "@types/node": "^10.12.18",
       "cpx": "^1.5.0",
       "jest": "^23.3.0",
       "jest-junit": "^5.1.0",
@@ -34,7 +32,7 @@
       "typescript": "^2.9.2"
    },
    "dependencies": {
-      "@koa/cors": "^2.2.2",
+      "@koa/cors": "^2.2.3",
       "apollo-server": "^2.3.1",
       "apollo-server-koa": "^2.3.1",
       "dotenv": "^6.0.0",
@@ -42,7 +40,7 @@
       "graphql-playground-middleware-koa": "^1.6.8",
       "graphql-tools": "^4.0.3",
       "koa": "^2.6.2",
-      "koa-bodyparser": "^4.2.1",
+      "koa-body": "^4.0.6",
       "koa-router": "^7.4.0",
       "mongoose": "^5.1.7",
       "subscriptions-transport-ws": "^0.9.15"

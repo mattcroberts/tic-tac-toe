@@ -35,7 +35,7 @@ export const GridItemSchema = new Schema(
 );
 
 GridItemSchema.virtual("id").get(function(this: IGridItemModel) {
-    return this._id;
+    return this._id.toString();
 });
 
 export default model<IGridItemModel>("GridItem", GridItemSchema);
