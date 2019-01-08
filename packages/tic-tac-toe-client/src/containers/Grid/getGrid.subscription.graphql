@@ -1,8 +1,7 @@
-mutation executeTurn($id: ID!, $player: Symbol!, $x: Int!, $y: Int!) {
-    executeTurn(id: $id, player: $player, x: $x, y: $y) {
+subscription GET_GRID($id: ID!) {
+    gridUpdated(id: $id) {
         id
         gridItems {
-            id
             player
         }
         currentPlayer {
@@ -14,5 +13,14 @@ mutation executeTurn($id: ID!, $player: Symbol!, $x: Int!, $y: Int!) {
             symbol
         }
         isFinished
+        size
+        gameUrls {
+            NAUGHT
+            CROSS
+        }
+        players {
+            id
+            symbol
+        }
     }
 }

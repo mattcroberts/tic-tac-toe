@@ -8,7 +8,16 @@ exports[`GridContainer renders loading state 1`] = `
 
 exports[`GridContainer renders without crashing 1`] = `
 <GridPage
-  currentPlayer="NAUGHT"
+  controllingPlayer={
+    Object {
+      "symbol": "NAUGHT",
+    }
+  }
+  currentPlayer={
+    Object {
+      "symbol": "NAUGHT",
+    }
+  }
   grid={
     Array [
       Array [
@@ -58,5 +67,400 @@ exports[`GridContainer renders without crashing 1`] = `
   isDraw={false}
   onItemClick={[Function]}
   size={9}
-/>
+>
+  <Component>
+    <div
+      className="root"
+    >
+      <div
+        className="inner"
+      >
+        <div
+          className="top"
+        >
+          <h1
+            className="heading"
+          >
+            TIC TAC TOE
+          </h1>
+        </div>
+        <nav>
+          <Link
+            className="link"
+            replace={false}
+            to="/"
+          >
+            <a
+              className="link"
+              href="/"
+              onClick={[Function]}
+            >
+              Home
+            </a>
+          </Link>
+        </nav>
+        <div
+          className="content"
+        >
+          <p>
+            You are Player 
+            NAUGHT
+          </p>
+          <Grid
+            controllingPlayer={
+              Object {
+                "symbol": "NAUGHT",
+              }
+            }
+            currentPlayer={
+              Object {
+                "symbol": "NAUGHT",
+              }
+            }
+            grid={
+              Array [
+                Array [
+                  Object {
+                    "id": "0_0",
+                    "player": null,
+                  },
+                  Object {
+                    "id": "0_1",
+                    "player": null,
+                  },
+                  Object {
+                    "id": "0_2",
+                    "player": null,
+                  },
+                ],
+                Array [
+                  Object {
+                    "id": "1_0",
+                    "player": null,
+                  },
+                  Object {
+                    "id": "1_1",
+                    "player": null,
+                  },
+                  Object {
+                    "id": "1_2",
+                    "player": null,
+                  },
+                ],
+                Array [
+                  Object {
+                    "id": "2_0",
+                    "player": null,
+                  },
+                  Object {
+                    "id": "2_1",
+                    "player": null,
+                  },
+                  Object {
+                    "id": "2_2",
+                    "player": null,
+                  },
+                ],
+              ]
+            }
+            isDraw={false}
+            onItemClick={[Function]}
+            size={9}
+            winner={null}
+          >
+            <div
+              className="root"
+            >
+              <div
+                className="row"
+                key="0"
+              >
+                <GridItem
+                  colN={0}
+                  isFinished={false}
+                  itemState={
+                    Object {
+                      "id": "0_0",
+                      "player": null,
+                    }
+                  }
+                  key="0-0"
+                  onItemClick={[Function]}
+                  position={
+                    Object {
+                      "bottom": false,
+                      "left": true,
+                      "right": false,
+                      "top": true,
+                    }
+                  }
+                  rowN={0}
+                >
+                  <div
+                    className="root top left"
+                    onClick={[Function]}
+                  >
+                    <span>
+                       
+                    </span>
+                  </div>
+                </GridItem>
+                <GridItem
+                  colN={0}
+                  isFinished={false}
+                  itemState={
+                    Object {
+                      "id": "0_1",
+                      "player": null,
+                    }
+                  }
+                  key="0-1"
+                  onItemClick={[Function]}
+                  position={
+                    Object {
+                      "bottom": false,
+                      "left": false,
+                      "right": false,
+                      "top": true,
+                    }
+                  }
+                  rowN={1}
+                >
+                  <div
+                    className="root top"
+                    onClick={[Function]}
+                  >
+                    <span>
+                       
+                    </span>
+                  </div>
+                </GridItem>
+                <GridItem
+                  colN={0}
+                  isFinished={false}
+                  itemState={
+                    Object {
+                      "id": "0_2",
+                      "player": null,
+                    }
+                  }
+                  key="0-2"
+                  onItemClick={[Function]}
+                  position={
+                    Object {
+                      "bottom": false,
+                      "left": false,
+                      "right": true,
+                      "top": true,
+                    }
+                  }
+                  rowN={2}
+                >
+                  <div
+                    className="root top right"
+                    onClick={[Function]}
+                  >
+                    <span>
+                       
+                    </span>
+                  </div>
+                </GridItem>
+              </div>
+              <div
+                className="row"
+                key="1"
+              >
+                <GridItem
+                  colN={1}
+                  isFinished={false}
+                  itemState={
+                    Object {
+                      "id": "1_0",
+                      "player": null,
+                    }
+                  }
+                  key="1-0"
+                  onItemClick={[Function]}
+                  position={
+                    Object {
+                      "bottom": false,
+                      "left": true,
+                      "right": false,
+                      "top": false,
+                    }
+                  }
+                  rowN={0}
+                >
+                  <div
+                    className="root left"
+                    onClick={[Function]}
+                  >
+                    <span>
+                       
+                    </span>
+                  </div>
+                </GridItem>
+                <GridItem
+                  colN={1}
+                  isFinished={false}
+                  itemState={
+                    Object {
+                      "id": "1_1",
+                      "player": null,
+                    }
+                  }
+                  key="1-1"
+                  onItemClick={[Function]}
+                  position={
+                    Object {
+                      "bottom": false,
+                      "left": false,
+                      "right": false,
+                      "top": false,
+                    }
+                  }
+                  rowN={1}
+                >
+                  <div
+                    className="root"
+                    onClick={[Function]}
+                  >
+                    <span>
+                       
+                    </span>
+                  </div>
+                </GridItem>
+                <GridItem
+                  colN={1}
+                  isFinished={false}
+                  itemState={
+                    Object {
+                      "id": "1_2",
+                      "player": null,
+                    }
+                  }
+                  key="1-2"
+                  onItemClick={[Function]}
+                  position={
+                    Object {
+                      "bottom": false,
+                      "left": false,
+                      "right": true,
+                      "top": false,
+                    }
+                  }
+                  rowN={2}
+                >
+                  <div
+                    className="root right"
+                    onClick={[Function]}
+                  >
+                    <span>
+                       
+                    </span>
+                  </div>
+                </GridItem>
+              </div>
+              <div
+                className="row"
+                key="2"
+              >
+                <GridItem
+                  colN={2}
+                  isFinished={false}
+                  itemState={
+                    Object {
+                      "id": "2_0",
+                      "player": null,
+                    }
+                  }
+                  key="2-0"
+                  onItemClick={[Function]}
+                  position={
+                    Object {
+                      "bottom": true,
+                      "left": true,
+                      "right": false,
+                      "top": false,
+                    }
+                  }
+                  rowN={0}
+                >
+                  <div
+                    className="root bottom left"
+                    onClick={[Function]}
+                  >
+                    <span>
+                       
+                    </span>
+                  </div>
+                </GridItem>
+                <GridItem
+                  colN={2}
+                  isFinished={false}
+                  itemState={
+                    Object {
+                      "id": "2_1",
+                      "player": null,
+                    }
+                  }
+                  key="2-1"
+                  onItemClick={[Function]}
+                  position={
+                    Object {
+                      "bottom": true,
+                      "left": false,
+                      "right": false,
+                      "top": false,
+                    }
+                  }
+                  rowN={1}
+                >
+                  <div
+                    className="root bottom"
+                    onClick={[Function]}
+                  >
+                    <span>
+                       
+                    </span>
+                  </div>
+                </GridItem>
+                <GridItem
+                  colN={2}
+                  isFinished={false}
+                  itemState={
+                    Object {
+                      "id": "2_2",
+                      "player": null,
+                    }
+                  }
+                  key="2-2"
+                  onItemClick={[Function]}
+                  position={
+                    Object {
+                      "bottom": true,
+                      "left": false,
+                      "right": true,
+                      "top": false,
+                    }
+                  }
+                  rowN={2}
+                >
+                  <div
+                    className="root bottom right"
+                    onClick={[Function]}
+                  >
+                    <span>
+                       
+                    </span>
+                  </div>
+                </GridItem>
+              </div>
+            </div>
+          </Grid>
+        </div>
+      </div>
+    </div>
+  </Component>
+</GridPage>
 `;

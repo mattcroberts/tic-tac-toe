@@ -4,9 +4,23 @@ query GET_GRID($id: ID!) {
         gridItems {
             player
         }
-        currentPlayer
-        winner
+        currentPlayer {
+            id
+            symbol
+        }
+        winner {
+            id
+            symbol
+        }
         isFinished
         size
+        gameUrls {
+            NAUGHT
+            CROSS
+        }
+        players {
+            id
+            symbol
+        }
     }
 }

@@ -1,10 +1,10 @@
-import { Player } from "../../typings/types";
+import { Symbol as ISymbol } from "../../typings/types";
 
 const playerMap = {
-    [Player.NAUGHT]: "0",
-    [Player.CROSS]: "X"
+    [ISymbol.NAUGHT]: "0",
+    [ISymbol.CROSS]: "X"
 };
 
-const getPlayerSymbol = (player: Player) => playerMap[player];
+const getPlayerSymbol = (player: ISymbol) => playerMap[player];
 
 export default getPlayerSymbol;

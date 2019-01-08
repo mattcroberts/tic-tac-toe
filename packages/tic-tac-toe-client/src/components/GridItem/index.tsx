@@ -1,7 +1,10 @@
 import classnames from "classnames";
 import * as React from "react";
 
-import { GridItem as TGridItem, Player } from "../../../typings/types";
+import {
+    GridItem as IGridItem,
+    Symbol as ISymbol
+} from "../../../typings/types";
 
 import style from "./GridItem.css";
 import getPlayerSymbol from "../../utils/playerMap";
@@ -15,7 +18,7 @@ interface IGridItemProps {
         left: boolean;
         right: boolean;
     };
-    itemState: TGridItem;
+    itemState: IGridItem;
     isFinished: boolean;
     onItemClick: (x: number, y: number) => void;
 }
@@ -27,7 +30,11 @@ class GridItem extends React.PureComponent<IGridItemProps, any> {
     }
 
     public render() {
-        const { position } = this.props;
+        const {
+            position,
+            itemState: { player }
+        } = this.props;
+
         return (
             <div
                 className={classnames(
@@ -35,10 +42,8 @@ class GridItem extends React.PureComponent<IGridItemProps, any> {
                         [style.finished]: this.props.isFinished
                     },
                     {
-                        [style.naught]:
-                            this.props.itemState.player === Player.NAUGHT,
-                        [style.cross]:
-                            this.props.itemState.player === Player.CROSS
+                        [style.naught]: player === ISymbol.NAUGHT,
+                        [style.cross]: player === ISymbol.CROSS
                     },
                     {
                         [style.root]: true,

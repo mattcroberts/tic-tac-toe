@@ -6,18 +6,19 @@ import GridItem, {
     IGridItem,
     IGridItemModel
 } from "../GridItem";
-import Player from "../Player";
+import Player, { IPlayerModel, ISymbol } from "../Player";
 
 interface IGrid {
     _gridItems: [IGridItemModel];
-    gridItems: [IGridItem[]];
-    currentPlayer: Player;
-    winner: Player | null;
+    gridItems: [IGridItemModel[]];
+    players: [IPlayerModel];
+    currentPlayer: IPlayerModel;
+    winner: IPlayerModel | null;
     isFinished: boolean;
     size: number;
     checkWinner(): void;
     isDraw(): boolean;
-    placePlayer(player: Player, x: number, y: number): void;
+    placePlayer(player: ISymbol, x: number, y: number): void;
 }
 
 export interface IGridModel extends IGrid, Document {}
@@ -33,10 +34,15 @@ const gridSchema = new Schema(
             type: [GridItemSchema]
         },
         currentPlayer: {
-            default: Player.NAUGHT,
-            enum: Object.keys(Player),
-            type: String
+            type: Schema.Types.ObjectId,
+            ref: "Player"
         },
+        players: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Player"
+            }
+        ],
         isFinished: {
             default: false,
             type: Boolean
@@ -46,8 +52,8 @@ const gridSchema = new Schema(
             type: Number
         },
         winner: {
-            enum: Object.keys(Player),
-            type: String
+            type: Schema.Types.ObjectId,
+            ref: "Player"
         }
     },
     {
@@ -59,6 +65,16 @@ const gridSchema = new Schema(
         }
     }
 );
+
+gridSchema.pre("save", async function(this: IGridModel) {
+    if (this.isNew) {
+        this.players.push(new Player({ symbol: ISymbol.NAUGHT }));
+        this.players.push(new Player({ symbol: ISymbol.CROSS }));
+
+        this.currentPlayer = this.players[0];
+        return this.players.map(p => p.save());
+    }
+});
 
 gridSchema.virtual("gridItems").get(function(this: IGridModel) {
     return this._gridItems.reduce<IGridItem[][]>((acc, item, i) => {
@@ -72,25 +88,41 @@ gridSchema.virtual("gridItems").get(function(this: IGridModel) {
     }, new Array<IGridItem[]>());
 });
 
+gridSchema.virtual("gameUrls").get(function(this: IGridModel) {
+    const crossPlayer = this.players.find(p => p.symbol === ISymbol.CROSS);
+    const naughtPlayer = this.players.find(p => p.symbol === ISymbol.NAUGHT);
+    return {
+        [ISymbol.CROSS]: crossPlayer
+            ? `/game/${this.id}/${crossPlayer.id}`
+            : "",
+        [ISymbol.NAUGHT]: naughtPlayer
+            ? `/game/${this.id}/${naughtPlayer.id}`
+            : ""
+    };
+});
+
 gridSchema.method("placePlayer", function(
     this: IGridModel,
-    player: Player,
+    symbol: ISymbol,
     x: number,
     y: number
 ) {
-    this._gridItems[x * this.size + y].set(`player`, player);
+    this._gridItems[x * this.size + y].set(`player`, symbol);
 
     this.checkWinner();
 
-    this.currentPlayer =
-        this.currentPlayer === Player.NAUGHT ? Player.CROSS : Player.NAUGHT;
+    this.currentPlayer = this.players.find(
+        p => p.symbol !== this.currentPlayer.symbol
+    )!;
 });
 
 gridSchema.method("checkWinner", function(this: IGridModel) {
-    if (hasWon(Player.NAUGHT, this)) {
-        this.winner = Player.NAUGHT;
-    } else if (hasWon(Player.CROSS, this)) {
-        this.winner = Player.CROSS;
+    const crossPlayer = this.players.find(p => p.symbol === ISymbol.CROSS)!;
+    const naughtPlayer = this.players.find(p => p.symbol === ISymbol.NAUGHT)!;
+    if (hasWon(crossPlayer, this)) {
+        this.winner = crossPlayer;
+    } else if (hasWon(naughtPlayer, this)) {
+        this.winner = naughtPlayer;
     }
 
     if (this.winner || this.isDraw()) {

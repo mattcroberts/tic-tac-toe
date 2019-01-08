@@ -5,8 +5,10 @@ mutation newGame {
             id
             player
         }
-        currentPlayer
-        winner
+        currentPlayer {
+            id
+            symbol
+        }
         isFinished
     }
 }

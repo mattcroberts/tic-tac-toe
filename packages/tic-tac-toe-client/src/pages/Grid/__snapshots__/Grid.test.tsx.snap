@@ -2,7 +2,16 @@
 
 exports[`GridPage should render 1`] = `
 <Component>
+  <p>
+    You are Player 
+    CROSS
+  </p>
   <Grid
+    controllingPlayer={
+      Object {
+        "symbol": "CROSS",
+      }
+    }
     isDraw={false}
     onItemClick={[Function]}
     winner={null}

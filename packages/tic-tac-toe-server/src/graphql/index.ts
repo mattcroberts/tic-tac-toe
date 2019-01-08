@@ -2,6 +2,7 @@ import * as fs from "fs";
 import { makeExecutableSchema } from "graphql-tools";
 import { join } from "path";
 
+import pubsub from "./pubsub";
 import * as gridResolver from "./grid/resolver";
 import * as tictactoeResolver from "./tictactoe/resolver";
 
@@ -16,7 +17,14 @@ export const Schema = makeExecutableSchema({
     resolvers: [
         {
             Mutation: gridResolver.mutation.Mutation,
-            Query: gridResolver.query.Query
+            Query: gridResolver.query.Query,
+            Subscription: {
+                gridUpdated: {
+                    subscribe: (...args: any[]) => {
+                        return pubsub.asyncIterator(["gridUpdated"]);
+                    }
+                }
+            }
         },
         {
             Query: tictactoeResolver.query.Query

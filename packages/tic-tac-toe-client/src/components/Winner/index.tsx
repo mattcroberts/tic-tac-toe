@@ -1,21 +1,21 @@
 import * as React from "react";
 import classnames from "classnames";
 
-import { Player } from "../../../typings/types";
+import { Player as IPlayer, Symbol as ISymbol } from "../../../typings/types";
 import style from "./Winner.css";
 import getPlayerSymbol from "../../utils/playerMap";
 
-const Winner = ({ winner }: { winner?: Player | null }) => {
+const Winner = ({ winner }: { winner?: IPlayer | null }) => {
     const text = winner
         ? [
               <span
                   className={classnames({
-                      [style.naught]: winner === Player.NAUGHT,
-                      [style.cross]: winner === Player.CROSS
+                      [style.naught]: winner.symbol === ISymbol.NAUGHT,
+                      [style.cross]: winner.symbol === ISymbol.CROSS
                   })}
                   key={"winner"}
               >
-                  {getPlayerSymbol(winner)}
+                  {getPlayerSymbol(winner.symbol)}
               </span>,
               " has won!"
           ]

@@ -1,10 +1,10 @@
 import { Document, model, Schema } from "mongoose";
-import Player from "../Player";
+import { ISymbol } from "../Player";
 
 export interface IGridItem {
     x: number;
     y: number;
-    player: Player | null;
+    player: ISymbol | null;
 }
 
 export interface IGridItemModel extends IGridItem, Document {}
@@ -12,7 +12,7 @@ export interface IGridItemModel extends IGridItem, Document {}
 export const GridItemSchema = new Schema(
     {
         player: {
-            enum: Object.keys(Player),
+            enum: Object.keys(ISymbol),
             type: String
         },
         x: {
@@ -35,7 +35,7 @@ export const GridItemSchema = new Schema(
 );
 
 GridItemSchema.virtual("id").get(function(this: IGridItemModel) {
-    return this._id;
+    return this._id.toString();
 });
 
 export default model<IGridItemModel>("GridItem", GridItemSchema);
