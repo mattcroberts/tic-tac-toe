@@ -34,6 +34,7 @@ jobs:
       - run:
           environment:
             API_URI: https://mcr-tictactoe-api.now.sh/graphql
+            WS_URI: wss://mcr-tictactoe-api.now.sh/graphql
           command: yarn build
           working_directory: ./packages/tic-tac-toe-client
   build-server:
