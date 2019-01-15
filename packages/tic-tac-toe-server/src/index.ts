@@ -14,7 +14,6 @@ import { Schema } from "./graphql";
 
 dotenv.config();
 
-const WS_PORT = 5000;
 const app = new Koa();
 const router = new Router();
 const apolloServer = new ApolloServer({ schema: Schema, playground: {} });
@@ -33,7 +32,7 @@ router.get("/ping", async ctx => {
 
 router.all("/playground", koaPlayground({
     endpoint: "/graphql",
-    subscriptionEndpoint: "ws://localhost:5000/graphql"
+    subscriptionEndpoint: "ws://localhost:3000/graphql"
 }) as any);
 
 app.use(router.routes());
@@ -70,15 +69,7 @@ app.use(router.routes());
     }
     await connected;
 
-    const websocketServer = createServer((request, response) => {
-        response.writeHead(404);
-        response.end();
-    });
-
-    // Bind it to port and start listening
-    websocketServer.listen(WS_PORT, () =>
-        console.log(`Websocket Server is now running on localhost:${WS_PORT}`)
-    );
+    const server = createServer(app.callback());
 
     SubscriptionServer.create(
         {
@@ -87,12 +78,12 @@ app.use(router.routes());
             subscribe
         },
         {
-            server: websocketServer,
+            server,
             path: "/ws"
         }
     );
 
-    app.listen(3000, () => {
+    server.listen(3000, () => {
         console.log("listening on 3000");
     });
 })();

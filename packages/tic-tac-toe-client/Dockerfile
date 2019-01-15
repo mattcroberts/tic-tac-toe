@@ -17,4 +17,5 @@ WORKDIR /home/nodejs/app
 COPY . .
 
 RUN yarn install && yarn build --detailed-report --no-cache
+ENV NODE_ENV=production
 CMD ["yarn", "start"]
