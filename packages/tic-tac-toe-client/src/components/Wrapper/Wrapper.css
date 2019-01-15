@@ -19,14 +19,17 @@
     display: flex;
     flex-direction: column;
     flex: 1;
+    user-select: none;
 }
 
 .link {
     color: #fffbfe;
     padding: 6px;
+    user-select: none;
 }
 
 .heading {
     font-size: 32px;
     margin: 6px;
+    user-select: none;
 }
