@@ -8,12 +8,12 @@
 	},
 	"scripts": {
 		"prepare": "lerna bootstrap",
-		"dev": "run-p -l ui-dev api-dev mongo",
+		"dev": "source .env && run-p -l ui-dev api-dev mongo",
 		"mongo": "docker run -p 27017:27017 mongo",
-		"ui-dev": "lerna exec --scope tic-tac-toe-client -- PORT=3001 yarn start",
+		"ui-dev": "lerna exec --scope tic-tac-toe-client -- PORT=3001 yarn watch",
 		"api-dev": "lerna exec --scope tic-tac-toe-server -- yarn dev",
 		"build": "docker-compose build",
-		"start": "docker-compose up",
+		"start": "docker-compose -f docker-compose.yml -f docker-compose.local.yml up",
 		"stop": "docker-compose down"
 	},
 	"dependencies": {}

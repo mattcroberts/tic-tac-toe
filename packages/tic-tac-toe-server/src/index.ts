@@ -31,13 +31,10 @@ router.get("/ping", async ctx => {
     ctx.body = "pong";
 });
 
-router.all(
-    "/playground",
-    koaPlayground({
-        endpoint: "/graphql",
-        subscriptionEndpoint: "ws://localhost:5000/graphql"
-    }) as any
-);
+router.all("/playground", koaPlayground({
+    endpoint: "/graphql",
+    subscriptionEndpoint: "ws://localhost:5000/graphql"
+}) as any);
 
 app.use(router.routes());
 
@@ -69,7 +66,7 @@ app.use(router.routes());
             }
         );
     } catch (err) {
-        console.error(err, "connection faile");
+        console.error(err, "connection failed");
     }
     await connected;
 
@@ -80,9 +77,7 @@ app.use(router.routes());
 
     // Bind it to port and start listening
     websocketServer.listen(WS_PORT, () =>
-        console.log(
-            `Websocket Server is now running on http://localhost:${WS_PORT}`
-        )
+        console.log(`Websocket Server is now running on localhost:${WS_PORT}`)
     );
 
     SubscriptionServer.create(
@@ -93,7 +88,7 @@ app.use(router.routes());
         },
         {
             server: websocketServer,
-            path: "/graphql"
+            path: "/ws"
         }
     );
 

@@ -1,13 +1,14 @@
-version: '3'
+version: "3"
 
 services:
   ui:
     build:
       context: ./packages/tic-tac-toe-client/
       args:
-        - API_URI=/graphql
-    volumes:
-      - public:/home/nodejs/app/dist
+        - API_URI=${API_URI}
+        - WS_URI=${WS_URI}
+    expose:
+      - 5000
   api:
     build: ./packages/tic-tac-toe-server
     environment:
@@ -18,14 +19,3 @@ services:
       - 3000
   mongo:
     image: mongo
-  lb:
-    image: nginx
-    ports:
-      - 5000:8080
-    depends_on:
-      - api
-    volumes:
-      - public:/public
-      - ./site.conf:/etc/nginx/conf.d/site.conf
-volumes:
-    public:

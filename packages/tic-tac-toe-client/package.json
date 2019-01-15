@@ -5,7 +5,8 @@
   "homepage": "https://mattcroberts.github.io/tic-tac-toe",
   "scripts": {
     "generate-types": "gql-gen --schema http://localhost:3000/graphql --template graphql-codegen-typescript-template --out ./typings/ \"./src/**/*.ts\"",
-    "start": "parcel serve --log-level 3 -p 3001 public/index.html",
+    "watch": "parcel serve --log-level 3 -p 3001 public/index.html",
+    "start": "serve -s -n -l 5000",
     "prebuild": "rm -rf dist",
     "build": "parcel build public/index.html",
     "test": "jest",
@@ -28,6 +29,7 @@
     "react-dom": "^16.3.2",
     "react-router-dom": "^4.3.1",
     "recompose": "^0.30.0",
+    "serve": "^10.1.1",
     "subscriptions-transport-ws": "^0.9.15",
     "whatwg-fetch": "2.0.3"
   },
