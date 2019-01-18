@@ -7,8 +7,9 @@ import Koa from "koa";
 import { createServer } from "http";
 import koabody from "koa-body";
 import Router from "koa-router";
-import mongoose from "mongoose";
 import { SubscriptionServer } from "subscriptions-transport-ws";
+import "reflect-metadata";
+import { createConnection } from "typeorm";
 
 import { Schema } from "./graphql";
 
@@ -37,6 +38,10 @@ router.all("/playground", koaPlayground({
 
 app.use(router.routes());
 
+process.on("unhandledRejection", err => {
+    console.log(err);
+});
+
 (async () => {
     const mongoUri = process.env.MONGO_URI;
 
@@ -48,26 +53,7 @@ app.use(router.routes());
         console.log(`Connecting to DB at ${mongoUri}`);
     }
 
-    const mongoConnection = mongoose.connection;
-
-    const connected = new Promise(resolve => {
-        mongoConnection.once("connected", (...args) => {
-            return resolve(args);
-        });
-    });
-
-    try {
-        mongoose.connect(
-            mongoUri,
-            {
-                autoReconnect: true,
-                reconnectInterval: 5
-            }
-        );
-    } catch (err) {
-        console.error(err, "connection failed");
-    }
-    await connected;
+    await createConnection();
 
     const server = createServer(app.callback());
 

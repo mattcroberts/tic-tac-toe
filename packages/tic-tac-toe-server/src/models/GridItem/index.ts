@@ -1,5 +1,5 @@
-import { Document, model, Schema } from "mongoose";
-import { ISymbol } from "../Player";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { ISymbol, IPlayerType } from "../Player";
 
 export interface IGridItem {
     x: number;
@@ -7,35 +7,23 @@ export interface IGridItem {
     player: ISymbol | null;
 }
 
-export interface IGridItemModel extends IGridItem, Document {}
-
-export const GridItemSchema = new Schema(
-    {
-        player: {
-            enum: Object.keys(ISymbol),
-            type: String
-        },
-        x: {
-            required: true,
-            type: Number
-        },
-        y: {
-            required: true,
-            type: Number
-        }
-    },
-    {
-        toJSON: {
-            virtuals: true
-        },
-        toObject: {
-            virtuals: true
-        }
+@Entity()
+export default class GridItem extends BaseEntity implements IGridItem {
+    constructor(x: number, y: number) {
+        super();
+        this.x = x;
+        this.y = y;
     }
-);
 
-GridItemSchema.virtual("id").get(function(this: IGridItemModel) {
-    return this._id.toString();
-});
+    @PrimaryGeneratedColumn()
+    id!: number;
 
-export default model<IGridItemModel>("GridItem", GridItemSchema);
+    @Column({ type: "int" })
+    x: number;
+
+    @Column({ type: "int" })
+    y: number;
+
+    @Column() // TODO make this use Player type
+    player: ISymbol | null = null;
+}

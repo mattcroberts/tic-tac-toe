@@ -1,31 +1,44 @@
-import { Document, model, Schema } from "mongoose";
+import {
+    BaseEntity,
+    Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    ManyToOne
+} from "typeorm";
+import Grid, { IGrid } from "../Grid";
 
 export enum ISymbol {
-    NAUGHT = "NAUGHT",
-    CROSS = "CROSS"
+    NAUGHT,
+    CROSS
 }
 
-enum PlayerType {
+export enum IPlayerType {
     ANONYMOUS
 }
 
-interface IPlayer {
+export interface IPlayer {
+    id: number;
     symbol: ISymbol;
-    type: PlayerType;
+    type: IPlayerType;
 }
 
-export interface IPlayerModel extends IPlayer, Document {}
-
-const PlayerSchema = new Schema({
-    symbol: {
-        enum: Object.keys(ISymbol),
-        type: String
-    },
-    type: {
-        enum: Object.keys(PlayerType),
-        type: String,
-        default: PlayerType.ANONYMOUS
+@Entity()
+export default class Player extends BaseEntity implements IPlayer {
+    constructor(symbol: ISymbol, type: IPlayerType) {
+        super();
+        this.symbol = symbol;
+        this.type = type;
     }
-});
 
-export default model<IPlayerModel>("Player", PlayerSchema);
+    @ManyToOne(type => Grid, grid => grid.players)
+    grid: IGrid | null = null;
+
+    @PrimaryGeneratedColumn()
+    id!: number;
+
+    @Column({ type: "enum", enum: ISymbol })
+    symbol: ISymbol;
+
+    @Column({ type: "enum", enum: IPlayerType })
+    type: IPlayerType;
+}
