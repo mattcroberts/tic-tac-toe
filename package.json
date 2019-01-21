@@ -9,7 +9,7 @@
 	"scripts": {
 		"prepare": "lerna bootstrap",
 		"dev": "source .env && run-p -l ui-dev api-dev mongo",
-		"mongo": "docker run -p 27017:27017 mongo",
+		"postgres": "docker run -p 5432:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=tictactoe postgres",
 		"ui-dev": "lerna exec --scope tic-tac-toe-client -- PORT=3001 yarn watch",
 		"api-dev": "lerna exec --scope tic-tac-toe-server -- yarn dev",
 		"build": "docker-compose build",

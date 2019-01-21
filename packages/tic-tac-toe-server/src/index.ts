@@ -9,7 +9,7 @@ import koabody from "koa-body";
 import Router from "koa-router";
 import { SubscriptionServer } from "subscriptions-transport-ws";
 import "reflect-metadata";
-import { createConnection } from "typeorm";
+import { createConnection, getConnectionOptions } from "typeorm";
 
 import { Schema } from "./graphql";
 
@@ -52,8 +52,13 @@ process.on("unhandledRejection", err => {
     if (process.env.NODE_ENV === "development") {
         console.log(`Connecting to DB at ${mongoUri}`);
     }
-
-    await createConnection();
+    const connectionOptions = Object.assign(await getConnectionOptions(), {
+        host: process.env.TYPEORM_HOST,
+        username: process.env.TYPEORM_USERNAME,
+        password: process.env.TYPEORM_PASSWORD,
+        database: process.env.TYPEORM_DATABASE
+    });
+    await createConnection(connectionOptions);
 
     const server = createServer(app.callback());
 
@@ -73,3 +78,5 @@ process.on("unhandledRejection", err => {
         console.log("listening on 3000");
     });
 })();
+
+console.log(process.env);

@@ -10,12 +10,18 @@ services:
     expose:
       - 5000
   api:
-    build: ./packages/tic-tac-toe-server
+    build:
+      context: ./packages/tic-tac-toe-server
     environment:
-      - MONGO_URI=mongodb://mongo/tictactoe
+      - TYPEORM_HOST=postgres
+      - TYPEORM_DATABASE=tictactoe
+      - TYPEORM_PASSWORD=${POSTGRES_PASSWORD}
     depends_on:
-      - mongo
+      - postgres
     expose:
       - 3000
-  mongo:
-    image: mongo
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_DB=tictactoe
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}

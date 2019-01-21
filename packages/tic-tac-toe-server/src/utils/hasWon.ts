@@ -1,11 +1,8 @@
-import { IGridModel } from "../models/Grid";
-import { IGridItemModel } from "../models/GridItem";
-import { IPlayerModel } from "../models/Player";
+import { IGrid } from "../models/Grid";
+import { IGridItem } from "../models/GridItem";
+import { IPlayer } from "../models/Player";
 
-const checkLine = (
-    playerToCheck: IPlayerModel,
-    line: IGridItemModel[]
-): boolean => {
+const checkLine = (playerToCheck: IPlayer, line: IGridItem[]): boolean => {
     const linePlayer = line[0].player;
     return (
         !!linePlayer &&
@@ -16,8 +13,9 @@ const checkLine = (
     );
 };
 
-export default (player: IPlayerModel, grid: IGridModel): boolean => {
-    const rowWin = grid.gridItems.reduce((won, row) => {
+export default (player: IPlayer, grid: IGrid): boolean => {
+    const asGrid = grid.toGrid();
+    const rowWin = asGrid.reduce((won, row) => {
         return (
             won ||
             row.every(({ player: p }) => {
@@ -27,15 +25,15 @@ export default (player: IPlayerModel, grid: IGridModel): boolean => {
     }, false);
 
     let colWin = false;
-    const forwardDiag: IGridItemModel[] = [];
-    const backwardDiag: IGridItemModel[] = [];
+    const forwardDiag: IGridItem[] = [];
+    const backwardDiag: IGridItem[] = [];
     for (let i = 0; i < grid.gridItems.length; i++) {
-        const col: IGridItemModel[] = [];
-        forwardDiag.push(grid.gridItems[i][i]);
-        backwardDiag.push(grid.gridItems[i][grid.gridItems.length - i - 1]);
+        const col: IGridItem[] = [];
+        forwardDiag.push(asGrid[i][i]);
+        backwardDiag.push(asGrid[i][grid.gridItems.length - i - 1]);
 
-        for (let j = 0; j < grid.gridItems[i].length; j++) {
-            col.push(grid.gridItems[j][i]);
+        for (let j = 0; j < asGrid[i].length; j++) {
+            col.push(asGrid[j][i]);
         }
 
         colWin = checkLine(player, col);

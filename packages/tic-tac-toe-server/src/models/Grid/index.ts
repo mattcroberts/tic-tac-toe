@@ -20,6 +20,8 @@ export interface IGrid {
     // checkWinner(): void;
     // isDraw(): boolean;
     // placePlayer(player: ISymbol, x: number, y: number): void;
+
+    toGrid: () => IGridItem[][]
 }
 
 @Entity()
@@ -41,6 +43,18 @@ export default class Grid extends BaseEntity implements IGrid {
 
     @OneToMany(type => GridItem, gridItem => gridItem.id)
     gridItems!: GridItem[];
+
+    toGrid() {
+        return this.gridItems.reduce<IGridItem[][]>((acc, item, i) => {
+            const x = Math.floor(i / this.size);
+            const y = i % this.size;
+            if (!acc[x]) {
+                acc[x] = new Array<IGridItem>();
+            }
+            acc[x][y] = item;
+            return acc;
+        }, new Array<IGridItem[]>());
+    }
 }
 // export interface IGridModel extends IGrid, Document {}
 

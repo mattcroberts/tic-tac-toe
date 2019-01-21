@@ -24,6 +24,6 @@ export default class GridItem extends BaseEntity implements IGridItem {
     @Column({ type: "int" })
     y: number;
 
-    @Column() // TODO make this use Player type
+    @Column({ type: "enum", enum: ISymbol }) // TODO make this use Player type
     player: ISymbol | null = null;
 }
