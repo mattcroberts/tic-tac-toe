@@ -1,10 +1,18 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { ISymbol, IPlayerType } from "../Player";
+import {
+    BaseEntity,
+    Column,
+    Entity,
+    PrimaryGeneratedColumn,
+    OneToOne,
+    ManyToOne
+} from "typeorm";
+import Player from "../Player";
+import Grid from "../Grid";
 
 export interface IGridItem {
     x: number;
     y: number;
-    player: ISymbol | null;
+    player: Player | null;
 }
 
 @Entity()
@@ -24,6 +32,9 @@ export default class GridItem extends BaseEntity implements IGridItem {
     @Column({ type: "int" })
     y: number;
 
-    @Column({ type: "enum", enum: ISymbol }) // TODO make this use Player type
-    player: ISymbol | null = null;
+    @ManyToOne(type => Grid, grid => grid._gridItems)
+    grid!: Grid;
+
+    @OneToOne(type => Player)
+    player: Player | null = null;
 }

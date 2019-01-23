@@ -1,27 +1,31 @@
 import hasWon from "../../utils/hasWon";
-import GridItem, { IGridItem } from "../GridItem";
-import Player, { IPlayer, ISymbol } from "../Player";
+import GridItem from "../GridItem";
+import Player, { ISymbol } from "../Player";
 import {
     BaseEntity,
     Entity,
     OneToMany,
     PrimaryGeneratedColumn,
     OneToOne,
-    Column
+    Column,
+    JoinColumn,
+    ManyToMany,
+    JoinTable
 } from "typeorm";
 
 export interface IGrid {
-    gridItems: IGridItem[];
+    _gridItems: GridItem[];
+    gridItems: GridItem[][];
     players: Player[];
-    // currentPlayer: Player;
-    // winner: IPlayer | null;
+    currentPlayer: Player;
+    winner: Player | null;
     isFinished: boolean;
     size: number;
-    // checkWinner(): void;
-    // isDraw(): boolean;
-    // placePlayer(player: ISymbol, x: number, y: number): void;
+    checkWinner(): void;
+    isDraw(): boolean;
+    placePlayer(player: Player, x: number, y: number): void;
 
-    toGrid: () => IGridItem[][]
+    toGrid: () => GridItem[][];
 }
 
 @Entity()
@@ -29,11 +33,17 @@ export default class Grid extends BaseEntity implements IGrid {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @OneToMany(type => Player, player => player.grid)
+    @ManyToMany(type => Player)
+    @JoinTable()
     players!: Player[];
 
-    // @OneToOne(type => Player)
-    // currentPlayer: Player | null;
+    @OneToOne(type => Player)
+    @JoinColumn()
+    currentPlayer!: Player;
+
+    @OneToOne(type => Player, { nullable: true })
+    @JoinColumn()
+    winner: Player | null = null;
 
     @Column({ type: "boolean" })
     isFinished: boolean = false;
@@ -41,136 +51,69 @@ export default class Grid extends BaseEntity implements IGrid {
     @Column({ type: "integer" })
     size: number = 3;
 
-    @OneToMany(type => GridItem, gridItem => gridItem.id)
-    gridItems!: GridItem[];
+    @OneToMany(type => GridItem, gridItem => gridItem.grid, { cascade: true })
+    _gridItems!: GridItem[];
+
+    get gridItems(): GridItem[][] {
+        return this.toGrid();
+    }
+
+    get gameUrls() {
+        const crossPlayer = this.players.find(p => p.symbol === ISymbol.CROSS);
+        const naughtPlayer = this.players.find(
+            p => p.symbol === ISymbol.NAUGHT
+        );
+        return {
+            [ISymbol.CROSS]: crossPlayer
+                ? `/game/${this.id}/${crossPlayer.id}`
+                : "",
+            [ISymbol.NAUGHT]: naughtPlayer
+                ? `/game/${this.id}/${naughtPlayer.id}`
+                : ""
+        };
+    }
 
     toGrid() {
-        return this.gridItems.reduce<IGridItem[][]>((acc, item, i) => {
+        return this._gridItems.reduce((acc, item, i) => {
             const x = Math.floor(i / this.size);
             const y = i % this.size;
             if (!acc[x]) {
-                acc[x] = new Array<IGridItem>();
+                acc[x] = new Array<GridItem>();
             }
             acc[x][y] = item;
             return acc;
-        }, new Array<IGridItem[]>());
+        }, new Array<GridItem[]>());
+    }
+
+    checkWinner() {
+        const crossPlayer = this.players.find(p => p.symbol === ISymbol.CROSS)!;
+        const naughtPlayer = this.players.find(
+            p => p.symbol === ISymbol.NAUGHT
+        )!;
+        if (hasWon(crossPlayer, this)) {
+            this.winner = crossPlayer;
+        } else if (hasWon(naughtPlayer, this)) {
+            this.winner = naughtPlayer;
+        }
+
+        if (this.winner || this.isDraw()) {
+            this.isFinished = true;
+        }
+    }
+
+    isDraw() {
+        return !this.gridItems.some(row => {
+            return row.some(item => !item.player);
+        });
+    }
+
+    placePlayer(player: Player, x: number, y: number) {
+        this._gridItems[x * this.size + y].player = player;
+
+        this.checkWinner();
+
+        this.currentPlayer = this.players.find(
+            p => p.symbol !== this.currentPlayer.symbol
+        )!;
     }
 }
-// export interface IGridModel extends IGrid, Document {}
-
-// const gridSchema = new Schema(
-//     {
-//         _gridItems: {
-//             default() {
-//                 return [...new Array<IGridItem>(9)].map(
-//                     (_, i) => new GridItem({ x: Math.floor(i / 3), y: i % 3 })
-//                 );
-//             },
-//             type: [GridItemSchema]
-//         },
-//         currentPlayer: {
-//             type: Schema.Types.ObjectId,
-//             ref: "Player"
-//         },
-//         players: [
-//             {
-//                 type: Schema.Types.ObjectId,
-//                 ref: "Player"
-//             }
-//         ],
-//         isFinished: {
-//             default: false,
-//             type: Boolean
-//         },
-//         size: {
-//             default: 3,
-//             type: Number
-//         },
-//         winner: {
-//             type: Schema.Types.ObjectId,
-//             ref: "Player"
-//         }
-//     },
-//     {
-//         toJSON: {
-//             virtuals: true
-//         },
-//         toObject: {
-//             virtuals: true
-//         }
-//     }
-// );
-
-// gridSchema.pre("save", async function(this: IGridModel) {
-//     if (this.isNew) {
-//         this.players.push(new Player({ symbol: ISymbol.NAUGHT }));
-//         this.players.push(new Player({ symbol: ISymbol.CROSS }));
-
-//         this.currentPlayer = this.players[0];
-//         return this.players.map(p => p.save());
-//     }
-// });
-
-// gridSchema.virtual("gridItems").get(function(this: IGridModel) {
-//     return this._gridItems.reduce<IGridItem[][]>((acc, item, i) => {
-//         const x = Math.floor(i / this.size);
-//         const y = i % this.size;
-//         if (!acc[x]) {
-//             acc[x] = new Array<IGridItem>();
-//         }
-//         acc[x][y] = item;
-//         return acc;
-//     }, new Array<IGridItem[]>());
-// });
-
-// gridSchema.virtual("gameUrls").get(function(this: IGridModel) {
-//     const crossPlayer = this.players.find(p => p.symbol === ISymbol.CROSS);
-//     const naughtPlayer = this.players.find(p => p.symbol === ISymbol.NAUGHT);
-//     return {
-//         [ISymbol.CROSS]: crossPlayer
-//             ? `/game/${this.id}/${crossPlayer.id}`
-//             : "",
-//         [ISymbol.NAUGHT]: naughtPlayer
-//             ? `/game/${this.id}/${naughtPlayer.id}`
-//             : ""
-//     };
-// });
-
-// gridSchema.method("placePlayer", function(
-//     this: IGridModel,
-//     symbol: ISymbol,
-//     x: number,
-//     y: number
-// ) {
-//     this._gridItems[x * this.size + y].set(`player`, symbol);
-
-//     this.checkWinner();
-
-//     this.currentPlayer = this.players.find(
-//         p => p.symbol !== this.currentPlayer.symbol
-//     )!;
-// });
-
-// gridSchema.method("checkWinner", function(this: IGridModel) {
-//     const crossPlayer = this.players.find(p => p.symbol === ISymbol.CROSS)!;
-//     const naughtPlayer = this.players.find(p => p.symbol === ISymbol.NAUGHT)!;
-//     if (hasWon(crossPlayer, this)) {
-//         this.winner = crossPlayer;
-//     } else if (hasWon(naughtPlayer, this)) {
-//         this.winner = naughtPlayer;
-//     }
-
-//     if (this.winner || this.isDraw()) {
-//         this.isFinished = true;
-//     }
-// });
-
-// gridSchema.method("isDraw", function(this: IGridModel) {
-//     return !this.gridItems.some(row => {
-//         return row.some(item => !item.player);
-//     });
-// });
-
-// const Grid = model<IGridModel>("Grid", gridSchema);
-
-// export default Grid;

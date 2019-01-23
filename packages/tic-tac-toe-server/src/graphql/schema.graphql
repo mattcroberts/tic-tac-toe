@@ -9,7 +9,7 @@ type Query {
 }
 
 type Mutation {
-    executeTurn(id: ID!, player: Symbol!, x: Int!, y: Int!): Grid!
+    executeTurn(id: ID!, player: ID!, x: Int!, y: Int!): Grid!
     newGame: Grid!
 }
 

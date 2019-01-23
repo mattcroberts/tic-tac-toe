@@ -6,7 +6,7 @@ const checkLine = (playerToCheck: IPlayer, line: IGridItem[]): boolean => {
     const linePlayer = line[0].player;
     return (
         !!linePlayer &&
-        linePlayer === playerToCheck.symbol &&
+        linePlayer.symbol === playerToCheck.symbol &&
         line.every(({ player: p }) => {
             return !!p && p === linePlayer;
         })
@@ -19,7 +19,7 @@ export default (player: IPlayer, grid: IGrid): boolean => {
         return (
             won ||
             row.every(({ player: p }) => {
-                return p ? p === player.symbol : false;
+                return p ? p.symbol === player.symbol : false;
             })
         );
     }, false);

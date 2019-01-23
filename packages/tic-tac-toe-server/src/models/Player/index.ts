@@ -3,13 +3,13 @@ import {
     Entity,
     Column,
     PrimaryGeneratedColumn,
-    ManyToOne
+    ManyToMany
 } from "typeorm";
-import Grid, { IGrid } from "../Grid";
+import Grid from "../Grid";
 
 export enum ISymbol {
-    NAUGHT,
-    CROSS
+    NAUGHT = "NAUGHT",
+    CROSS = "CROSS"
 }
 
 export enum IPlayerType {
@@ -30,8 +30,8 @@ export default class Player extends BaseEntity implements IPlayer {
         this.type = type;
     }
 
-    @ManyToOne(type => Grid, grid => grid.players)
-    grid: IGrid | null = null;
+    @ManyToMany(type => Grid)
+    grids!: Grid[];
 
     @PrimaryGeneratedColumn()
     id!: number;
