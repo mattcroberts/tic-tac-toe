@@ -41,4 +41,8 @@ export default class Player extends BaseEntity implements IPlayer {
 
     @Column({ type: "enum", enum: IPlayerType })
     type: IPlayerType;
+
+    toString(): string {
+        return `Player ${this.id} ${this.symbol}`;
+    }
 }

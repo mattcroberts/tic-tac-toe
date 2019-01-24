@@ -1,3 +1,4 @@
+import { VError, WError } from "verror";
 import Grid from "../../models/Grid";
 import Player, { ISymbol, IPlayerType } from "../../models/Player";
 import { default as GridItem, IGridItem } from "../../models/GridItem";
@@ -44,12 +45,16 @@ export const mutation = {
             }: { id: string; player: string; x: number; y: number }
         ) {
             try {
-                const grid = await Grid.findOneOrFail(id);
+                const grid = await Grid.findOneOrFail(id, {
+                    relations: ["currentPlayer", "_gridItems", "players"]
+                });
                 const player = await Player.findOneOrFail(playerId);
 
                 if (grid.currentPlayer.id !== player.id) {
-                    throw new Error(
-                        `Not current player ${grid.currentPlayer}:${player}`
+                    throw new VError(
+                        `Not current player ${
+                            grid.currentPlayer
+                        } expected ${player}`
                     );
                 }
                 grid.placePlayer(player, x, y);
@@ -58,7 +63,7 @@ export const mutation = {
                 return grid;
             } catch (e) {
                 console.error(e);
-                throw new Error("Grid not found:" + id);
+                throw new WError(e, "Execute Turn Error grid:" + id);
             }
         },
         async newGame() {

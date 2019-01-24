@@ -46,7 +46,7 @@ export interface Grid {
 
 export interface GridItem {
     id: string;
-    player?: Symbol | null;
+    player?: Player | null;
 }
 
 export interface Player {
@@ -71,14 +71,21 @@ export interface Mutation {
     executeTurn: Grid;
     newGame: Grid;
 }
+
+export interface Subscription {
+    gridUpdated: Grid;
+}
 export interface GridQueryArgs {
     id: string;
 }
 export interface ExecuteTurnMutationArgs {
     id: string;
-    player: Symbol;
+    player: string;
     x: number;
     y: number;
+}
+export interface GridUpdatedSubscriptionArgs {
+    id: string;
 }
 
 export enum Symbol {
@@ -166,7 +173,7 @@ export namespace GridResolvers {
 export namespace GridItemResolvers {
     export interface Resolvers<Context = any> {
         id?: IdResolver<string, any, Context>;
-        player?: PlayerResolver<Symbol | null, any, Context>;
+        player?: PlayerResolver<Player | null, any, Context>;
     }
 
     export type IdResolver<R = string, Parent = any, Context = any> = Resolver<
@@ -175,7 +182,7 @@ export namespace GridItemResolvers {
         Context
     >;
     export type PlayerResolver<
-        R = Symbol | null,
+        R = Player | null,
         Parent = any,
         Context = any
     > = Resolver<R, Parent, Context>;
@@ -266,7 +273,7 @@ export namespace MutationResolvers {
     > = Resolver<R, Parent, Context, ExecuteTurnArgs>;
     export interface ExecuteTurnArgs {
         id: string;
-        player: Symbol;
+        player: string;
         x: number;
         y: number;
     }
@@ -276,4 +283,19 @@ export namespace MutationResolvers {
         Parent = any,
         Context = any
     > = Resolver<R, Parent, Context>;
+}
+
+export namespace SubscriptionResolvers {
+    export interface Resolvers<Context = any> {
+        gridUpdated?: GridUpdatedResolver<Grid, any, Context>;
+    }
+
+    export type GridUpdatedResolver<
+        R = Grid,
+        Parent = any,
+        Context = any
+    > = Resolver<R, Parent, Context, GridUpdatedArgs>;
+    export interface GridUpdatedArgs {
+        id: string;
+    }
 }

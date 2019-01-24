@@ -2,7 +2,7 @@ import * as React from "react";
 import { graphql, Subscription } from "react-apollo";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { compose } from "recompose";
-import { Grid as IGrid, Symbol as ISymbol } from "../../../typings/types";
+import { Grid as IGrid } from "../../../typings/types";
 import GridPage from "../../pages/Grid";
 
 import * as EXECUTE_TURN from "./executeTurn.graphql";
@@ -14,7 +14,7 @@ export interface IProps extends RouteComponentProps<{ playerId: string }> {
         options: {
             variables: {
                 id: string;
-                player: ISymbol;
+                playerId: string;
                 x: number;
                 y: number;
             };
@@ -126,7 +126,7 @@ export class GridContainer extends React.Component<IProps> {
             executeTurn({
                 variables: {
                     id: grid.id,
-                    player: controllingPlayer.symbol,
+                    playerId: controllingPlayer.id,
                     x,
                     y
                 }

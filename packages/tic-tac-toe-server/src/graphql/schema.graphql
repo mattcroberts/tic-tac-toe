@@ -19,7 +19,7 @@ type Subscription {
 
 type GridItem {
     id: ID!
-    player: Symbol
+    player: Player
 }
 
 type Player {

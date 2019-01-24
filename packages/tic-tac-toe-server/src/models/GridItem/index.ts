@@ -4,7 +4,8 @@ import {
     Entity,
     PrimaryGeneratedColumn,
     OneToOne,
-    ManyToOne
+    ManyToOne,
+    JoinColumn
 } from "typeorm";
 import Player from "../Player";
 import Grid from "../Grid";
@@ -35,6 +36,7 @@ export default class GridItem extends BaseEntity implements IGridItem {
     @ManyToOne(type => Grid, grid => grid._gridItems)
     grid!: Grid;
 
-    @OneToOne(type => Player)
+    @OneToOne(type => Player, { nullable: true })
+    @JoinColumn()
     player: Player | null = null;
 }

@@ -1,4 +1,4 @@
-mutation executeTurn($id: ID!, $player: Symbol!, $x: Int!, $y: Int!) {
+mutation executeTurn($id: ID!, $player: ID!, $x: Int!, $y: Int!) {
     executeTurn(id: $id, player: $player, x: $x, y: $y) {
         id
         gridItems {
