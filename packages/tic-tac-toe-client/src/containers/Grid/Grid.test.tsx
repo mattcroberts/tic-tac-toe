@@ -28,13 +28,14 @@ describe("GridContainer", () => {
             error: undefined,
             grid: {
                 currentPlayer: {
+                    id: "abc",
                     symbol: ISymbol.NAUGHT
                 },
                 gridItems: createGrid(3),
                 id: "abc123",
                 isFinished: false,
                 size: 9,
-                players: [{}, {}]
+                players: [{ id: "abc" }, { id: "123" }]
             },
             loading: false
         },
@@ -94,7 +95,7 @@ describe("GridContainer", () => {
             expect(defaultProps.executeTurn).toHaveBeenCalledWith({
                 variables: {
                     id: "abc123",
-                    player: ISymbol.NAUGHT,
+                    playerId: "abc",
                     x: 1,
                     y: 2
                 }

@@ -10,11 +10,13 @@ exports[`GridContainer renders without crashing 1`] = `
 <GridPage
   controllingPlayer={
     Object {
+      "id": "abc",
       "symbol": "NAUGHT",
     }
   }
   currentPlayer={
     Object {
+      "id": "abc",
       "symbol": "NAUGHT",
     }
   }
@@ -109,11 +111,13 @@ exports[`GridContainer renders without crashing 1`] = `
           <Grid
             controllingPlayer={
               Object {
+                "id": "abc",
                 "symbol": "NAUGHT",
               }
             }
             currentPlayer={
               Object {
+                "id": "abc",
                 "symbol": "NAUGHT",
               }
             }
