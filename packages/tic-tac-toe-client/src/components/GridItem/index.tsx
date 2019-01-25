@@ -42,8 +42,9 @@ class GridItem extends React.PureComponent<IGridItemProps, any> {
                         [style.finished]: this.props.isFinished
                     },
                     {
-                        [style.naught]: player === ISymbol.NAUGHT,
-                        [style.cross]: player === ISymbol.CROSS
+                        [style.naught]:
+                            player && player.symbol === ISymbol.NAUGHT,
+                        [style.cross]: player && player.symbol === ISymbol.CROSS
                     },
                     {
                         [style.root]: true,
@@ -57,7 +58,7 @@ class GridItem extends React.PureComponent<IGridItemProps, any> {
             >
                 <span>
                     {this.props.itemState.player ? (
-                        getPlayerSymbol(this.props.itemState.player)
+                        getPlayerSymbol(this.props.itemState.player.symbol)
                     ) : (
                         <>&nbsp;</>
                     )}

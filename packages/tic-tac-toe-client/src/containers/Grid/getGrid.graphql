@@ -2,7 +2,10 @@ query GET_GRID($id: ID!) {
     grid(id: $id) {
         id
         gridItems {
-            player
+            player {
+                id
+                symbol
+            }
         }
         currentPlayer {
             id

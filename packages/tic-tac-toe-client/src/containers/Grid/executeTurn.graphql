@@ -1,9 +1,12 @@
-mutation executeTurn($id: ID!, $player: ID!, $x: Int!, $y: Int!) {
-    executeTurn(id: $id, player: $player, x: $x, y: $y) {
+mutation executeTurn($id: ID!, $playerId: ID!, $x: Int!, $y: Int!) {
+    executeTurn(id: $id, playerId: $playerId, x: $x, y: $y) {
         id
         gridItems {
             id
-            player
+            player {
+                id
+                symbol
+            }
         }
         currentPlayer {
             id

@@ -8,7 +8,7 @@ const checkLine = (playerToCheck: IPlayer, line: IGridItem[]): boolean => {
         !!linePlayer &&
         linePlayer.symbol === playerToCheck.symbol &&
         line.every(({ player: p }) => {
-            return !!p && p === linePlayer;
+            return !!p && p.symbol === linePlayer.symbol;
         })
     );
 };

@@ -30,8 +30,8 @@ export interface IGrid {
 
 @Entity()
 export default class Grid extends BaseEntity implements IGrid {
-    @PrimaryGeneratedColumn()
-    id!: number;
+    @PrimaryGeneratedColumn("uuid")
+    id!: string;
 
     @ManyToMany(type => Player)
     @JoinTable()
@@ -43,7 +43,7 @@ export default class Grid extends BaseEntity implements IGrid {
 
     @OneToOne(type => Player, { nullable: true })
     @JoinColumn()
-    winner: Player | null = null;
+    winner!: Player | null;
 
     @Column({ type: "boolean" })
     isFinished: boolean = false;
@@ -108,7 +108,19 @@ export default class Grid extends BaseEntity implements IGrid {
     }
 
     placePlayer(player: Player, x: number, y: number) {
-        this._gridItems[x * this.size + y].player = player;
+        const gridItem = this._gridItems[x * this.size + y];
+
+        if (gridItem.x != x || gridItem.y != y) {
+            throw new Error(
+                `Unexpected Grid Item ${gridItem} expected ${x}, ${y}`
+            );
+        }
+
+        if (gridItem.player !== null) {
+            throw new Error("Item already filled");
+        }
+
+        gridItem.player = player;
 
         this.checkWinner();
 

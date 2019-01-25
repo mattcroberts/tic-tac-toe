@@ -3,31 +3,18 @@ import Grid from "../../models/Grid";
 import Player, { ISymbol, IPlayerType } from "../../models/Player";
 import { default as GridItem, IGridItem } from "../../models/GridItem";
 import pubsub from "../pubsub";
+import gridController from "../../controllers/grid";
+import playerController from "../../controllers/player";
 
 export const query = {
     Query: {
         async grid(_: any, { id }: { id: string }) {
-            let grid: Grid | null = null;
+            let grid = await gridController.findById(id);
 
-            if (id) {
-                try {
-                    grid = await Grid.findOneOrFail(id, {
-                        relations: [
-                            "currentPlayer",
-                            // "winner",
-                            "players",
-                            "_gridItems"
-                        ]
-                    });
-                } catch (e) {
-                    console.error(e);
-                }
-            } else {
-                throw new Error("No ID Provided");
-            }
-            if (!grid) {
+            if (!id || !grid) {
                 throw new Error("Grid not found");
             }
+
             return grid;
         }
     }
@@ -39,16 +26,19 @@ export const mutation = {
             _: any,
             {
                 id,
-                player: playerId,
+                playerId,
                 x,
                 y
-            }: { id: string; player: string; x: number; y: number }
+            }: { id: string; playerId: string; x: number; y: number }
         ) {
             try {
-                const grid = await Grid.findOneOrFail(id, {
-                    relations: ["currentPlayer", "_gridItems", "players"]
-                });
-                const player = await Player.findOneOrFail(playerId);
+                const grid = await gridController.findById(id);
+
+                if (!grid) {
+                    throw new Error("Grid not found:");
+                }
+
+                const player = await playerController.findById(playerId);
 
                 if (grid.currentPlayer.id !== player.id) {
                     throw new VError(
@@ -78,6 +68,7 @@ export const mutation = {
             grid._gridItems = [...new Array<IGridItem>(9)].map(
                 (_, i) => new GridItem(Math.floor(i / 3), i % 3)
             );
+
             return await grid.save();
         }
     }

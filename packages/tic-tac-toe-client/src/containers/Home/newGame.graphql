@@ -3,7 +3,10 @@ mutation newGame {
         id
         gridItems {
             id
-            player
+            player {
+                id,
+                symbol
+            }
         }
         currentPlayer {
             id

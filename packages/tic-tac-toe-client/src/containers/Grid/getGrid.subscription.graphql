@@ -2,7 +2,10 @@ subscription GET_GRID($id: ID!) {
     gridUpdated(id: $id) {
         id
         gridItems {
-            player
+            player {
+                id
+                symbol
+            }
         }
         currentPlayer {
             id

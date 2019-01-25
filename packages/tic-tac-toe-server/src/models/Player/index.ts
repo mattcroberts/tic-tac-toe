@@ -17,7 +17,7 @@ export enum IPlayerType {
 }
 
 export interface IPlayer {
-    id: number;
+    id: string;
     symbol: ISymbol;
     type: IPlayerType;
 }
@@ -30,11 +30,11 @@ export default class Player extends BaseEntity implements IPlayer {
         this.type = type;
     }
 
+    @PrimaryGeneratedColumn("uuid")
+    id!: string;
+
     @ManyToMany(type => Grid)
     grids!: Grid[];
-
-    @PrimaryGeneratedColumn()
-    id!: number;
 
     @Column({ type: "enum", enum: ISymbol })
     symbol: ISymbol;
