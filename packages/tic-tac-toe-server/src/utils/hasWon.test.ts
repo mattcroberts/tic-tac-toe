@@ -1,7 +1,6 @@
 import hasWon from "./hasWon";
 import Player, { ISymbol, IPlayerType } from "../models/Player";
 import Grid from "../models/Grid";
-import GridItem, { IGridItem } from "../models/GridItem";
 import { newGrid } from "../../test/utils";
 
 describe("hasWon", () => {
