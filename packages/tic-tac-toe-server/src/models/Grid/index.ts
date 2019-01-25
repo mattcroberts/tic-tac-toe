@@ -21,38 +21,38 @@ export interface IGrid {
     winner: Player | null;
     isFinished: boolean;
     size: number;
+
+    toGrid: () => GridItem[][];
     checkWinner(): void;
     isDraw(): boolean;
     placePlayer(player: Player, x: number, y: number): void;
-
-    toGrid: () => GridItem[][];
 }
 
 @Entity()
 export default class Grid extends BaseEntity implements IGrid {
     @PrimaryGeneratedColumn("uuid")
-    id!: string;
+    public id!: string;
 
     @ManyToMany(type => Player)
     @JoinTable()
-    players!: Player[];
+    public players!: Player[];
 
     @OneToOne(type => Player)
     @JoinColumn()
-    currentPlayer!: Player;
+    public currentPlayer!: Player;
 
     @OneToOne(type => Player, { nullable: true })
     @JoinColumn()
-    winner!: Player | null;
+    public winner!: Player | null;
 
     @Column({ type: "boolean" })
-    isFinished: boolean = false;
+    public isFinished: boolean = false;
 
     @Column({ type: "integer" })
-    size: number = 3;
+    public size: number = 3;
 
     @OneToMany(type => GridItem, gridItem => gridItem.grid, { cascade: true })
-    _gridItems!: GridItem[];
+    public _gridItems!: GridItem[]; // tslint:disable-line variable-name
 
     get gridItems(): GridItem[][] {
         return this.toGrid();
@@ -73,7 +73,7 @@ export default class Grid extends BaseEntity implements IGrid {
         };
     }
 
-    toGrid() {
+    public toGrid() {
         return this._gridItems.reduce((acc, item, i) => {
             const x = Math.floor(i / this.size);
             const y = i % this.size;
@@ -85,7 +85,7 @@ export default class Grid extends BaseEntity implements IGrid {
         }, new Array<GridItem[]>());
     }
 
-    checkWinner() {
+    public checkWinner() {
         const crossPlayer = this.players.find(p => p.symbol === ISymbol.CROSS)!;
         const naughtPlayer = this.players.find(
             p => p.symbol === ISymbol.NAUGHT
@@ -101,16 +101,16 @@ export default class Grid extends BaseEntity implements IGrid {
         }
     }
 
-    isDraw() {
+    public isDraw() {
         return !this.gridItems.some(row => {
             return row.some(item => !item.player);
         });
     }
 
-    placePlayer(player: Player, x: number, y: number) {
+    public placePlayer(player: Player, x: number, y: number) {
         const gridItem = this._gridItems[x * this.size + y];
 
-        if (gridItem.x != x || gridItem.y != y) {
+        if (gridItem.x !== x || gridItem.y !== y) {
             throw new Error(
                 `Unexpected Grid Item ${gridItem} expected ${x}, ${y}`
             );

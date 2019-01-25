@@ -9,7 +9,7 @@ import playerController from "../../controllers/player";
 export const query = {
     Query: {
         async grid(_: any, { id }: { id: string }) {
-            let grid = await gridController.findById(id);
+            const grid = await gridController.findById(id);
 
             if (!id || !grid) {
                 throw new Error("Grid not found");
@@ -69,7 +69,7 @@ export const mutation = {
                 (_, i) => new GridItem(Math.floor(i / 3), i % 3)
             );
 
-            return await grid.save();
+            return grid.save();
         }
     }
 };

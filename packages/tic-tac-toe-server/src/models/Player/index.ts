@@ -24,25 +24,26 @@ export interface IPlayer {
 
 @Entity()
 export default class Player extends BaseEntity implements IPlayer {
+
+    @PrimaryGeneratedColumn("uuid")
+    public id!: string;
+
+    @ManyToMany(type => Grid)
+    public grids!: Grid[];
+
+    @Column({ type: "enum", enum: ISymbol })
+    public symbol: ISymbol;
+
+    @Column({ type: "enum", enum: IPlayerType })
+    public type: IPlayerType;
+
     constructor(symbol: ISymbol, type: IPlayerType) {
         super();
         this.symbol = symbol;
         this.type = type;
     }
 
-    @PrimaryGeneratedColumn("uuid")
-    id!: string;
-
-    @ManyToMany(type => Grid)
-    grids!: Grid[];
-
-    @Column({ type: "enum", enum: ISymbol })
-    symbol: ISymbol;
-
-    @Column({ type: "enum", enum: IPlayerType })
-    type: IPlayerType;
-
-    toString(): string {
+    public toString(): string {
         return `Player ${this.id} ${this.symbol}`;
     }
 }

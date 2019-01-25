@@ -1,7 +1,7 @@
 import Grid from "../models/Grid";
 
 export const findById = async (id: string) => {
-    return await Grid.createQueryBuilder("grid")
+    return Grid.createQueryBuilder("grid")
         .leftJoinAndSelect("grid.players", "players")
         .leftJoinAndSelect("grid.currentPlayer", "currentPlayer")
         .leftJoinAndSelect("grid.winner", "winner")
