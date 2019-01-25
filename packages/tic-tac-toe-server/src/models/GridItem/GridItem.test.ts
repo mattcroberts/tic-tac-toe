@@ -1,9 +1,15 @@
-// import GridItem from ".";
+import GridItem from ".";
 
-// describe("GridItem", () => {
-//     it("should have id property", () => {
-//         const gridItem = new GridItem();
+describe("GridItem", () => {
+    it("should have x property", () => {
+        const gridItem = new GridItem(1, 1);
 
-//         expect(gridItem.id).toEqual(gridItem._id.toString());
-//     });
-// });
+        expect(gridItem.x).toEqual(1);
+    });
+
+    it("should have y property", () => {
+        const gridItem = new GridItem(1, 1);
+
+        expect(gridItem.y).toEqual(1);
+    });
+});

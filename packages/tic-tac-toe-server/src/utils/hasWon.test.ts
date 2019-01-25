@@ -1,125 +1,149 @@
-// import hasWon from "./hasWon";
-// import Player, { ISymbol, IPlayerType } from "../models/Player";
-// import Grid from "../models/Grid";
-// import GridItem, { IGridItem } from "../models/GridItem";
+import hasWon from "./hasWon";
+import Player, { ISymbol, IPlayerType } from "../models/Player";
+import Grid from "../models/Grid";
+import GridItem, { IGridItem } from "../models/GridItem";
+import { newGrid } from "../../test/utils";
 
-// const newGrid = () =>
-//     [...new Array<IGridItem>(9)].map(
-//         (_, i) => new GridItem(Math.floor(i / 3), i % 3)
-//     );
-// describe("hasWon", () => {
-//     const naughtPlayer = new Player(ISymbol.NAUGHT, IPlayerType.ANONYMOUS);
+describe("hasWon", () => {
+    const naughtPlayer = new Player(ISymbol.NAUGHT, IPlayerType.ANONYMOUS);
 
-//     it("should detect horizontal wins 1", () => {
-//         const gridItems = newGrid();
-//         gridItems[0].set("player", ISymbol.NAUGHT);
-//         gridItems[1].set("player", ISymbol.NAUGHT);
-//         gridItems[2].set("player", ISymbol.NAUGHT);
+    it("should detect horizontal wins 1", () => {
+        const gridItems = newGrid();
+        gridItems[0].player = new Player(ISymbol.NAUGHT, IPlayerType.ANONYMOUS);
+        gridItems[1].player = new Player(ISymbol.NAUGHT, IPlayerType.ANONYMOUS);
+        gridItems[2].player = new Player(ISymbol.NAUGHT, IPlayerType.ANONYMOUS);
 
-//         const result = hasWon(
-//             naughtPlayer,
-//             new Grid({
-//                 _gridItems: gridItems
-//             })
-//         );
+        const grid = new Grid();
+        grid._gridItems = gridItems;
+        const result = hasWon(naughtPlayer, grid);
 
-//         expect(result).toBe(true);
-//     });
+        expect(result).toBe(true);
+    });
 
-//     it("should detect horizontal wins 2", () => {
-//         const gridItems = newGrid();
-//         gridItems[3].set("player", ISymbol.NAUGHT);
-//         gridItems[4].set("player", ISymbol.NAUGHT);
-//         gridItems[5].set("player", ISymbol.NAUGHT);
+    it("should detect horizontal wins 2", () => {
+        const gridItems = newGrid();
+        gridItems[3].player = new Player(ISymbol.NAUGHT, IPlayerType.ANONYMOUS);
+        gridItems[4].player = new Player(ISymbol.NAUGHT, IPlayerType.ANONYMOUS);
+        gridItems[5].player = new Player(ISymbol.NAUGHT, IPlayerType.ANONYMOUS);
 
-//         const result = hasWon(
-//             naughtPlayer,
-//             new Grid({
-//                 _gridItems: gridItems
-//             })
-//         );
+        const grid = new Grid();
+        grid._gridItems = gridItems;
 
-//         expect(result).toBe(true);
-//     });
+        const result = hasWon(naughtPlayer, grid);
 
-//     it("should detect horizontal wins 3", () => {
-//         const gridItems = newGrid();
-//         gridItems[6].set("player", ISymbol.NAUGHT);
-//         gridItems[7].set("player", ISymbol.NAUGHT);
-//         gridItems[8].set("player", ISymbol.NAUGHT);
+        expect(result).toBe(true);
+    });
 
-//         const result = hasWon(
-//             naughtPlayer,
-//             new Grid({
-//                 _gridItems: gridItems
-//             })
-//         );
+    it("should detect horizontal wins 3", () => {
+        const gridItems = newGrid();
+        gridItems[6].player = new Player(ISymbol.NAUGHT, IPlayerType.ANONYMOUS);
+        gridItems[7].player = new Player(ISymbol.NAUGHT, IPlayerType.ANONYMOUS);
+        gridItems[8].player = new Player(ISymbol.NAUGHT, IPlayerType.ANONYMOUS);
 
-//         expect(result).toBe(true);
-//     });
+        const grid = new Grid();
+        grid._gridItems = gridItems;
+        const result = hasWon(naughtPlayer, grid);
 
-//     it("should detect vertical wins 1", () => {
-//         const grid = new Grid({
-//             _gridItems: newGrid()
-//         });
+        expect(result).toBe(true);
+    });
 
-//         grid.get("_gridItems")[0].set("player", ISymbol.NAUGHT);
-//         grid.get("_gridItems")[3].set("player", ISymbol.NAUGHT);
-//         grid.get("_gridItems")[6].set("player", ISymbol.NAUGHT);
-//         const result = hasWon(naughtPlayer, grid);
+    it("should detect vertical wins 1", () => {
+        const grid = new Grid();
+        grid._gridItems = newGrid();
+        grid._gridItems[0].player = new Player(
+            ISymbol.NAUGHT,
+            IPlayerType.ANONYMOUS
+        );
+        grid._gridItems[3].player = new Player(
+            ISymbol.NAUGHT,
+            IPlayerType.ANONYMOUS
+        );
+        grid._gridItems[6].player = new Player(
+            ISymbol.NAUGHT,
+            IPlayerType.ANONYMOUS
+        );
+        const result = hasWon(naughtPlayer, grid);
 
-//         expect(result).toBe(true);
-//     });
+        expect(result).toBe(true);
+    });
 
-//     it("should detect vertical wins 2", () => {
-//         const grid = new Grid({
-//             _gridItems: newGrid()
-//         });
+    it("should detect vertical wins 2", () => {
+        const grid = new Grid();
+        grid._gridItems = newGrid();
+        grid._gridItems[1].player = new Player(
+            ISymbol.NAUGHT,
+            IPlayerType.ANONYMOUS
+        );
+        grid._gridItems[4].player = new Player(
+            ISymbol.NAUGHT,
+            IPlayerType.ANONYMOUS
+        );
+        grid._gridItems[7].player = new Player(
+            ISymbol.NAUGHT,
+            IPlayerType.ANONYMOUS
+        );
+        const result = hasWon(naughtPlayer, grid);
 
-//         grid.get("_gridItems")[1].set("player", ISymbol.NAUGHT);
-//         grid.get("_gridItems")[4].set("player", ISymbol.NAUGHT);
-//         grid.get("_gridItems")[7].set("player", ISymbol.NAUGHT);
-//         const result = hasWon(naughtPlayer, grid);
+        expect(result).toBe(true);
+    });
 
-//         expect(result).toBe(true);
-//     });
+    it("should detect vertical wins 3", () => {
+        const grid = new Grid();
+        grid._gridItems = newGrid();
+        grid._gridItems[2].player = new Player(
+            ISymbol.NAUGHT,
+            IPlayerType.ANONYMOUS
+        );
+        grid._gridItems[5].player = new Player(
+            ISymbol.NAUGHT,
+            IPlayerType.ANONYMOUS
+        );
+        grid._gridItems[8].player = new Player(
+            ISymbol.NAUGHT,
+            IPlayerType.ANONYMOUS
+        );
+        const result = hasWon(naughtPlayer, grid);
 
-//     it("should detect vertical wins 3", () => {
-//         const grid = new Grid({
-//             _gridItems: newGrid()
-//         });
+        expect(result).toBe(true);
+    });
 
-//         grid.get("_gridItems")[2].set("player", ISymbol.NAUGHT);
-//         grid.get("_gridItems")[5].set("player", ISymbol.NAUGHT);
-//         grid.get("_gridItems")[8].set("player", ISymbol.NAUGHT);
-//         const result = hasWon(naughtPlayer, grid);
+    it("should detect forward diag win", () => {
+        const grid = new Grid();
+        grid._gridItems = newGrid();
+        grid._gridItems[0].player = new Player(
+            ISymbol.NAUGHT,
+            IPlayerType.ANONYMOUS
+        );
+        grid._gridItems[4].player = new Player(
+            ISymbol.NAUGHT,
+            IPlayerType.ANONYMOUS
+        );
+        grid._gridItems[8].player = new Player(
+            ISymbol.NAUGHT,
+            IPlayerType.ANONYMOUS
+        );
+        const result = hasWon(naughtPlayer, grid);
 
-//         expect(result).toBe(true);
-//     });
+        expect(result).toBe(true);
+    });
 
-//     it("should detect forward diag win", () => {
-//         const grid = new Grid({
-//             _gridItems: newGrid()
-//         });
+    it("should detect backward diag win", () => {
+        const grid = new Grid();
+        grid._gridItems = newGrid();
+        grid._gridItems[2].player = new Player(
+            ISymbol.NAUGHT,
+            IPlayerType.ANONYMOUS
+        );
+        grid._gridItems[4].player = new Player(
+            ISymbol.NAUGHT,
+            IPlayerType.ANONYMOUS
+        );
+        grid._gridItems[6].player = new Player(
+            ISymbol.NAUGHT,
+            IPlayerType.ANONYMOUS
+        );
+        const result = hasWon(naughtPlayer, grid);
 
-//         grid.get("_gridItems")[0].set("player", ISymbol.NAUGHT);
-//         grid.get("_gridItems")[4].set("player", ISymbol.NAUGHT);
-//         grid.get("_gridItems")[8].set("player", ISymbol.NAUGHT);
-//         const result = hasWon(naughtPlayer, grid);
-
-//         expect(result).toBe(true);
-//     });
-
-//     it("should detect backward diag win", () => {
-//         const grid = new Grid({
-//             _gridItems: newGrid()
-//         });
-
-//         grid.get("_gridItems")[2].set("player", ISymbol.NAUGHT);
-//         grid.get("_gridItems")[4].set("player", ISymbol.NAUGHT);
-//         grid.get("_gridItems")[6].set("player", ISymbol.NAUGHT);
-//         const result = hasWon(naughtPlayer, grid);
-
-//         expect(result).toBe(true);
-//     });
-// });
+        expect(result).toBe(true);
+    });
+});

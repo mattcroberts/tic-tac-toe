@@ -1,85 +1,105 @@
-// import { query, mutation } from "./resolver";
-// import Grid from "../../models/Grid";
-// import { Query } from "mongoose";
+import { query, mutation } from "./resolver";
+import Grid from "../../models/Grid";
+import GridController from "../../controllers/grid";
+import PlayerController from "../../controllers/player";
+import Player, { ISymbol, IPlayerType } from "../../models/Player";
 
-// describe("Grid resolver", () => {
-//     beforeEach(() => {
-//         jest.clearAllMocks();
-//     });
-//     describe("query", () => {
-//         it("should lookup grid by id if provided", async () => {
-//             const testGrid = new Grid();
-//             const q = new Query();
-//             jest.spyOn(Grid, "findById").mockReturnValueOnce(q);
+describe("Grid resolver", () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+    describe("query", () => {
+        it("should lookup grid by id if provided", async () => {
+            const testGrid = new Grid();
+            testGrid.id = "123";
 
-//             jest.spyOn(q, "populate").mockReturnValueOnce(q);
-//             jest.spyOn(q, "exec").mockReturnValue(testGrid);
-//             const grid = await query.Query.grid(undefined, { id: "123" });
+            const spy = jest
+                .spyOn(GridController, "findById")
+                .mockReturnValueOnce(testGrid);
 
-//             expect(grid && grid.id).toEqual(testGrid.id);
-//         });
+            const grid = await query.Query.grid(undefined, { id: "123" });
 
-//         it("should throw if no id is provided", () => {
-//             const params: any = { id: undefined };
-//             expect(query.Query.grid(undefined, params)).rejects.toEqual(
-//                 new Error("No ID Provided")
-//             );
-//         });
-//     });
+            expect(grid.id).toEqual(testGrid.id);
+            expect(spy).toHaveBeenCalledWith("123");
+        });
 
-//     describe.skip("executeTurn", () => {
-//         it("should call placePlayer", async () => {
-//             const testGrid = new Grid();
+        it("should throw if no id is provided", () => {
+            jest.spyOn(GridController, "findById").mockRejectedValue(
+                new Error("No Id Provided")
+            );
+            const params: any = { id: undefined };
+            return expect(query.Query.grid(undefined, params)).rejects.toEqual(
+                new Error("No Id Provided")
+            );
+        });
+    });
 
-//             const placePlayerSpy = jest
-//                 .spyOn(testGrid, "placePlayer")
-//                 .mockReturnValue(undefined);
+    describe("executeTurn", () => {
+        it("should call placePlayer", async () => {
+            const testGrid = new Grid();
+            const testPlayer = new Player(
+                ISymbol.NAUGHT,
+                IPlayerType.ANONYMOUS
+            );
 
-//             jest.spyOn(testGrid, "save").mockImplementation(() =>
-//                 Promise.resolve()
-//             );
-//             const q = new Query();
-//             jest.spyOn(Grid, "findById").mockReturnValueOnce(q);
+            testGrid.currentPlayer = testPlayer;
 
-//             jest.spyOn(q, "populate").mockReturnValueOnce(q);
-//             jest.spyOn(q, "exec").mockReturnValue(testGrid);
-//             const params: any = {
-//                 player: "NAUGHT",
-//                 x: 1,
-//                 y: 2
-//             };
-//             await mutation.Mutation.executeTurn(undefined, params);
+            const placePlayerSpy = jest
+                .spyOn(testGrid, "placePlayer")
+                .mockReturnValue(undefined);
 
-//             expect(placePlayerSpy).toHaveBeenCalled();
-//             expect(placePlayerSpy).toHaveBeenCalledWith("NAUGHT", 1, 2);
-//         });
+            jest.spyOn(testGrid, "save").mockImplementation(() =>
+                Promise.resolve()
+            );
 
-//         it("should throw if grid not found", async () => {
-//             jest.spyOn(Grid, "populate").mockReturnValue(Grid);
-//             jest.spyOn(Grid, "findById").mockReturnValue(Grid);
-//             const params: any = {
-//                 id: "123",
-//                 player: "NAUGHT",
-//                 x: 1,
-//                 y: 2
-//             };
-//             expect(
-//                 mutation.Mutation.executeTurn(undefined, params)
-//             ).rejects.toEqual(new Error("Grid not found:123"));
-//         });
-//     });
+            jest.spyOn(GridController, "findById").mockResolvedValueOnce(
+                testGrid
+            );
 
-//     describe("newGame", () => {
-//         it("should create a new grid", async () => {
-//             const mockGrid = new Grid();
-//             const saveSpy = jest
-//                 .spyOn(Grid.prototype, "save")
-//                 .mockResolvedValue(mockGrid);
-//             const newGrid = await mutation.Mutation.newGame();
+            jest.spyOn(PlayerController, "findById").mockResolvedValueOnce(
+                testPlayer
+            );
+            const params: any = {
+                player: "NAUGHT",
+                x: 1,
+                y: 2
+            };
+            await mutation.Mutation.executeTurn(undefined, params);
 
-//             expect(saveSpy).toHaveBeenCalled();
+            expect(placePlayerSpy).toHaveBeenCalled();
+            expect(placePlayerSpy).toHaveBeenCalledWith(testPlayer, 1, 2);
+        });
 
-//             expect(newGrid).toBeInstanceOf(Grid);
-//         });
-//     });
-// });
+        it("should throw if grid not found", async () => {
+            jest.spyOn(GridController, "findById").mockReturnValue(undefined);
+
+            const params: any = {
+                id: "123",
+                player: "NAUGHT",
+                x: 1,
+                y: 2
+            };
+            expect(
+                mutation.Mutation.executeTurn(undefined, params)
+            ).rejects.toEqual(new Error("Execute Turn Error grid:123"));
+        });
+    });
+
+    describe("newGame", () => {
+        it("should create a new grid", async () => {
+            jest.spyOn(Player.prototype, "save").mockResolvedValue(
+                new Player(ISymbol.NAUGHT, IPlayerType.ANONYMOUS)
+            );
+            const mockGrid = new Grid();
+            const saveSpy = jest
+                .spyOn(Grid.prototype, "save")
+                .mockResolvedValue(mockGrid);
+
+            const newGrid = await mutation.Mutation.newGame();
+
+            expect(saveSpy).toHaveBeenCalled();
+
+            expect(newGrid).toBeInstanceOf(Grid);
+        });
+    });
+});

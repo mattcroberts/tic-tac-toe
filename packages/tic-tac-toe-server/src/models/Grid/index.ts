@@ -90,10 +90,10 @@ export default class Grid extends BaseEntity implements IGrid {
         const naughtPlayer = this.players.find(
             p => p.symbol === ISymbol.NAUGHT
         )!;
-        if (hasWon(crossPlayer, this)) {
-            this.winner = crossPlayer;
-        } else if (hasWon(naughtPlayer, this)) {
+        if (hasWon(naughtPlayer, this)) {
             this.winner = naughtPlayer;
+        } else if (hasWon(crossPlayer, this)) {
+            this.winner = crossPlayer;
         }
 
         if (this.winner || this.isDraw()) {
@@ -116,7 +116,7 @@ export default class Grid extends BaseEntity implements IGrid {
             );
         }
 
-        if (gridItem.player !== null) {
+        if (!!gridItem.player) {
             throw new Error("Item already filled");
         }
 
