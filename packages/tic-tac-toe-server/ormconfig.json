@@ -6,7 +6,7 @@
     "password": "postgres",
     "database": "tictactoe",
     "synchronize": true,
-    "logging": true,
+    "logging": false,
     "entities": ["src/models/**/!(*.test).ts"],
     "migrations": ["src/migration/**/*.ts"],
     "subscribers": ["src/subscriber/**/*.ts"],

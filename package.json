@@ -8,7 +8,7 @@
 	},
 	"scripts": {
 		"prepare": "lerna bootstrap",
-		"dev": "source .env && run-p -l postgres ui-dev api-dev",
+		"dev": "run-p -l postgres ui-dev api-dev",
 		"postgres": "docker-compose -f docker-compose.dev.yml up",
 		"ui-dev": "lerna exec --scope tic-tac-toe-client -- PORT=3001 yarn watch",
 		"api-dev": "lerna exec --scope tic-tac-toe-server -- yarn dev",
