@@ -7,7 +7,7 @@
     "database": "tictactoe",
     "synchronize": true,
     "logging": true,
-    "entities": ["src/models/**/*.ts"],
+    "entities": ["src/models/**/!(*.test).ts"],
     "migrations": ["src/migration/**/*.ts"],
     "subscribers": ["src/subscriber/**/*.ts"],
     "cli": {
