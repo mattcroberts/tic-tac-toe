@@ -25,6 +25,8 @@ services:
       - TYPEORM_SUBSCRIBERS_DIR=/home/nodejs/app/build/subscribers/**/*.js
     depends_on:
       - postgres
+    ports:
+      - "3000:3000"
     expose:
       - 3000
   postgres:
