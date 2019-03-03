@@ -4,6 +4,7 @@
    "description": "",
    "main": "index.js",
    "scripts": {
+      "prebuild": "yarn clean",
       "build": "tsc && cpx \"src/**/*.graphql\" build",
       "clean": "rm -rf build",
       "dev": "nodemon --watch 'src/**/*' -e ts --exec 'ts-node' ./src/index.ts",

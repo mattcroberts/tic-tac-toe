@@ -18,4 +18,4 @@ COPY . .
 
 RUN yarn install && yarn build --detailed-report --no-cache
 ENV NODE_ENV=production
-CMD ["yarn", "start"]
+CMD ["yarn", "start:prod"]

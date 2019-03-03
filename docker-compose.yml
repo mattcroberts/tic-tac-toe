@@ -16,6 +16,10 @@ services:
       - TYPEORM_HOST=postgres
       - TYPEORM_DATABASE=tictactoe
       - TYPEORM_PASSWORD=${POSTGRES_PASSWORD}
+      - TYPEORM_SYNCHRONIZE=false
+      - TYPEORM_ENTITIES_DIR=/home/nodejs/app/build/models/**/*.js
+      - TYPEORM_MIGRATIONS_DIR=/home/nodejs/app/build/migrations/**/*.js
+      - TYPEORM_SUBSCRIBERS_DIR=/home/nodejs/app/build/subscribers/**/*.js
     depends_on:
       - postgres
     expose:
