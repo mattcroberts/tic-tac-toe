@@ -8,9 +8,14 @@ import { Symbol as ISymbol } from "../../../typings/types";
 describe("Grid", () => {
     const GRID_SIZE = 3;
     const defaultProps = {
-        currentPlayer: ISymbol.NAUGHT,
+        currentPlayer: {
+            id: "123",
+            symbol: ISymbol.NAUGHT
+        },
         grid: createGrid(GRID_SIZE),
-        size: GRID_SIZE
+        size: GRID_SIZE,
+        isDraw: false,
+        onItemClick: jest.fn()
     };
 
     it("should render", () => {
@@ -26,7 +31,10 @@ describe("Grid", () => {
 
     it("should render NAUGHT Winner", () => {
         const component = shallow(
-            <Grid {...defaultProps} winner={ISymbol.NAUGHT} />
+            <Grid
+                {...defaultProps}
+                winner={{ id: "123", symbol: ISymbol.NAUGHT }}
+            />
         );
 
         expect(component).toMatchSnapshot();
@@ -34,7 +42,10 @@ describe("Grid", () => {
 
     it("should render CROSS Winner", () => {
         const component = shallow(
-            <Grid {...defaultProps} winner={ISymbol.CROSS} />
+            <Grid
+                {...defaultProps}
+                winner={{ id: "123", symbol: ISymbol.NAUGHT }}
+            />
         );
 
         expect(component).toMatchSnapshot();

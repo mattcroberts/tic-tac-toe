@@ -19,7 +19,8 @@ describe("GridItem", () => {
             x: 0,
             y: 0
         },
-        onItemClick: jest.fn()
+        onItemClick: jest.fn(),
+        isFinished: false
     };
 
     it("should render", () => {
@@ -32,7 +33,7 @@ describe("GridItem", () => {
             ...defaultProps,
             itemState: {
                 ...defaultProps.itemState,
-                player: ISymbol.CROSS
+                player: { id: "", symbol: ISymbol.CROSS }
             }
         };
         const component = shallow(<GridItem {...props} />);
@@ -44,7 +45,7 @@ describe("GridItem", () => {
             ...defaultProps,
             itemState: {
                 ...defaultProps.itemState,
-                player: ISymbol.NAUGHT
+                player: { id: "", symbol: ISymbol.NAUGHT }
             }
         };
         const component = shallow(<GridItem {...props} />);
@@ -56,7 +57,7 @@ describe("GridItem", () => {
             ...defaultProps,
             itemState: {
                 ...defaultProps.itemState,
-                player: ISymbol.NAUGHT
+                player: { id: "", symbol: ISymbol.NAUGHT }
             },
             onItemClick: jest.fn()
         };

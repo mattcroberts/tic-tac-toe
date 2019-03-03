@@ -18,7 +18,7 @@ exports[`Grid should render 1`] = `
         }
       }
       key="0-0"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -39,7 +39,7 @@ exports[`Grid should render 1`] = `
         }
       }
       key="0-1"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -60,7 +60,7 @@ exports[`Grid should render 1`] = `
         }
       }
       key="0-2"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -86,7 +86,7 @@ exports[`Grid should render 1`] = `
         }
       }
       key="1-0"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -107,7 +107,7 @@ exports[`Grid should render 1`] = `
         }
       }
       key="1-1"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -128,7 +128,7 @@ exports[`Grid should render 1`] = `
         }
       }
       key="1-2"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -154,7 +154,7 @@ exports[`Grid should render 1`] = `
         }
       }
       key="2-0"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": true,
@@ -175,7 +175,7 @@ exports[`Grid should render 1`] = `
         }
       }
       key="2-1"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": true,
@@ -196,7 +196,7 @@ exports[`Grid should render 1`] = `
         }
       }
       key="2-2"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": true,
@@ -229,7 +229,7 @@ exports[`Grid should render CROSS Winner 1`] = `
         }
       }
       key="0-0"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -250,7 +250,7 @@ exports[`Grid should render CROSS Winner 1`] = `
         }
       }
       key="0-1"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -271,7 +271,7 @@ exports[`Grid should render CROSS Winner 1`] = `
         }
       }
       key="0-2"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -297,7 +297,7 @@ exports[`Grid should render CROSS Winner 1`] = `
         }
       }
       key="1-0"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -318,7 +318,7 @@ exports[`Grid should render CROSS Winner 1`] = `
         }
       }
       key="1-1"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -339,7 +339,7 @@ exports[`Grid should render CROSS Winner 1`] = `
         }
       }
       key="1-2"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -365,7 +365,7 @@ exports[`Grid should render CROSS Winner 1`] = `
         }
       }
       key="2-0"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": true,
@@ -386,7 +386,7 @@ exports[`Grid should render CROSS Winner 1`] = `
         }
       }
       key="2-1"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": true,
@@ -407,7 +407,7 @@ exports[`Grid should render CROSS Winner 1`] = `
         }
       }
       key="2-2"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": true,
@@ -420,7 +420,12 @@ exports[`Grid should render CROSS Winner 1`] = `
     />
   </div>
   <Winner
-    winner="CROSS"
+    winner={
+      Object {
+        "id": "123",
+        "symbol": "NAUGHT",
+      }
+    }
   />
 </div>
 `;
@@ -443,7 +448,7 @@ exports[`Grid should render DRAW 1`] = `
         }
       }
       key="0-0"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -464,7 +469,7 @@ exports[`Grid should render DRAW 1`] = `
         }
       }
       key="0-1"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -485,7 +490,7 @@ exports[`Grid should render DRAW 1`] = `
         }
       }
       key="0-2"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -511,7 +516,7 @@ exports[`Grid should render DRAW 1`] = `
         }
       }
       key="1-0"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -532,7 +537,7 @@ exports[`Grid should render DRAW 1`] = `
         }
       }
       key="1-1"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -553,7 +558,7 @@ exports[`Grid should render DRAW 1`] = `
         }
       }
       key="1-2"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -579,7 +584,7 @@ exports[`Grid should render DRAW 1`] = `
         }
       }
       key="2-0"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": true,
@@ -600,7 +605,7 @@ exports[`Grid should render DRAW 1`] = `
         }
       }
       key="2-1"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": true,
@@ -621,7 +626,7 @@ exports[`Grid should render DRAW 1`] = `
         }
       }
       key="2-2"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": true,
@@ -657,7 +662,7 @@ exports[`Grid should render NAUGHT Winner 1`] = `
         }
       }
       key="0-0"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -678,7 +683,7 @@ exports[`Grid should render NAUGHT Winner 1`] = `
         }
       }
       key="0-1"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -699,7 +704,7 @@ exports[`Grid should render NAUGHT Winner 1`] = `
         }
       }
       key="0-2"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -725,7 +730,7 @@ exports[`Grid should render NAUGHT Winner 1`] = `
         }
       }
       key="1-0"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -746,7 +751,7 @@ exports[`Grid should render NAUGHT Winner 1`] = `
         }
       }
       key="1-1"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -767,7 +772,7 @@ exports[`Grid should render NAUGHT Winner 1`] = `
         }
       }
       key="1-2"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": false,
@@ -793,7 +798,7 @@ exports[`Grid should render NAUGHT Winner 1`] = `
         }
       }
       key="2-0"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": true,
@@ -814,7 +819,7 @@ exports[`Grid should render NAUGHT Winner 1`] = `
         }
       }
       key="2-1"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": true,
@@ -835,7 +840,7 @@ exports[`Grid should render NAUGHT Winner 1`] = `
         }
       }
       key="2-2"
-      onItemClick={[Function]}
+      onItemClick={[MockFunction]}
       position={
         Object {
           "bottom": true,
@@ -848,7 +853,12 @@ exports[`Grid should render NAUGHT Winner 1`] = `
     />
   </div>
   <Winner
-    winner="NAUGHT"
+    winner={
+      Object {
+        "id": "123",
+        "symbol": "NAUGHT",
+      }
+    }
   />
 </div>
 `;

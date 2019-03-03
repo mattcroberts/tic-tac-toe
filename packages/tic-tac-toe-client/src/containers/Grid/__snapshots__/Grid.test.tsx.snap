@@ -20,6 +20,7 @@ exports[`GridContainer renders without crashing 1`] = `
       "symbol": "NAUGHT",
     }
   }
+  gameUrls={Object {}}
   grid={
     Array [
       Array [
@@ -67,6 +68,7 @@ exports[`GridContainer renders without crashing 1`] = `
     ]
   }
   isDraw={false}
+  isMultiplayer={false}
   onItemClick={[Function]}
   size={9}
 >
@@ -121,6 +123,7 @@ exports[`GridContainer renders without crashing 1`] = `
                 "symbol": "NAUGHT",
               }
             }
+            gameUrls={Object {}}
             grid={
               Array [
                 Array [
@@ -168,6 +171,7 @@ exports[`GridContainer renders without crashing 1`] = `
               ]
             }
             isDraw={false}
+            isMultiplayer={false}
             onItemClick={[Function]}
             size={9}
             winner={null}

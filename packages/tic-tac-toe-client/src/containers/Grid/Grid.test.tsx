@@ -13,7 +13,7 @@ import { MemoryRouter } from "react-router";
 const mocks = [
     {
         request: {
-            subscription: GET_GRID_SUBS
+            query: GET_GRID_SUBS
         },
         result: {
             data: {
@@ -24,9 +24,15 @@ const mocks = [
 ];
 describe("GridContainer", () => {
     const defaultProps = {
+        history: undefined as any,
+        location: undefined as any,
+        match: undefined as any,
+        isMultiplayer: false,
+        invitedPlayerId: "123",
         data: {
             error: undefined,
             grid: {
+                gameUrls: {},
                 currentPlayer: {
                     id: "abc",
                     symbol: ISymbol.NAUGHT
@@ -35,7 +41,10 @@ describe("GridContainer", () => {
                 id: "abc123",
                 isFinished: false,
                 size: 9,
-                players: [{ id: "abc" }, { id: "123" }]
+                players: [
+                    { id: "abc", symbol: ISymbol.NAUGHT },
+                    { id: "123", symbol: ISymbol.CROSS }
+                ]
             },
             loading: false
         },
@@ -106,7 +115,10 @@ describe("GridContainer", () => {
             const temp = [...defaultProps.data.grid.gridItems];
             temp[1][2] = {
                 id: "abc1234",
-                player: ISymbol.NAUGHT
+                player: {
+                    id: "123",
+                    symbol: ISymbol.NAUGHT
+                }
             };
             const props = merge({}, defaultProps, {
                 data: {
