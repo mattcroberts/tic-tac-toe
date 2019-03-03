@@ -1,9 +1,6 @@
 version: "3"
 
 services:
-  ui:
-    ports:
-      - "5000:5000"
   api:
     ports:
       - "3000:3000"
