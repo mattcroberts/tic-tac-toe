@@ -15,6 +15,7 @@ services:
     environment:
       - TYPEORM_HOST=postgres
       - TYPEORM_DATABASE=tictactoe
+      - TYPEORM_USERNAME=${POSTGRES_USERNAME}
       - TYPEORM_PASSWORD=${POSTGRES_PASSWORD}
       - TYPEORM_SYNCHRONIZE=false
       - TYPEORM_ENTITIES_DIR=/home/nodejs/app/build/models/**/*.js
@@ -28,4 +29,5 @@ services:
     image: postgres
     environment:
       - POSTGRES_DB=tictactoe
+      - POSTGRES_USERNAME=${POSTGRES_USERNAME}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
