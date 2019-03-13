@@ -1,6 +1,5 @@
 import cors from "@koa/cors";
 import { ApolloServer } from "apollo-server-koa";
-import koaPlayground from "graphql-playground-middleware-koa";
 import { execute, subscribe } from "graphql";
 import dotenv from "dotenv";
 import Koa from "koa";
@@ -16,24 +15,19 @@ dotenv.config();
 
 const app = new Koa();
 const router = new Router();
-const apolloServer = new ApolloServer({ schema: Schema, playground: {} });
+const apolloServer = new ApolloServer({
+    schema: Schema,
+    playground: {
+        endpoint: "/tictactoe/graphql"
+    }
+});
 apolloServer.applyMiddleware({ app });
 
-app.use(
-    cors({
-        maxAge: 86400 // One day
-    })
-);
 app.use(koabody());
 
 router.get("/ping", async ctx => {
     ctx.body = "pong";
 });
-
-router.all("/playground", koaPlayground({
-    endpoint: "/graphql",
-    subscriptionEndpoint: "ws://localhost:3000/graphql"
-}) as any);
 
 app.use(router.routes());
 
