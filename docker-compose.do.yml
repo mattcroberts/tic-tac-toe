@@ -8,6 +8,7 @@ services:
     depends_on:
       - api
       - ui
+    restart: on-failure
     volumes:
       - ./site.conf:/etc/nginx/conf.d/site.conf
         # command: [nginx-debug, '-g', 'daemon off;']

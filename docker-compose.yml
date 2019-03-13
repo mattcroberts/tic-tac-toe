@@ -11,9 +11,11 @@ services:
       - "5000:5000"
     expose:
       - 5000
+    restart: on-failure
   api:
     build:
       context: ./packages/tic-tac-toe-server
+    restart: on-failure
     environment:
       - TYPEORM_HOST=postgres
       - TYPEORM_DATABASE=tictactoe
@@ -31,6 +33,7 @@ services:
       - 3000
   postgres:
     image: postgres
+    restart: on-failure
     environment:
       - POSTGRES_DB=tictactoe
       - POSTGRES_USERNAME=${POSTGRES_USERNAME}
