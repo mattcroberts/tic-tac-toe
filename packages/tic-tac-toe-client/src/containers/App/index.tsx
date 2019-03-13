@@ -43,7 +43,7 @@ class App extends React.Component {
     public render() {
         return (
             <ApolloProvider client={client}>
-                <BrowserRouter>
+                <BrowserRouter basename="tictactoe">
                     <Routes />
                 </BrowserRouter>
             </ApolloProvider>

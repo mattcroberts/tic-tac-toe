@@ -1,0 +1,8 @@
+{
+	    "rewrites": [
+		            { "source": "/tictactoe", "destination": "/index.html" },
+			            { "source": "/tictactoe/:rest", "destination": "/:rest" }
+				        ],
+					    "public": "dist"
+}
+
