@@ -9,6 +9,7 @@ import { ApolloProvider } from "react-apollo";
 import { BrowserRouter } from "react-router-dom";
 import "whatwg-fetch";
 
+import { BASE_NAME } from "../../config";
 import Routes from "../../routes";
 
 const httplink = new HttpLink({
@@ -43,7 +44,7 @@ class App extends React.Component {
     public render() {
         return (
             <ApolloProvider client={client}>
-                <BrowserRouter basename="tictactoe">
+                <BrowserRouter basename={BASE_NAME}>
                     <Routes />
                 </BrowserRouter>
             </ApolloProvider>

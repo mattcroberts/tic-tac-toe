@@ -2,7 +2,7 @@ FROM node:8-alpine
 
 RUN apk update && apk add util-linux alpine-sdk && rm -rf /var/cache/apk/*
 
-WORKDIR /home/nodejs/app
+WORKDIR /home/node/app
 RUN chown node:node .
 USER node
 COPY --chown=node:node . .

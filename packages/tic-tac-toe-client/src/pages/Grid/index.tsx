@@ -6,29 +6,32 @@ import {
     Player as IPlayer,
     Symbol as ISymbol
 } from "../../../typings/types";
+import { BASE_NAME } from "../../config";
 
 type IProps = IGridProps & {
     gameUrls: IGameUrls;
     isMultiplayer: boolean;
     controllingPlayer: IPlayer;
 };
-const GridPage: React.SFC<IProps> = props => (
-    <Wrapper>
-        <p>You are Player {props.controllingPlayer.symbol}</p>
-        {props.isMultiplayer ? (
-            <input
-                readOnly={true}
-                value={
-                    window.location.origin +
-                    (props.controllingPlayer.symbol === ISymbol.CROSS
-                        ? props.gameUrls.NAUGHT
-                        : props.gameUrls.CROSS)
-                }
-            />
-        ) : null}
+const GridPage: React.SFC<IProps> = props => {
+    const otherSymbol =
+        props.controllingPlayer.symbol === ISymbol.CROSS
+            ? ISymbol.NAUGHT
+            : ISymbol.CROSS;
+    const path = props.gameUrls[otherSymbol];
+    return (
+        <Wrapper>
+            <p>You are Player {props.controllingPlayer.symbol}</p>
+            {props.isMultiplayer ? (
+                <input
+                    readOnly={true}
+                    value={`${window.location.origin}/${BASE_NAME}${path}`}
+                />
+            ) : null}
 
-        <Grid {...props} />
-    </Wrapper>
-);
+            <Grid {...props} />
+        </Wrapper>
+    );
+};
 
 export default GridPage;
