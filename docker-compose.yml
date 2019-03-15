@@ -34,7 +34,15 @@ services:
   postgres:
     image: postgres
     restart: on-failure
+    volumes: 
+      - pg-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=tictactoe
       - POSTGRES_USERNAME=${POSTGRES_USERNAME}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+volumes: 
+  pg-data:
+    # driver_opts:
+    #   type: none
+    #   device: "${PWD}/pg-data"
+    #   o: bind
