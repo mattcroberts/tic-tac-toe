@@ -96,11 +96,6 @@ jobs:
       - run:
           working_directory: ~/repo/packages/tic-tac-toe-server
           command: docker build -t mattcroberts/tic-tac-toe-server:0.1.${CIRCLE_BUILD_NUM} -t mattcroberts/tic-tac-toe-server:latest .
-  docker-push:
-    machine: true
-    working_directory: ~/repo
-    steps:
-      - checkout
       - run:
           command: echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
       - run:
@@ -144,12 +139,9 @@ workflows:
           requires:
             - test-ui
             - test-server
-      - docker-push:
-          requires:
-            - build
       - deploy:
           requires:
-            - docker-push
+            - build
           filters:
             branches:
               only: pg
