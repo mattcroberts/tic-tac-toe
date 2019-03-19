@@ -12,6 +12,12 @@ exports[`GridPage should render 1`] = `
         "symbol": "CROSS",
       }
     }
+    gameUrls={
+      Object {
+        "CROSS": "",
+        "NAUGHT": "",
+      }
+    }
     isDraw={false}
     onItemClick={[Function]}
     winner={null}

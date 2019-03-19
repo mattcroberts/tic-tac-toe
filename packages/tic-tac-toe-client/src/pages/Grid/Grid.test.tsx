@@ -5,7 +5,11 @@ import { Symbol as ISymbol } from "../../../typings/types";
 
 describe("GridPage", () => {
     const defaultProps: any = {
-        controllingPlayer: { symbol: ISymbol.CROSS }
+        controllingPlayer: { symbol: ISymbol.CROSS },
+        gameUrls: {
+            [ISymbol.NAUGHT]: "",
+            [ISymbol.CROSS]: ""
+        }
     };
     it("should render", () => {
         const component = shallow(<GridPage {...defaultProps} />);
