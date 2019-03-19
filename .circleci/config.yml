@@ -110,13 +110,13 @@ jobs:
     steps:
       - checkout
       - run:
-          command: >
+          command: |
             cat > secrets.sh <<- EOM
-            export VOLUMERIZE_TARGET=${VOLUMERIZE_TARGET}
-            export GOOGLE_DRIVE_ID=${GOOGLE_DRIVE_ID}
-            export GOOGLE_DRIVE_SECRET=${GOOGLE_DRIVE_SECRET}
-            export POSTGRES_USERNAME=${POSTGRES_USERNAME}
-            export POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+              export VOLUMERIZE_TARGET=${VOLUMERIZE_TARGET}
+              export GOOGLE_DRIVE_ID=${GOOGLE_DRIVE_ID}
+              export GOOGLE_DRIVE_SECRET=${GOOGLE_DRIVE_SECRET}
+              export POSTGRES_USERNAME=${POSTGRES_USERNAME}
+              export POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
             EOM
       - run:
           command: scp -o StrictHostKeyChecking=no ./scripts/deploy.sh docker-compose.do.yml ${DO_USER}@irix.dev:~
