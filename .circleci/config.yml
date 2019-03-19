@@ -90,7 +90,7 @@ jobs:
             - npm-deps-
       - run:
           working_directory: ~/repo/packages/tic-tac-toe-client
-          command: docker build -t mattcroberts/tic-tac-toe-client:0.1.${CIRCLE_BUILD_NUM} -t mattcroberts/tic-tac-toe-client:latest --build-arg API_URI=/tictactoe/graphql WS_URI=ws://irix.dev/tictactoe/ws .
+          command: docker build -t mattcroberts/tic-tac-toe-client:0.1.${CIRCLE_BUILD_NUM} -t mattcroberts/tic-tac-toe-client:latest --build-arg API_URI=/tictactoe/graphql --build-arg WS_URI=ws://irix.dev/tictactoe/ws .
       - run:
           working_directory: ~/repo/packages/tic-tac-toe-server
           command: docker build -t mattcroberts/tic-tac-toe-server:0.1.${CIRCLE_BUILD_NUM} -t mattcroberts/tic-tac-toe-server:latest .
