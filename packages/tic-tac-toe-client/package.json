@@ -1,8 +1,9 @@
 {
-  "name": "tic-tac-toe-client",
+  "name": "@mattcroberts/tic-tac-toe-client",
   "version": "0.1.0",
-  "private": true,
   "homepage": "https://mattcroberts.github.io/tic-tac-toe",
+  "author": "mattroberts.uk@gmail.com",
+  "license": "ISC",
   "scripts": {
     "generate-types": "gql-gen --schema http://localhost:3000/graphql --template graphql-codegen-typescript-template --out ./typings/ \"./src/**/*.ts\"",
     "watch": "parcel serve --log-level 3 -p 3001 public/index.html",

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export API_URI=/tictactoe/graphql
+export TAG=latest
 source ./scripts/secrets.sh
 
 docker volume create volumerize-credentials
@@ -21,5 +22,4 @@ else
     echo "skipping DB restore"
 fi
 
-docker-compose -p ttt -f docker-compose.yml -f docker-compose.do.yml build
-docker-compose -p ttt -f docker-compose.yml -f docker-compose.do.yml up -d
+docker-compose -p ttt -f docker-compose.do.yml up -d

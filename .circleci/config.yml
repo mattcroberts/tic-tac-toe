@@ -77,12 +77,10 @@ jobs:
           path: ./packages/tic-tac-toe-server/reports/junit
       - store_artifacts:
           path: ./packages/tic-tac-toe-server/reports/junit
-  deploy-ui:
+  build:
     docker:
-      - image: circleci/node:8
-
+      - image: circleci/node
     working_directory: ~/repo
-
     steps:
       - checkout
       - restore_cache:
@@ -91,43 +89,44 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - npm-deps-
       - run:
-          environment:
-            API_URI: https://mcr-tictactoe-api.now.sh/graphql
-            WS_URI: wss://mcr-tictactoe-api.now.sh/ws
-          command: yarn build
-          working_directory: ./packages/tic-tac-toe-client
+          working_directory: ~/repo/packages/tic-tac-toe-client
+          command: docker build -t mattcroberts/tic-tac-toe-client:0.1.${CIRCLE_BUILD_NUM} -t mattcroberts/tic-tac-toe-client:latest --build-arg API_URI=/tictactoe/graphql WS_URI=ws://irix.dev/tictactoe/ws .
       - run:
-          command: npx now -t ${NOW_TOKEN}
-          working_directory: ./packages/tic-tac-toe-client
-      - run:
-          command: npx now -t ${NOW_TOKEN} alias mcr-tictactoe.now.sh
-          working_directory: ./packages/tic-tac-toe-client
-  deploy-server:
+          working_directory: ~/repo/packages/tic-tac-toe-server
+          command: docker build -t mattcroberts/tic-tac-toe-server:0.1.${CIRCLE_BUILD_NUM} -t mattcroberts/tic-tac-toe-server:latest .
+  docker-push:
     docker:
-      - image: circleci/node:8
-
+      - image: circleci/node
     working_directory: ~/repo
-
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - npm-deps-{{ checksum "./package.json" }}-{{ checksum "./packages/tic-tac-toe-client/package.json" }}-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - npm-deps-
       - run:
-          command: yarn build
-          working_directory: ./packages/tic-tac-toe-server
+          command: echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
       - run:
-          command: npx now -t ${NOW_TOKEN} --regions=bru -e MONGO_URI=@tictactoe_db
-          working_directory: ./packages/tic-tac-toe-server
+          working_directory: ~/repo/packages/tic-tac-toe-client
+          command: docker push mattcroberts/tic-tac-toe-client
       - run:
-          command: npx now -t ${NOW_TOKEN} alias mcr-tictactoe-api.now.sh
-          working_directory: ./packages/tic-tac-toe-server
+          working_directory: ~/repo/packages/tic-tac-toe-server
+          command: docker push mattcroberts/tic-tac-toe-server
+  deploy:
+    docker:
+      - image: circleci/node
+    working_directory: ~/repo
+    steps:
       - run:
-          command: sleep 10 && npx now -t ${NOW_TOKEN} rm tic-tac-toe-server --safe --yes || exit 0
-          working_directory: ./packages/tic-tac-toe-server
-
+          command: >
+            cat > secrets.sh <<- EOM
+            export VOLUMERIZE_TARGET=${VOLUMERIZE_TARGET}
+            export GOOGLE_DRIVE_ID=${GOOGLE_DRIVE_ID}
+            export GOOGLE_DRIVE_SECRET=${GOOGLE_DRIVE_SECRET}
+            export POSTGRES_USERNAME=${POSTGRES_USERNAME}
+            export POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+            EOM
+      - run:
+          command: scp -o StrictHostKeyChecking=no ./scripts/deploy.sh docker-compose.do.yml ${DO_USER}@irix.dev:~
+      - run:
+          command: ssh -o StrictHostKeyChecking=no ${DO_USER}@irix.dev "/bin/bash deploy.sh"
+      - run:
+          command: rm -f secrets.sh
 workflows:
   version: 2
   test:
@@ -139,17 +138,16 @@ workflows:
       - test-server:
           requires:
             - install-dependencies
-      - deploy-server:
+      - build:
           requires:
             - test-ui
             - test-server
-          filters:
-            branches:
-              only: master
-      - deploy-ui:
+      - docker-push:
           requires:
-            - test-ui
-            - test-server
+            - build
+      - deploy:
+          requires:
+            - docker-push
           filters:
             branches:
-              only: master
+              only: pg

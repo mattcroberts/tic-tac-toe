@@ -1,6 +1,40 @@
 version: "3"
 
 services:
+  ui:
+    image: mattcroberts/tic-tac-toe-client:${TAG}
+    ports:
+      - "5000:5000"
+    expose:
+      - 5000
+    restart: on-failure
+  api:
+    image: mattcroberts/tic-tac-toe-server:${TAG}
+    restart: on-failure
+    environment:
+      - TYPEORM_HOST=postgres
+      - TYPEORM_DATABASE=tictactoe
+      - TYPEORM_USERNAME=${POSTGRES_USERNAME}
+      - TYPEORM_PASSWORD=${POSTGRES_PASSWORD}
+      - TYPEORM_SYNCHRONIZE=false
+      - TYPEORM_ENTITIES_DIR=/home/nodejs/app/build/models/**/*.js
+      - TYPEORM_MIGRATIONS_DIR=/home/nodejs/app/build/migrations/**/*.js
+      - TYPEORM_SUBSCRIBERS_DIR=/home/nodejs/app/build/subscribers/**/*.js
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+    expose:
+      - 3000
+  postgres:
+    image: postgres
+    restart: on-failure
+    volumes: 
+      - pg-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=tictactoe
+      - POSTGRES_USERNAME=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
   backups:
     image: blacklabelops/volumerize
     container_name: ttt_backups
