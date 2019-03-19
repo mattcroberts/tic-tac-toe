@@ -14,8 +14,8 @@
 		"api-dev": "lerna exec --scope tic-tac-toe-server -- yarn dev",
 		"build": "docker-compose build",
 		"prestart": "yarn build",
-		"start": "docker-compose -f docker-compose.yml -f docker-compose.local.yml up",
-		"stop": "docker-compose down"
+		"start": "./scripts/secrets.sh && ./scripts/start.sh",
+		"stop": "./scripts/stop.sh"
 	},
 	"dependencies": {}
 }

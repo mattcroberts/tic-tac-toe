@@ -3,6 +3,7 @@ version: "3"
 services:
   backups:
     image: blacklabelops/volumerize
+    container_name: ttt_backups
     restart: unless-stopped
     environment:
         - TZ=Europe/London
@@ -12,8 +13,8 @@ services:
         - JOB_NAME2=RemoveOldBackups
         - JOB_COMMAND2=/etc/volumerize/remove-older-than 7D --force
     volumes:
-        - /tmp/volumerize_cache:/volumerize-cache
-        - ./credentials:/credentials
+        - volumerize-cache:/volumerize-cache
+        - volumerize-credentials:/credentials
         - pg-data:/source/pg
   lb:
     image: nginx
@@ -26,4 +27,11 @@ services:
     volumes:
       - ./site.conf:/etc/nginx/conf.d/site.conf
         # command: [nginx-debug, '-g', 'daemon off;']
+volumes: 
+  volumerize-credentials:
+    external: true
+  volumerize-cache:
+    external: true
+  pg-data:
+    external: true
 
