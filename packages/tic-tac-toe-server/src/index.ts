@@ -1,4 +1,3 @@
-import cors from "@koa/cors";
 import { ApolloServer } from "apollo-server-koa";
 import { execute, subscribe } from "graphql";
 import dotenv from "dotenv";
