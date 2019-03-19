@@ -1,3 +1,7 @@
+#!/bin/bash
+
+source ./scripts/secrets.sh
+
 docker run -it --rm \
     -v "volumerize-cache:/volumerize-cache" \
     -v "volumerize-credentials:/credentials" \

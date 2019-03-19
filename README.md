@@ -13,6 +13,19 @@ Prerequisites: Docker, Node 8, Yarn
 1. Clone repo
 2. yarn
 3. yarn start
+4. Navigate to http://localhost/tictactoe
+
+### Secrets
+
+For production, expose the following environment variables in scripts/secrets.sh
+
+```bash
+export POSTGRES_USERNAME=
+export POSTGRES_PASSWORD=
+export VOLUMERIZE_TARGET=
+export GOOGLE_DRIVE_ID=
+export GOOGLE_DRIVE_SECRET=
+```
 
 ## Developing
 

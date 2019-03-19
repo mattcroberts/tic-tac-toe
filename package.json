@@ -12,9 +12,7 @@
 		"postgres": "docker-compose -f docker-compose.dev.yml up",
 		"ui-dev": "lerna exec --scope tic-tac-toe-client -- PORT=3001 yarn watch",
 		"api-dev": "lerna exec --scope tic-tac-toe-server -- yarn dev",
-		"build": "docker-compose build",
-		"prestart": "yarn build",
-		"start": "./scripts/secrets.sh && ./scripts/start.sh",
+		"start": "./scripts/start.sh",
 		"stop": "./scripts/stop.sh"
 	},
 	"dependencies": {}
