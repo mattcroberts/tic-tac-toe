@@ -102,7 +102,7 @@ jobs:
     steps:
       - checkout
       - run:
-          command: echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
+          command: echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
       - run:
           working_directory: ~/repo/packages/tic-tac-toe-client
           command: docker push mattcroberts/tic-tac-toe-client
