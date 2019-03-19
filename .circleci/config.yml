@@ -88,6 +88,8 @@ jobs:
             - npm-deps-{{ checksum "./package.json" }}-{{ checksum "./packages/tic-tac-toe-client/package.json" }}-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
             # fallback to using the latest cache if no exact match is found
             - npm-deps-
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run:
           working_directory: ~/repo/packages/tic-tac-toe-client
           command: docker build -t mattcroberts/tic-tac-toe-client:0.1.${CIRCLE_BUILD_NUM} -t mattcroberts/tic-tac-toe-client:latest --build-arg API_URI=/tictactoe/graphql --build-arg WS_URI=ws://irix.dev/tictactoe/ws .
@@ -95,10 +97,10 @@ jobs:
           working_directory: ~/repo/packages/tic-tac-toe-server
           command: docker build -t mattcroberts/tic-tac-toe-server:0.1.${CIRCLE_BUILD_NUM} -t mattcroberts/tic-tac-toe-server:latest .
   docker-push:
-    docker:
-      - image: circleci/node
+    machine: true
     working_directory: ~/repo
     steps:
+      - checkout
       - run:
           command: echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
       - run:
@@ -108,10 +110,10 @@ jobs:
           working_directory: ~/repo/packages/tic-tac-toe-server
           command: docker push mattcroberts/tic-tac-toe-server
   deploy:
-    docker:
-      - image: circleci/node
+    machine: true
     working_directory: ~/repo
     steps:
+      - checkout
       - run:
           command: >
             cat > secrets.sh <<- EOM
