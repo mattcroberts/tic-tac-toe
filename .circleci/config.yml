@@ -108,6 +108,9 @@ jobs:
     machine: true
     working_directory: ~/repo
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "bf:d8:27:dd:c8:41:89:5f:c3:9b:c4:c3:0f:e0:01:4e"
       - checkout
       - run:
           command: |
@@ -119,7 +122,7 @@ jobs:
               export POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
             EOM
       - run:
-          command: scp -o StrictHostKeyChecking=no ./scripts/deploy.sh docker-compose.do.yml ${DO_USER}@irix.dev:~
+          command: scp -o StrictHostKeyChecking=no ./scripts/deploy.sh secrets.sh docker-compose.do.yml ${DO_USER}@irix.dev:~
       - run:
           command: ssh -o StrictHostKeyChecking=no ${DO_USER}@irix.dev "/bin/bash deploy.sh"
       - run:
