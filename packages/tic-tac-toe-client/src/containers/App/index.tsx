@@ -16,8 +16,10 @@ const httplink = new HttpLink({
     uri: process.env.API_URI
 });
 
+const wsProto = location.protocol === "https:" ? "wss" : "ws";
+
 const wsLink = new WebSocketLink({
-    uri: process.env.WS_URI || "ws://localhost:5000/ws",
+    uri: `${wsProto}://${location.host}/tictactoe/ws`,
     options: {
         reconnect: true
     }

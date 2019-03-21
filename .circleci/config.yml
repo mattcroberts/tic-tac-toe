@@ -122,9 +122,11 @@ jobs:
               export POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
             EOM
       - run:
-          command: scp -o StrictHostKeyChecking=no ./scripts/deploy.sh ./site.conf secrets.sh docker-compose.do.yml ${DO_USER}@irix.dev:~
+          command: scp -o StrictHostKeyChecking=no ./scripts/deploy.sh secrets.sh docker-compose.do.yml ${DO_USER}@irix.dev:~
       - run:
-          command: ssh -o StrictHostKeyChecking=no ${DO_USER}@irix.dev "/bin/bash deploy.sh"
+          command: scp -r -o StrictHostKeyChecking=no ./nginx ${DO_USER}@irix.dev:~
+      - run:
+          command: ssh -o StrictHostKeyChecking=no ${DO_USER}@irix.dev "/bin/bash deploy.sh ./docker-compose.do.yml"
       - run:
           command: rm -f secrets.sh
 workflows:
