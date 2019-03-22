@@ -4,7 +4,7 @@ Build Status: [![CircleCI](https://circleci.com/gh/mattcroberts/tic-tac-toe/tree
 
 A tic tac toe game built using node, Typescript, Graphql (Apollo), Koa, React, Jest, now.sh, Docker, MongoDB, CircleCI
 
-Play the game here: https://mattcroberts.github.io/tic-tac-toe/
+Play the game here: https://irix.dev/tictactoe
 
 ## Getting Started
 
