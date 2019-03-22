@@ -126,7 +126,7 @@ jobs:
       - run:
           command: scp -r -o StrictHostKeyChecking=no ./nginx ${DO_USER}@irix.dev:~
       - run:
-          command: ssh -o StrictHostKeyChecking=no ${DO_USER}@irix.dev "/bin/bash deploy.sh ./docker-compose.do.yml"
+          command: ssh -o StrictHostKeyChecking=no ${DO_USER}@irix.dev "/bin/bash ./deploy.sh ./docker-compose.do.yml"
       - run:
           command: rm -f secrets.sh
 workflows:
