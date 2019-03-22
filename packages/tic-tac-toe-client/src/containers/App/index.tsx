@@ -13,7 +13,7 @@ import { BASE_NAME } from "../../config";
 import Routes from "../../routes";
 
 const httplink = new HttpLink({
-    uri: process.env.API_URI
+    uri: "/tictactoe/graphql"
 });
 
 const wsProto = location.protocol === "https:" ? "wss" : "ws";

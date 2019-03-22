@@ -92,10 +92,10 @@ jobs:
           docker_layer_caching: true
       - run:
           working_directory: ~/repo/packages/tic-tac-toe-client
-          command: docker build -t mattcroberts/tic-tac-toe-client:0.1.${CIRCLE_BUILD_NUM} -t mattcroberts/tic-tac-toe-client:latest --build-arg API_URI=/tictactoe/graphql --build-arg WS_URI=ws://irix.dev/tictactoe/ws .
+          command: docker build -t mattcroberts/tic-tac-toe-client:0.1.${CIRCLE_SHA1} -t mattcroberts/tic-tac-toe-client:latest --build-arg API_URI=/tictactoe/graphql --build-arg WS_URI=ws://irix.dev/tictactoe/ws .
       - run:
           working_directory: ~/repo/packages/tic-tac-toe-server
-          command: docker build -t mattcroberts/tic-tac-toe-server:0.1.${CIRCLE_BUILD_NUM} -t mattcroberts/tic-tac-toe-server:latest .
+          command: docker build -t mattcroberts/tic-tac-toe-server:0.1.${CIRCLE_SHA1} -t mattcroberts/tic-tac-toe-server:latest .
       - run:
           command: echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
       - run:
@@ -126,7 +126,7 @@ jobs:
       - run:
           command: scp -r -o StrictHostKeyChecking=no ./nginx ${DO_USER}@irix.dev:~
       - run:
-          command: ssh -o StrictHostKeyChecking=no ${DO_USER}@irix.dev "/bin/bash ./deploy.sh ./docker-compose.do.yml"
+          command: ssh -o StrictHostKeyChecking=no ${DO_USER}@irix.dev "/bin/bash ./deploy.sh 0.1.${CIRCLE_SHA1}"
       - run:
           command: rm -f secrets.sh
 workflows:

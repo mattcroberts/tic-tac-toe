@@ -10,11 +10,5 @@ COPY --chown=node:node . .
 RUN yarn
 ENV NODE_ENV=production
 
-ARG API_URI
-ENV API_URI=$API_URI
-
-ARG WS_URI
-ENV WS_URI=$WS_URI
-
-RUN yarn build --detailed-report --no-cache
+RUN yarn build --detailed-report --no-cache && yarn --production
 CMD ["yarn", "start:prod"]
