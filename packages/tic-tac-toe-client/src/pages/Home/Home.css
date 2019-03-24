@@ -1,6 +1,8 @@
 :root {
-    --heading-color: #fffbfe;
-    --button-border-color: #282528;
+    --heading-color: #000;
+    --button-border-color: #00b5ec;
+    --button-color: #00b5ec;
+    --button-text-color: #fff;
 }
 
 .root {
@@ -33,7 +35,6 @@
 }
 
 .heading {
-    font-family: "Syncopate", sans-serif;
     font-size: 42px;
     font-weight: 800;
     color: var(--heading-color);
@@ -47,14 +48,21 @@
 }
 
 .button {
-    color: var(--heading-color);
+    color: var(--button-text-color);
     border: 1px solid var(--button-border-color);
-    border-radius: 20px;
-    background-color: #134611;
+    border-radius: 3px;
+    background-color: var(--button-color);
+    margin-right: 20px;
+}
+
+.button:last-child {
+    margin-right: 0;
 }
 
 .buttonContainer {
-    align-self: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     margin-bottom: 20px;
 }
 
@@ -63,11 +71,11 @@
 }
 
 .stats {
-    background-color: #134611;
+    background-color: var(--button-color);
     padding: 6px;
-    color: var(--heading-color);
+    color: var(--button-text-color);
     border: 1px solid var(--button-border-color);
-    border-radius: 20px;
+    border-radius: 3px;
 }
 
 .cell {

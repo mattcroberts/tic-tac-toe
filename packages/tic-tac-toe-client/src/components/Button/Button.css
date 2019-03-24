@@ -1,5 +1,15 @@
 .root {
-    padding: 12px;
     font-size: 18px;
     font-family: inherit;
+    padding: 0;
+}
+
+.small {
+    height: 30px;
+    padding: 0 6px;
+}
+
+.medium {
+    height: 50px;
+    padding: 0 12px;
 }

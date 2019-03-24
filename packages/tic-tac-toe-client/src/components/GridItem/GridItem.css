@@ -1,7 +1,7 @@
 :root {
-    --border-color: #fffbfe;
-    --cross-color: #a31621;
-    --naught-color: #19647e;
+    --border-color: #d0d0d0;
+    --cross-color: orange;
+    --naught-color: #00b5ec;
     --finished-color: #69656a;
 }
 
@@ -11,7 +11,7 @@
     justify-content: center;
     flex: 1;
     border: 3px solid var(--border-color);
-    font-family: Montserrat, sans-serif;
+    font-family: "serif", sans-serif;
     font-size: 100px;
 }
 

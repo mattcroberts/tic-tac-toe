@@ -2,7 +2,7 @@
 
 exports[`Button should render 1`] = `
 <button
-  className="root"
+  className="root medium"
   disabled={false}
   onClick={[Function]}
 />
@@ -10,7 +10,7 @@ exports[`Button should render 1`] = `
 
 exports[`Button should render children 1`] = `
 <button
-  className="root"
+  className="root medium"
   disabled={false}
   onClick={[Function]}
 >
@@ -20,7 +20,7 @@ exports[`Button should render children 1`] = `
 
 exports[`Button should render disabled 1`] = `
 <button
-  className="root"
+  className="root medium"
   disabled={true}
   onClick={[Function]}
 />

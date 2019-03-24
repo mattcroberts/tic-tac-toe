@@ -8,17 +8,17 @@
 }
 
 .inner {
-    color: #fffbfe;
+    padding: 50px 80px;
+    background-color: #d0d0d0;
+    color: #000;
     font-size: 80px;
     font-weight: 800;
 }
 
 .naught {
     composes: naught from "../GridItem/GridItem.css";
-    font-family: Montserrat, sans-serif;
 }
 
 .cross {
     composes: cross from "../GridItem/GridItem.css";
-    font-family: Montserrat, sans-serif;
 }

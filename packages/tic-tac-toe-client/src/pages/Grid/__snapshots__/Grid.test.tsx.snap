@@ -1,11 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`GridPage should render 1`] = `
-<Component>
-  <p>
-    You are Player 
-    CROSS
-  </p>
+<Component
+  controllingPlayer={
+    Object {
+      "symbol": "CROSS",
+    }
+  }
+>
+  <GridControls
+    controllingPlayer={
+      Object {
+        "symbol": "CROSS",
+      }
+    }
+    gameUrl=""
+  />
   <Grid
     controllingPlayer={
       Object {

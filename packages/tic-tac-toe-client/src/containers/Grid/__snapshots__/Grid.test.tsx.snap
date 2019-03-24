@@ -72,7 +72,20 @@ exports[`GridContainer renders without crashing 1`] = `
   onItemClick={[Function]}
   size={9}
 >
-  <Component>
+  <Component
+    controllingPlayer={
+      Object {
+        "id": "abc",
+        "symbol": "NAUGHT",
+      }
+    }
+    currentPlayer={
+      Object {
+        "id": "abc",
+        "symbol": "NAUGHT",
+      }
+    }
+  >
     <div
       className="root"
     >
@@ -82,34 +95,79 @@ exports[`GridContainer renders without crashing 1`] = `
         <div
           className="top"
         >
-          <h1
-            className="heading"
+          <div
+            className="topLeft"
           >
-            TIC TAC TOE
-          </h1>
-        </div>
-        <nav>
-          <Link
-            className="link"
-            replace={false}
-            to="/"
-          >
-            <a
-              className="link"
-              href="/"
-              onClick={[Function]}
+            <h1
+              className="heading"
             >
-              Home
-            </a>
-          </Link>
-        </nav>
+              Tic Tac Toe
+            </h1>
+            <Link
+              as="button"
+              className="button"
+              replace={false}
+              to="/"
+            >
+              <a
+                as="button"
+                className="button"
+                href="/"
+                onClick={[Function]}
+              >
+                <Button
+                  className="button"
+                  size="small"
+                >
+                  <button
+                    className="root small button"
+                    disabled={false}
+                    onClick={[Function]}
+                  >
+                    New Game
+                  </button>
+                </Button>
+              </a>
+            </Link>
+          </div>
+          <div
+            className="turnInfo"
+          >
+            <div>
+              You are player
+               
+              <span
+                className="naught"
+              >
+                0
+              </span>
+            </div>
+            <div>
+              Player
+               
+              <span
+                className="naught"
+              >
+                0
+              </span>
+              's turn
+            </div>
+          </div>
+        </div>
         <div
           className="content"
         >
-          <p>
-            You are Player 
-            NAUGHT
-          </p>
+          <GridControls
+            controllingPlayer={
+              Object {
+                "id": "abc",
+                "symbol": "NAUGHT",
+              }
+            }
+            isMultiplayer={false}
+          >
+            <div />
+          </GridControls>
           <Grid
             controllingPlayer={
               Object {

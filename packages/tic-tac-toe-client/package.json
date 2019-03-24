@@ -6,7 +6,7 @@
   "license": "ISC",
   "scripts": {
     "generate-types": "gql-gen --schema http://localhost:3000/graphql --template graphql-codegen-typescript-template --out ./typings/ \"./src/**/*.ts\"",
-    "watch": "parcel serve --log-level 3 -p 3001 public/index.html",
+    "dev": "parcel serve --log-level 3 -p 3001 public/index.html",
     "start": "serve -s -n -l 5000",
     "start:prod": "serve -s -n -l 5000",
     "prebuild": "rm -rf dist",

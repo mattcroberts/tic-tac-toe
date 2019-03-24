@@ -10,7 +10,7 @@
 		"prepare": "lerna bootstrap",
 		"dev": "run-p -l postgres ui-dev api-dev",
 		"postgres": "docker-compose -f docker-compose.dev.yml up",
-		"ui-dev": "lerna exec --scope @mattcroberts/tic-tac-toe-client -- PORT=3001 yarn watch",
+		"ui-dev": "lerna exec --scope @mattcroberts/tic-tac-toe-client -- PORT=3001 yarn dev",
 		"api-dev": "lerna exec --scope @mattcroberts/tic-tac-toe-server -- yarn dev",
 		"start": "./scripts/start.sh",
 		"stop": "./scripts/stop.sh"

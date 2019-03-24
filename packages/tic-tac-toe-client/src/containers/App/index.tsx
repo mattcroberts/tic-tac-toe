@@ -13,13 +13,13 @@ import { BASE_NAME } from "../../config";
 import Routes from "../../routes";
 
 const httplink = new HttpLink({
-    uri: "/tictactoe/graphql"
+    uri: process.env.API_URI || "/tictactoe/graphql"
 });
 
 const wsProto = location.protocol === "https:" ? "wss" : "ws";
 
 const wsLink = new WebSocketLink({
-    uri: `${wsProto}://${location.host}/tictactoe/ws`,
+    uri: process.env.WS_URI || `${wsProto}://${location.host}/tictactoe/ws`,
     options: {
         reconnect: true
     }

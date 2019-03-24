@@ -12,7 +12,12 @@
 
 .top {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
+}
+
+.topLeft {
+    display: flex;
+    align-items: start;
 }
 
 .content {
@@ -22,14 +27,25 @@
     user-select: none;
 }
 
-.link {
-    color: #fffbfe;
-    padding: 6px;
-    user-select: none;
-}
-
 .heading {
     font-size: 32px;
-    margin: 6px;
+    margin: 0 30px 0 6px;
     user-select: none;
+    line-height: 31px;
+}
+
+.button {
+    composes: button from "../../pages/Home/Home.css";
+}
+
+.naught {
+    composes: naught from "../GridItem/GridItem.css";
+}
+
+.cross {
+    composes: cross from "../GridItem/GridItem.css";
+}
+
+.turnInfo {
+    margin-right: 70px;
 }
