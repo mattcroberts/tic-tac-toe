@@ -17,7 +17,7 @@ Prerequisites: Docker, Node 8, Yarn
 
 ### Secrets
 
-For production, expose the following environment variables in scripts/secrets.sh
+For production, expose the following environment variables in scripts/env.sh
 
 ```bash
 export POSTGRES_USERNAME=

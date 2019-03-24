@@ -4,3 +4,4 @@
 export WS_URI=ws://localhost:8080/tictactoe/ws
 export POSTGRES_USERNAME=postgres
 export POSTGRES_PASSWORD=postgres
+export TAG=latest

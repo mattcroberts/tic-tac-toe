@@ -2,7 +2,7 @@
 
 export API_URI=/tictactoe/graphql
 export TAG=latest
-source ./scripts/secrets.sh
+source ./scripts/env.sh
 
 docker volume create volumerize-credentials
 docker volume create volumerize-cache

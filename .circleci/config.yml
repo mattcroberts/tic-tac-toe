@@ -114,21 +114,22 @@ jobs:
       - checkout
       - run:
           command: |
-            cat > secrets.sh <<- EOM
+            cat > env.sh <<- EOM
               export VOLUMERIZE_TARGET=${VOLUMERIZE_TARGET}
               export GOOGLE_DRIVE_ID=${GOOGLE_DRIVE_ID}
               export GOOGLE_DRIVE_SECRET=${GOOGLE_DRIVE_SECRET}
               export POSTGRES_USERNAME=${POSTGRES_USERNAME}
               export POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+              export TAG=0.1.${CIRCLE_SHA1}
             EOM
       - run:
-          command: scp -o StrictHostKeyChecking=no ./scripts/deploy.sh secrets.sh docker-compose.do.yml ${DO_USER}@irix.dev:~
+          command: cp docker-compose.prod.yml docker-compose.yml
+      - run:
+          command: ssh -o StrictHostKeyChecking=no ${DO_USER}@irix.dev "mkdir -p tictactoe" && scp -o StrictHostKeyChecking=no ./scripts/deploy.sh env.sh docker-compose.prod.yml ${DO_USER}@irix.dev:~/tictactoe
       - run:
           command: scp -r -o StrictHostKeyChecking=no ./nginx ${DO_USER}@irix.dev:~
       - run:
-          command: ssh -o StrictHostKeyChecking=no ${DO_USER}@irix.dev "/bin/bash ./deploy.sh 0.1.${CIRCLE_SHA1}"
-      - run:
-          command: rm -f secrets.sh
+          command: ssh -o StrictHostKeyChecking=no ${DO_USER}@irix.dev "/bin/bash ./deploy.sh"
 workflows:
   version: 2
   test:

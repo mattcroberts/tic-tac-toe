@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./scripts/secrets.sh
+source ./scripts/env.sh
 
 docker run -it --rm \
     -v "volumerize-cache:/volumerize-cache" \

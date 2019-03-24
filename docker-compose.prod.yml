@@ -29,7 +29,7 @@ services:
   postgres:
     image: postgres
     restart: on-failure
-    volumes: 
+    volumes:
       - pg-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=tictactoe
@@ -40,41 +40,24 @@ services:
     container_name: ttt_backups
     restart: unless-stopped
     environment:
-        - TZ=Europe/London
-        - VOLUMERIZE_SOURCE=/source
-        - VOLUMERIZE_JOBBER_TIME=0 0 0 * * *
-        - VOLUMERIZE_FULL_IF_OLDER_THAN=7D
-        - JOB_NAME2=RemoveOldBackups
-        - JOB_COMMAND2=/etc/volumerize/remove-older-than 7D --force
+      - TZ=Europe/London
+      - VOLUMERIZE_SOURCE=/source
+      - VOLUMERIZE_JOBBER_TIME=0 0 0 * * *
+      - VOLUMERIZE_FULL_IF_OLDER_THAN=7D
+      - JOB_NAME2=RemoveOldBackups
+      - JOB_COMMAND2=/etc/volumerize/remove-older-than 7D --force
     volumes:
-        - volumerize-cache:/volumerize-cache
-        - volumerize-credentials:/credentials
-        - pg-data:/source/pg
+      - volumerize-cache:/volumerize-cache
+      - volumerize-credentials:/credentials
+      - pg-data:/source/pg
   nginx:
-    image: nginx
-    ports:
-      - 80:80
-      - 443:443
-    depends_on:
-      - api
-      - ui
-    restart: on-failure
     volumes:
-      - ./nginx:/etc/nginx/conf.d
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-volumes: 
+      - ./nginx/include_tictactoe:/etc/nginx/conf.d/include_tictactoe
+
+volumes:
   volumerize-credentials:
     external: true
   volumerize-cache:
     external: true
   pg-data:
     external: true
-
