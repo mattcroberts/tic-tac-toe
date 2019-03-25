@@ -37,7 +37,6 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
   backups:
     image: blacklabelops/volumerize
-    container_name: ttt_backups
     restart: unless-stopped
     environment:
       - TZ=Europe/London
@@ -46,6 +45,9 @@ services:
       - VOLUMERIZE_FULL_IF_OLDER_THAN=7D
       - JOB_NAME2=RemoveOldBackups
       - JOB_COMMAND2=/etc/volumerize/remove-older-than 7D --force
+      - VOLUMERIZE_TARGET=${VOLUMERIZE_TARGET}
+      - GOOGLE_DRIVE_ID=${GOOGLE_DRIVE_ID}
+      - GOOGLE_DRIVE_SECRET=${GOOGLE_DRIVE_SECRET}
     volumes:
       - volumerize-cache:/volumerize-cache
       - volumerize-credentials:/credentials
