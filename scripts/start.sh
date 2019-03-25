@@ -1,12 +1,6 @@
 #!/bin/bash
 
-export API_URI=/tictactoe/graphql
-export TAG=latest
 source ./scripts/env.sh
-
-docker volume create volumerize-credentials
-docker volume create volumerize-cache
-docker volume create pg-data
 
 if [ "$VOLUMERIZE_TARGET" && "$GOOGLE_DRIVE_ID" && "$GOOGLE_DRIVE_SECRET" ]; then
     docker run -it --rm \
@@ -22,4 +16,4 @@ else
     echo "skipping DB restore"
 fi
 
-docker-compose -p ttt -f docker-compose.do.yml up -d
+docker-compose -p ttt up -d
