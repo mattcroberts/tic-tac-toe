@@ -1,8 +1,8 @@
 import { Symbol as ISymbol } from "../../typings/types";
 
 const playerMap = {
-    [ISymbol.NAUGHT]: "0",
-    [ISymbol.CROSS]: "X"
+    [ISymbol.NAUGHT]: "o",
+    [ISymbol.CROSS]: "x"
 };
 
 const getPlayerSymbol = (player: ISymbol) => playerMap[player];

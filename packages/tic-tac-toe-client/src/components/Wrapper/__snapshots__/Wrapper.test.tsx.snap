@@ -28,7 +28,7 @@ exports[`Wrapper should render 1`] = `
             className="button"
             size="small"
           >
-            New Game
+            Home
           </Button>
         </Link>
       </div>
@@ -41,7 +41,7 @@ exports[`Wrapper should render 1`] = `
           <span
             className="cross"
           >
-            X
+            x
           </span>
         </div>
         <div>
@@ -50,7 +50,7 @@ exports[`Wrapper should render 1`] = `
           <span
             className="cross"
           >
-            X
+            x
           </span>
           's turn
         </div>

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import style from "./Wrapper.css";
 import Button, { Size } from "../Button";
 import { Player as IPlayer } from "../../../typings/types";
+import getPlayerSymbol from "../../utils/playerMap";
 
 export default ({
     children,
@@ -21,7 +22,7 @@ export default ({
                     <h1 className={style.heading}>Tic Tac Toe</h1>
                     <Link to="/" className={style.button} as="button">
                         <Button className={style.button} size={Size.SMALL}>
-                            New Game
+                            Home
                         </Button>
                     </Link>
                 </div>
@@ -34,7 +35,7 @@ export default ({
                                 style[controllingPlayer.symbol.toLowerCase()]
                             }
                         >
-                            {controllingPlayer.symbol === "NAUGHT" ? "0" : "X"}
+                            {getPlayerSymbol(controllingPlayer.symbol)}
                         </span>
                     </div>
                     <div>
@@ -44,7 +45,7 @@ export default ({
                                 style[currentPlayer.symbol.toLowerCase()]
                             }
                         >
-                            {controllingPlayer.symbol === "NAUGHT" ? "0" : "X"}
+                            {getPlayerSymbol(controllingPlayer.symbol)}
                         </span>
                         's turn
                     </div>

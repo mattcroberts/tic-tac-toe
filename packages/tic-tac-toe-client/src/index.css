@@ -1,24 +1,8 @@
-@font-face {
-    font-family: "tex_gyre_herosregular";
-    src: url("assets/fonts/texgyreheros_regular_macroman/texgyreheros-regular-webfont.eot");
-    src: url("assets/fonts/texgyreheros_regular_macroman/texgyreheros-regular-webfont.eot?#iefix")
-            format("embedded-opentype"),
-        url("assets/fonts/texgyreheros_regular_macroman/texgyreheros-regular-webfont.woff")
-            format("woff"),
-        url("assets/fonts/texgyreheros_regular_macroman/texgyreheros-regular-webfont.ttf")
-            format("truetype"),
-        url("assets/fonts/texgyreheros_regular_macroman/texgyreheros-regular-webfont.svg#tex_gyre_herosregular")
-            format("svg");
-    font-weight: normal;
-    font-style: normal;
-}
-
 body {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
     background-color: fff;
-    font-family: "tex_gyre_herosregular", sans-serif;
+    font-family: "ABeeZee", sans-serif;
 }
 
 * {

@@ -1,7 +1,7 @@
 :root {
-    --border-color: #d0d0d0;
-    --cross-color: orange;
-    --naught-color: #00b5ec;
+    --border-color: black;
+    --cross-color: black;
+    --naught-color: black;
     --finished-color: #69656a;
 }
 
@@ -10,9 +10,8 @@
     flex-flow: column wrap;
     justify-content: center;
     flex: 1;
-    border: 3px solid var(--border-color);
-    font-family: "serif", sans-serif;
-    font-size: 100px;
+    border: 1px solid var(--border-color);
+    font-size: 170px;
 }
 
 .finished {

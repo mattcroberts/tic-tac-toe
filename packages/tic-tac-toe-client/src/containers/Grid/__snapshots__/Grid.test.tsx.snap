@@ -124,7 +124,7 @@ exports[`GridContainer renders without crashing 1`] = `
                     disabled={false}
                     onClick={[Function]}
                   >
-                    New Game
+                    Home
                   </button>
                 </Button>
               </a>
@@ -139,7 +139,7 @@ exports[`GridContainer renders without crashing 1`] = `
               <span
                 className="naught"
               >
-                0
+                o
               </span>
             </div>
             <div>
@@ -148,7 +148,7 @@ exports[`GridContainer renders without crashing 1`] = `
               <span
                 className="naught"
               >
-                0
+                o
               </span>
               's turn
             </div>

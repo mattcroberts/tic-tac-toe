@@ -17,7 +17,7 @@ exports[`GridItem should render CROSS 1`] = `
   onClick={[Function]}
 >
   <span>
-    X
+    x
   </span>
 </div>
 `;
@@ -28,7 +28,7 @@ exports[`GridItem should render NAUGHT 1`] = `
   onClick={[Function]}
 >
   <span>
-    0
+    o
   </span>
 </div>
 `;
