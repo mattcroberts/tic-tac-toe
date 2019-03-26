@@ -51,8 +51,7 @@ services:
       - api
       - ui
   backups:
-    build:
-      context: ./volumerize
+    image: blacklabelops/volumerize
     restart: unless-stopped
     depends_on:
       - postgres
@@ -71,8 +70,11 @@ services:
       - POSTGRES_USERNAME=${POSTGRES_USERNAME}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
-      - volumerize-cache
-      - volumerize-credentials
-      - ./source:/source
+      - volumerize-cache:/volumerize-cache
+      - volumerize-credentials:/credentials
+      - ./scripts/volumerize/restore-db.sh:/postexecute/restore/restore-db.sh
+      - ./scripts/volumerize/backup-db.sh:/preexecute/backup/backup-db.sh
 volumes:
   pg-data:
+  volumerize-cache:
+  volumerize-credentials:

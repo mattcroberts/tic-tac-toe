@@ -127,7 +127,7 @@ jobs:
       - run:
           command: ssh -o StrictHostKeyChecking=no ${DO_USER}@irix.dev "mkdir -p tictactoe" && scp -o StrictHostKeyChecking=no ./scripts/deploy.sh env.sh docker-compose.prod.yml ${DO_USER}@irix.dev:~/tictactoe
       - run:
-          command: scp -r -o StrictHostKeyChecking=no ./nginx ${DO_USER}@irix.dev:~
+          command: scp -r -o StrictHostKeyChecking=no ./nginx ./scripts/volumerize ${DO_USER}@irix.dev:~
       - run:
           command: ssh -o StrictHostKeyChecking=no ${DO_USER}@irix.dev "/bin/bash ./deploy.sh"
 workflows:

@@ -13,6 +13,7 @@ Prerequisites: Docker, Node 8, Yarn
 1. Clone repo
 2. yarn
 3. yarn start
+   1. yarn start restore (to restore db from backup, make sure secrets are set)
 4. Navigate to http://localhost/tictactoe
 
 ### Secrets

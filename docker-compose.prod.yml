@@ -38,28 +38,32 @@ services:
   backups:
     image: blacklabelops/volumerize
     restart: unless-stopped
+    depends_on:
+      - postgres
     environment:
       - TZ=Europe/London
       - VOLUMERIZE_SOURCE=/source
       - VOLUMERIZE_JOBBER_TIME=0 0 0 * * *
       - VOLUMERIZE_FULL_IF_OLDER_THAN=7D
       - JOB_NAME2=RemoveOldBackups
+      - JOB_TIME2=0 0 1 * * *
       - JOB_COMMAND2=/etc/volumerize/remove-older-than 7D --force
       - VOLUMERIZE_TARGET=${VOLUMERIZE_TARGET}
       - GOOGLE_DRIVE_ID=${GOOGLE_DRIVE_ID}
       - GOOGLE_DRIVE_SECRET=${GOOGLE_DRIVE_SECRET}
+      - DATABASE=tictactoe
+      - POSTGRES_USERNAME=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - volumerize-cache:/volumerize-cache
       - volumerize-credentials:/credentials
-      - pg-data:/source/pg
+      - ./volumerize/restore-db.sh:/postexecute/restore/restore-db.sh
+      - ./volumerize/backup-db.sh:/preexecute/backup/backup-db.sh
   nginx:
     volumes:
       - ./nginx/include_tictactoe:/etc/nginx/conf.d/include_tictactoe
 
 volumes:
   volumerize-credentials:
-    external: true
   volumerize-cache:
-    external: true
   pg-data:
-    external: true
