@@ -72,9 +72,11 @@ services:
     volumes:
       - volumerize-cache:/volumerize-cache
       - volumerize-credentials:/credentials
+      - volumerize-source:/source
       - ./scripts/volumerize/restore-db.sh:/postexecute/restore/restore-db.sh
       - ./scripts/volumerize/backup-db.sh:/preexecute/backup/backup-db.sh
 volumes:
   pg-data:
   volumerize-cache:
   volumerize-credentials:
+  volumerize-source:

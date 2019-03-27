@@ -27,7 +27,7 @@ services:
     expose:
       - 3000
   postgres:
-    image: postgres
+    image: postgres:10.5
     restart: on-failure
     volumes:
       - pg-data:/var/lib/postgresql/data
@@ -57,6 +57,7 @@ services:
     volumes:
       - volumerize-cache:/volumerize-cache
       - volumerize-credentials:/credentials
+      - volumerize-source:/source
       - ./volumerize/restore-db.sh:/postexecute/restore/restore-db.sh
       - ./volumerize/backup-db.sh:/preexecute/backup/backup-db.sh
   nginx:
@@ -66,4 +67,5 @@ services:
 volumes:
   volumerize-credentials:
   volumerize-cache:
+  volumerize-source:
   pg-data:
