@@ -11,6 +11,7 @@ import "whatwg-fetch";
 
 import { BASE_NAME } from "../../config";
 import Routes from "../../routes";
+import ErrorPage from "../../pages/Error";
 
 const httplink = new HttpLink({
     uri: process.env.API_URI || "/tictactoe/graphql"
@@ -45,11 +46,13 @@ const client = new ApolloClient({
 class App extends React.Component {
     public render() {
         return (
-            <ApolloProvider client={client}>
-                <BrowserRouter basename={BASE_NAME}>
-                    <Routes />
-                </BrowserRouter>
-            </ApolloProvider>
+            <ErrorPage>
+                <ApolloProvider client={client}>
+                    <BrowserRouter basename={BASE_NAME}>
+                        <Routes />
+                    </BrowserRouter>
+                </ApolloProvider>
+            </ErrorPage>
         );
     }
 }

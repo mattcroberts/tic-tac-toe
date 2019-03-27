@@ -5,6 +5,10 @@ services:
     image: postgres:10.5
     ports:
       - "5432:5432"
+    volumes: 
+      - pg-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=tictactoe
       - POSTGRES_PASSWORD=postgres
+volumes: 
+  pg-data:

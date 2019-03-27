@@ -8,6 +8,7 @@ import GridPage from "../../pages/Grid";
 import * as EXECUTE_TURN from "./executeTurn.graphql";
 import * as GET_GRID from "./getGrid.graphql";
 import * as GET_GRID_SUBS from "./getGrid.subscription.graphql";
+import ErrorPage from "../../pages/Error";
 
 export interface IProps extends RouteComponentProps<{ playerId: string }> {
     executeTurn: (
@@ -45,6 +46,10 @@ export class GridContainer extends React.Component<IProps> {
 
         if (loading) {
             return <p>Loading...</p>;
+        }
+
+        if (!grid) {
+            return <ErrorPage message="Game not found" />;
         }
 
         if (!grid.players || grid.players.length < 2) {
