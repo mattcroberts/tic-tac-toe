@@ -1,4 +1,4 @@
-import { query, mutation } from "./resolver";
+import { Query, Mutation } from "./resolver";
 import Grid from "../../models/Grid";
 import GridController from "../../controllers/grid";
 import PlayerController from "../../controllers/player";
@@ -15,9 +15,9 @@ describe("Grid resolver", () => {
 
             const spy = jest
                 .spyOn(GridController, "findById")
-                .mockReturnValueOnce(testGrid);
+                .mockResolvedValueOnce(testGrid);
 
-            const grid = await query.Query.grid(undefined, { id: "123" });
+            const grid = await Query.grid(undefined, { id: "123" });
 
             expect(grid.id).toEqual(testGrid.id);
             expect(spy).toHaveBeenCalledWith("123");
@@ -28,7 +28,7 @@ describe("Grid resolver", () => {
                 new Error("No Id Provided")
             );
             const params: any = { id: undefined };
-            return expect(query.Query.grid(undefined, params)).rejects.toEqual(
+            return expect(Query.grid(undefined, params)).rejects.toEqual(
                 new Error("No Id Provided")
             );
         });
@@ -48,9 +48,7 @@ describe("Grid resolver", () => {
                 .spyOn(testGrid, "placePlayer")
                 .mockReturnValue(undefined);
 
-            jest.spyOn(testGrid, "save").mockImplementation(() =>
-                Promise.resolve()
-            );
+            jest.spyOn(testGrid, "save").mockResolvedValueOnce(testGrid);
 
             jest.spyOn(GridController, "findById").mockResolvedValueOnce(
                 testGrid
@@ -64,14 +62,14 @@ describe("Grid resolver", () => {
                 x: 1,
                 y: 2
             };
-            await mutation.Mutation.executeTurn(undefined, params);
+            await Mutation.executeTurn(undefined, params);
 
             expect(placePlayerSpy).toHaveBeenCalled();
             expect(placePlayerSpy).toHaveBeenCalledWith(testPlayer, 1, 2);
         });
 
         it("should throw if grid not found", async () => {
-            jest.spyOn(GridController, "findById").mockReturnValue(undefined);
+            jest.spyOn(GridController, "findById").mockResolvedValue(undefined);
 
             const params: any = {
                 id: "123",
@@ -79,9 +77,9 @@ describe("Grid resolver", () => {
                 x: 1,
                 y: 2
             };
-            expect(
-                mutation.Mutation.executeTurn(undefined, params)
-            ).rejects.toEqual(new Error("Execute Turn Error grid:123"));
+            expect(Mutation.executeTurn(undefined, params)).rejects.toEqual(
+                new Error("Execute Turn Error grid:123")
+            );
         });
     });
 
@@ -95,7 +93,7 @@ describe("Grid resolver", () => {
                 .spyOn(Grid.prototype, "save")
                 .mockResolvedValue(mockGrid);
 
-            const newGrid = await mutation.Mutation.newGame();
+            const newGrid = await Mutation.newGame();
 
             expect(saveSpy).toHaveBeenCalled();
 

@@ -5,7 +5,6 @@
     "interface-name": [true, "always-prefix"],
     "ordered-imports": [false],
     "object-literal-sort-keys": [false],
-    "no-unused-variable": true,
     "no-implicit-dependencies": [true, "dev"]
   }
 }
