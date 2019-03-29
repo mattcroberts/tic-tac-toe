@@ -91,11 +91,11 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          working_directory: ~/repo/packages/tic-tac-toe-client
-          command: docker build -t mattcroberts/tic-tac-toe-client:0.1.${CIRCLE_SHA1} -t mattcroberts/tic-tac-toe-client:latest --build-arg API_URI=/tictactoe/graphql --build-arg WS_URI=ws://irix.dev/tictactoe/ws .
+          working_directory: ~/repo
+          command: docker build -t mattcroberts/tic-tac-toe-client:0.1.${CIRCLE_SHA1} -t mattcroberts/tic-tac-toe-client:latest --build-arg API_URI=/tictactoe/graphql --build-arg WS_URI=ws://irix.dev/tictactoe/ws -f ./packages/tic-tac-toe-client/Dockerfile .
       - run:
-          working_directory: ~/repo/packages/tic-tac-toe-server
-          command: docker build -t mattcroberts/tic-tac-toe-server:0.1.${CIRCLE_SHA1} -t mattcroberts/tic-tac-toe-server:latest .
+          working_directory: ~/repo
+          command: docker build -t mattcroberts/tic-tac-toe-server:0.1.${CIRCLE_SHA1} -t mattcroberts/tic-tac-toe-server:latest -f ./packages/tic-tac-toe-server/Dockerfile .
       - run:
           command: echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
       - run:

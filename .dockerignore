@@ -1,0 +1,6 @@
+nginx
+nginx-local
+scripts
+node_modules
+
+packages/*/node_modules

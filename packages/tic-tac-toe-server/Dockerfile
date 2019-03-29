@@ -4,7 +4,8 @@ WORKDIR /home/nodejs/app
 RUN chown node:node .
 USER node
 
-COPY --chown=node:node . .
+COPY --chown=node:node tsconfig.json ../..
+COPY --chown=node:node packages/tic-tac-toe-server .
 
 RUN yarn
 

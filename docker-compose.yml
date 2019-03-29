@@ -3,7 +3,8 @@ version: "3"
 services:
   ui:
     build:
-      context: ./packages/tic-tac-toe-client/
+      context: .
+      dockerfile: ./packages/tic-tac-toe-client/Dockerfile
       args:
         - API_URI=${API_URI}
         - WS_URI=${WS_URI}
@@ -14,7 +15,8 @@ services:
     restart: on-failure
   api:
     build:
-      context: ./packages/tic-tac-toe-server
+      context: .
+      dockerfile: ./packages/tic-tac-toe-server/Dockerfile
     restart: on-failure
     environment:
       - TYPEORM_HOST=postgres

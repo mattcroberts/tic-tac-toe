@@ -30,7 +30,7 @@ export const connectWithRetry = async (retries = 5, timeout = 500) => {
                 console.log(
                     `Retrying connection, retrys remaining: ${retries}, timeout: ${timeout}`
                 );
-                connectWithRetry(retries - 1);
+                connectWithRetry(retries - 1, timeout);
             }, timeout);
         } else {
             console.log(`DB connection failed with retrys`);
