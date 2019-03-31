@@ -29,7 +29,6 @@ exports[`GridPage should render 1`] = `
       }
     }
     isDraw={false}
-    onItemClick={[Function]}
     winner={null}
   />
 </Component>

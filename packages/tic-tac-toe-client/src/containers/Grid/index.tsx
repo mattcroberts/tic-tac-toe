@@ -1,7 +1,7 @@
 import * as React from "react";
-import { graphql, Subscription } from "react-apollo";
+import { Query, Mutation } from "react-apollo";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { compose } from "recompose";
+
 import { Grid as IGrid } from "../../../typings/types";
 import GridPage from "../../pages/Grid";
 
@@ -10,7 +10,8 @@ import * as GET_GRID from "./getGrid.graphql";
 import * as GET_GRID_SUBS from "./getGrid.subscription.graphql";
 import ErrorPage from "../../pages/Error";
 
-export interface IProps extends RouteComponentProps<{ playerId: string }> {
+export interface IProps
+    extends RouteComponentProps<{ gameId: string; playerId: string }> {
     executeTurn: (
         options: {
             variables: {
@@ -33,72 +34,82 @@ export interface IProps extends RouteComponentProps<{ playerId: string }> {
 export class GridContainer extends React.Component<IProps> {
     public state = {};
 
-    constructor(props: IProps) {
-        super(props);
-        this.onItemClick = this.onItemClick.bind(this);
-    }
-
     public render() {
         const {
             invitedPlayerId,
-            data: { error, grid, loading }
+            match: { params: gameId }
         } = this.props;
 
-        if (loading) {
-            return <p>Loading...</p>;
-        }
-
-        if (!grid) {
-            return <ErrorPage message="Game not found" />;
-        }
-
-        if (!grid.players || grid.players.length < 2) {
-            return <p>Player error</p>;
-        }
-
-        const controllingPlayer = this.props.isMultiplayer
-            ? this.getControllingPlayer(grid, invitedPlayerId)
-            : grid.currentPlayer;
-
-        if (!controllingPlayer) {
-            return <p>Player not found</p>;
-        }
-
-        if (error) {
-            return <p>{error.message}</p>;
-        }
-
         return (
-            <Subscription
-                subscription={GET_GRID_SUBS}
-                variables={{ id: grid.id }}
-            >
-                {({
-                    data: { gridUpdated } = { gridUpdated: undefined },
-                    loading: subsLoading
-                }: {
-                    data: { gridUpdated: IGrid | undefined };
-                    loading: boolean;
-                }) => {
-                    const g =
-                        subsLoading || gridUpdated === undefined
-                            ? grid
-                            : gridUpdated;
-                    return (
-                        <GridPage
-                            grid={g.gridItems}
-                            currentPlayer={g.currentPlayer}
-                            winner={g.winner}
-                            isDraw={g.winner === null && g.isFinished}
-                            size={g.size}
-                            onItemClick={this.onItemClick}
-                            gameUrls={g.gameUrls}
-                            isMultiplayer={this.props.isMultiplayer}
-                            controllingPlayer={controllingPlayer}
-                        />
-                    );
-                }}
-            </Subscription>
+            <Mutation mutation={EXECUTE_TURN}>
+                {executeTurn => (
+                    <Query query={GET_GRID} variables={{ id: gameId.gameId }}>
+                        {({
+                            error,
+                            data: { grid },
+                            loading,
+                            subscribeToMore
+                        }) => {
+                            if (loading) {
+                                return <p>Loading...</p>;
+                            }
+
+                            if (error) {
+                                console.error(error);
+                                return <ErrorPage message={error.message} />;
+                            }
+
+                            if (!grid) {
+                                return <ErrorPage message="Game not found" />;
+                            }
+
+                            if (!grid.players || grid.players.length < 2) {
+                                return (
+                                    <ErrorPage message="Players not found" />
+                                );
+                            }
+
+                            const controllingPlayer = this.props.isMultiplayer
+                                ? this.getControllingPlayer(
+                                      grid,
+                                      invitedPlayerId
+                                  )
+                                : grid.currentPlayer;
+
+                            subscribeToMore({
+                                document: GET_GRID_SUBS,
+                                variables: { id: gameId.gameId },
+                                updateQuery: (prev, { subscriptionData }) => {
+                                    if (!subscriptionData.data) {
+                                        return prev;
+                                    }
+
+                                    return {
+                                        grid: subscriptionData.data.gridUpdated
+                                    };
+                                }
+                            });
+
+                            return (
+                                <GridPage
+                                    id={grid.id}
+                                    executeTurn={executeTurn}
+                                    grid={grid.gridItems}
+                                    currentPlayer={grid.currentPlayer}
+                                    winner={grid.winner}
+                                    isDraw={
+                                        grid.winner === null && grid.isFinished
+                                    }
+                                    size={grid.size}
+                                    gameUrls={grid.gameUrls}
+                                    isMultiplayer={this.props.isMultiplayer}
+                                    controllingPlayer={controllingPlayer}
+                                />
+                            );
+                        }}
+                    </Query>
+                )}
+            </Mutation>
         );
     }
 
@@ -112,46 +123,6 @@ export class GridContainer extends React.Component<IProps> {
             grid.players[0]
         );
     }
-
-    private onItemClick(x: number, y: number): void {
-        const {
-            executeTurn,
-            data: { grid }
-        } = this.props;
-
-        const controllingPlayer = this.props.isMultiplayer
-            ? this.getControllingPlayer(grid, this.props.invitedPlayerId)
-            : this.props.data.grid.currentPlayer;
-
-        if (
-            grid.gridItems[x][y].player === null &&
-            controllingPlayer !== null &&
-            controllingPlayer.symbol === grid.currentPlayer.symbol
-        ) {
-            executeTurn({
-                variables: {
-                    id: grid.id,
-                    playerId: controllingPlayer.id,
-                    x,
-                    y
-                }
-            });
-        }
-    }
 }
 
-const enhance = compose<{}, IProps>(
-    withRouter,
-    graphql(GET_GRID, {
-        options: (props: any) => ({
-            variables: {
-                id: props.match.params.gameId
-            }
-        })
-    }),
-    graphql(EXECUTE_TURN, {
-        name: "executeTurn"
-    })
-);
-
-export default enhance(GridContainer);
+export default withRouter(GridContainer);

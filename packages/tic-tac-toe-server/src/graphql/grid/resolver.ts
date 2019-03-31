@@ -9,12 +9,13 @@ import playerController from "../../controllers/player";
 
 export const Query = {
     async grid(_: any, { id }: { id: string }) {
+        console.log("loading grid", id);
         const grid = await gridController.findById(id);
 
         if (!id || !grid) {
             throw new Error("Grid not found");
         }
-
+        console.log("grid found", grid);
         return grid;
     }
 };

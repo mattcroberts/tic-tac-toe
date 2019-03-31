@@ -3,7 +3,7 @@
 source ./scripts/env.sh
 
 
-docker-compose -p ttt up -d
+docker-compose -p ttt up --build -d
 
 if [ -n "$1" ]; then
     docker exec -it ttt_backups_1 restore

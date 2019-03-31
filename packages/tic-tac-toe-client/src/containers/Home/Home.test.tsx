@@ -49,7 +49,7 @@ describe("Home Container", () => {
 
         expect(component.find(HomePage).props()).toHaveProperty(
             "loading",
-            false
+            true
         );
     });
 });

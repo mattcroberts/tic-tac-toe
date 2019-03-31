@@ -1,12 +1,12 @@
 import * as React from "react";
-import { Mutation, Query, MutationFn } from "react-apollo";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { Mutation, MutationFn, Query } from "react-apollo";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 import { compose } from "recompose";
-
 import { Mutation as IMutation } from "../../../typings/types";
 import HomePage from "../../pages/Home";
 import * as NEW_GAME from "./newGame.graphql";
 import * as TIC_TAC_TOE from "./tictactoe.graphql";
+import { FetchType } from "../../../node_modules/apollo-client";
 
 interface IProps extends RouteComponentProps<{}> {}
 
@@ -19,17 +19,17 @@ class Home extends React.Component<IProps> {
 
     public render() {
         return (
-            <Query query={TIC_TAC_TOE}>
-                {result => (
+            <Query query={TIC_TAC_TOE} fetchPolicy={"cache-and-network"}>
+                {({ data, loading }) => (
                     <Mutation mutation={NEW_GAME} onCompleted={this.onNewGame}>
-                        {(mutation, { loading }) => (
+                        {(mutation, { loading: mutationLoading }) => (
                             <HomePage
-                                loading={loading}
+                                loading={loading || mutationLoading}
                                 newGame={this.onNewGameClick.bind(
                                     this,
                                     mutation
                                 )}
-                                gameInfo={result.data.tictactoe}
+                                gameInfo={data.tictactoe}
                             />
                         )}
                     </Mutation>

@@ -8,20 +8,20 @@ export default class ErrorPage extends React.Component<
     IProps,
     { hasError: boolean }
 > {
+    private static getDerivedStateFromError(error: Error) {
+        return { hasError: true, error };
+    }
+
     constructor(props: IProps) {
         super(props);
         this.state = { hasError: false };
     }
-    static getDerivedStateFromError(error: Error) {
-        return { hasError: true, error };
-    }
 
-    componentDidCatch(error: Error, info: any) {
+    public componentDidCatch(error: Error, info: any) {
         console.log(error, info);
     }
 
     public render() {
-        console.log("!!");
         if (this.state.hasError || this.props.message) {
             return (
                 <div className={style.root}>

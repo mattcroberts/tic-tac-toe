@@ -8,7 +8,7 @@ module.exports = {
     },
     moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node", "graphql"],
     roots: ["<rootDir>/src"],
-    setupTestFrameworkScriptFile: "./testSetup.ts",
+    setupFilesAfterEnv: ["./testSetup.ts"],
     snapshotSerializers: ["enzyme-to-json/serializer"],
     testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
     transform: {

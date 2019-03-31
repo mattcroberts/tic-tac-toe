@@ -80,7 +80,7 @@ export interface GridQueryArgs {
 }
 export interface ExecuteTurnMutationArgs {
     id: string;
-    player: string;
+    playerId: string;
     x: number;
     y: number;
 }
@@ -273,7 +273,7 @@ export namespace MutationResolvers {
     > = Resolver<R, Parent, Context, ExecuteTurnArgs>;
     export interface ExecuteTurnArgs {
         id: string;
-        player: string;
+        playerId: string;
         x: number;
         y: number;
     }

@@ -9,20 +9,26 @@ import Winner from "../Winner";
 import style from "./Grid.css";
 
 export interface IProps {
+    id: string;
     grid: IGridItem[][];
     currentPlayer: IPlayer;
     winner?: IPlayer | null;
     isDraw: boolean;
     size: number;
-    onItemClick: (x: number, y: number) => void;
+    executeTurn: ({ variables: ExecuteTurnMutationArgs }) => any;
 }
 
 class Grid extends React.Component<IProps> {
     public static defaultProps = {
         isDraw: false,
-        onItemClick: () => undefined,
         winner: null
     };
+
+    constructor(props: IProps) {
+        super(props);
+        this.onItemClick = this.onItemClick.bind(this);
+    }
+
     public render() {
         return (
             <div className={style.root}>
@@ -34,6 +40,25 @@ class Grid extends React.Component<IProps> {
         );
     }
 
+    public onItemClick(x: number, y: number) {
+        const { currentPlayer, executeTurn } = this.props;
+
+        if (
+            this.props.grid[x][y].player === null &&
+            currentPlayer !== null &&
+            currentPlayer.symbol === this.props.currentPlayer.symbol
+        ) {
+            executeTurn({
+                variables: {
+                    id: this.props.id,
+                    playerId: currentPlayer.id,
+                    x,
+                    y
+                }
+            });
+        }
+    }
+
     private renderGrid() {
         return this.props.grid.map((row, rowN) => (
             <div className={style.row} key={`${rowN.toString()}`}>
@@ -42,7 +67,7 @@ class Grid extends React.Component<IProps> {
                         key={`${rowN}-${colN}`}
                         colN={rowN}
                         rowN={colN}
-                        onItemClick={this.props.onItemClick}
+                        onItemClick={this.onItemClick}
                         itemState={item}
                         isFinished={
                             this.props.winner !== null || this.props.isDraw

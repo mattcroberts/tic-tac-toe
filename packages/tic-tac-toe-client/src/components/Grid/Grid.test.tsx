@@ -8,6 +8,8 @@ import { Symbol as ISymbol } from "../../../typings/types";
 describe("Grid", () => {
     const GRID_SIZE = 3;
     const defaultProps = {
+        id: "123",
+        executeTurn: jest.fn(),
         currentPlayer: {
             id: "123",
             symbol: ISymbol.NAUGHT
@@ -17,6 +19,10 @@ describe("Grid", () => {
         isDraw: false,
         onItemClick: jest.fn()
     };
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
 
     it("should render", () => {
         const component = shallow(<Grid {...defaultProps} />);
@@ -55,5 +61,39 @@ describe("Grid", () => {
         const component = shallow(<Grid {...defaultProps} isDraw={true} />);
 
         expect(component).toMatchSnapshot();
+    });
+
+    describe("onItemClick", () => {
+        it("should executeTurn if square is empty", () => {
+            const grid = shallow<Grid>(<Grid {...defaultProps} />);
+
+            grid.instance().onItemClick(1, 2);
+
+            expect(defaultProps.executeTurn).toHaveBeenCalled();
+            expect(defaultProps.executeTurn).toHaveBeenCalledWith({
+                variables: {
+                    id: "123",
+                    playerId: "123",
+                    x: 1,
+                    y: 2
+                }
+            });
+        });
+
+        it("should not executeTurn if square is not empty", () => {
+            const props = { ...defaultProps };
+            props.grid[1][2] = {
+                id: "123",
+                player: {
+                    id: "123",
+                    symbol: ISymbol.NAUGHT
+                }
+            };
+            const grid = shallow<Grid>(<Grid {...props} />);
+
+            grid.instance().onItemClick(1, 2);
+
+            expect(defaultProps.executeTurn).not.toHaveBeenCalled();
+        });
     });
 });
