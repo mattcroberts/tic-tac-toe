@@ -5,8 +5,11 @@ import Koa from "koa";
 import { createServer } from "http";
 import koabody from "koa-body";
 import Router from "koa-router";
+import koaBunyanLogger from "koa-bunyan-logger";
 import { SubscriptionServer } from "subscriptions-transport-ws";
+
 import { connectWithRetry } from "./db";
+import logger from "./logger";
 
 import { Schema } from "./graphql";
 
@@ -30,8 +33,11 @@ router.get("/ping", async ctx => {
 
 app.use(router.routes());
 
+app.use(koaBunyanLogger());
+app.use(koaBunyanLogger.requestLogger());
+
 process.on("unhandledRejection", err => {
-    console.log(err);
+    logger.error(err);
 });
 
 (async () => {
@@ -51,6 +57,6 @@ process.on("unhandledRejection", err => {
     );
 
     server.listen(3000, () => {
-        console.log("listening on 3000");
+        logger.info("listening on 3000");
     });
 })();

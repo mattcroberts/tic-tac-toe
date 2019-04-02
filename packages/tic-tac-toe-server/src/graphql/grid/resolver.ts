@@ -6,16 +6,17 @@ import { default as GridItem, IGridItem } from "../../models/GridItem";
 import pubsub from "../pubsub";
 import gridController from "../../controllers/grid";
 import playerController from "../../controllers/player";
+import logger from '../../logger';
 
 export const Query = {
     async grid(_: any, { id }: { id: string }) {
-        console.log("loading grid", id);
+        logger.info("loading grid", id);
         const grid = await gridController.findById(id);
 
         if (!id || !grid) {
             throw new Error("Grid not found");
         }
-        console.log("grid found", grid);
+        logger.info("grid found", grid);
         return grid;
     }
 };
@@ -51,7 +52,7 @@ export const Mutation = {
             pubsub.publish("gridUpdated", { gridUpdated: grid });
             return grid;
         } catch (e) {
-            console.error(e);
+            logger.error(e);
             throw new WError(e, "Execute Turn Error grid:" + id);
         }
     },

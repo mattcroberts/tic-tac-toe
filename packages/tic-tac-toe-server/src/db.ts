@@ -1,5 +1,6 @@
 import "reflect-metadata";
 import { createConnection, getConnectionOptions } from "typeorm";
+import logger from "./logger";
 
 export const connectWithRetry = async (retries = 5, timeout = 500) => {
     const connectionOptions = Object.assign(
@@ -21,19 +22,19 @@ export const connectWithRetry = async (retries = 5, timeout = 500) => {
 
     try {
         await createConnection(connectionOptions);
-        console.log("DB Connected");
+        logger.info("DB Connected");
     } catch (e) {
-        console.error(e);
+        logger.error(e);
 
         if (retries > 0) {
             setTimeout(() => {
-                console.log(
+                logger.warn(
                     `Retrying connection, retrys remaining: ${retries}, timeout: ${timeout}`
                 );
                 connectWithRetry(retries - 1, timeout);
             }, timeout);
         } else {
-            console.log(`DB connection failed with retrys`);
+            logger.error(new Error(`DB connection failed with retrys`));
             return;
         }
     }

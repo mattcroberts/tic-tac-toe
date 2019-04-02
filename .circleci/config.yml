@@ -121,6 +121,7 @@ jobs:
               export POSTGRES_USERNAME=${POSTGRES_USERNAME}
               export POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
               export TAG=0.1.${CIRCLE_SHA1}
+              export LOGGLY_CUSTOMER_TOKEN=${LOGGLY_CUSTOMER_TOKEN}
             EOM
       - run:
           command: cp docker-compose.prod.yml docker-compose.yml

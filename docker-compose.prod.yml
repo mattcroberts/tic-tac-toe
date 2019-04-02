@@ -63,7 +63,16 @@ services:
   nginx:
     volumes:
       - ./nginx/include_tictactoe:/etc/nginx/conf.d/include_tictactoe
-
+  logs:
+    image: gliderlabs/logspout:latest
+    volumes:
+      - /etc/hostname:/etc/host_hostname:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - SYSLOG_STRUCTURED_DATA=${LOGGLY_CUSTOMER_TOKEN}@41058
+    command: syslog+tcp://logs-01.loggly.com:514
+    deploy:
+      mode: global
 volumes:
   volumerize-credentials:
   volumerize-cache:
