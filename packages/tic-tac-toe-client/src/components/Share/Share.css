@@ -1,0 +1,17 @@
+.shareIconContainer {
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    margin-left: 6px;
+    line-height: 30px;
+}
+
+.shareIcon {
+    max-height: 30px;
+    width: 30px;
+    margin-left: 5px;
+}
+
+.inviteButton {
+    composes: button from "../../pages/Home/Home.css";
+}

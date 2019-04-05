@@ -4,64 +4,45 @@ exports[`Wrapper should render 1`] = `
 <div
   className="root"
 >
-  <div
-    className="inner"
-  >
+  <div>
     <div
       className="top"
     >
-      <div
-        className="topLeft"
+      <h1
+        className="heading"
       >
-        <h1
-          className="heading"
-        >
-          Tic Tac Toe
-        </h1>
-        <Link
-          as="button"
+        Tic Tac Toe
+      </h1>
+      <Link
+        replace={false}
+        to="/"
+      >
+        <Button
           className="button"
-          replace={false}
-          to="/"
+          size="small"
         >
-          <Button
-            className="button"
-            size="small"
-          >
-            Home
-          </Button>
-        </Link>
-      </div>
-      <div
-        className="turnInfo"
-      >
-        <div>
-          You are player
-           
-          <span
-            className="cross"
-          >
-            x
-          </span>
-        </div>
-        <div>
-          Player
-           
-          <span
-            className="cross"
-          >
-            x
-          </span>
-          's turn
-        </div>
-      </div>
+          Home
+        </Button>
+      </Link>
+      <GridControls />
     </div>
     <div
-      className="content"
+      className="turnInfo"
     >
-      <div>
-        Test
-      </div>
+      <span>
+        You:
+         
+        X
+      </span>
+      <span>
+        Turn: 
+        X
+      </span>
+    </div>
+  </div>
+  <div>
+    <div>
+      Test
     </div>
   </div>
 </div>

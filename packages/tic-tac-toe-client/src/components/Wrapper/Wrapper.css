@@ -1,51 +1,25 @@
 .root {
-    display: flex;
-    flex-direction: column;
-}
-
-.inner {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    padding: 12px;
+    padding: 6px;
+    height: 100vh;
 }
 
 .top {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
 }
 
-.topLeft {
-    display: flex;
-    align-items: start;
-}
-
-.content {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    user-select: none;
+.top > * {
+    margin-right: 6px;
 }
 
 .heading {
-    font-size: 32px;
-    margin: 0 30px 0 6px;
-    user-select: none;
-    line-height: 31px;
+    margin: 6px 6px 6px 0;
 }
 
 .button {
     composes: button from "../../pages/Home/Home.css";
 }
 
-.naught {
-    composes: naught from "../GridItem/GridItem.css";
-}
-
-.cross {
-    composes: cross from "../GridItem/GridItem.css";
-}
-
-.turnInfo {
-    margin-right: 70px;
+.turnInfo > span {
+    margin-right: 6px;
 }

@@ -1,18 +1,19 @@
 import * as React from "react";
+import classNames from "classnames";
 
-import { Player as IPlayer } from "../../../typings/types";
-import { BASE_NAME } from "../../config";
+import Share from "../Share";
+import style from "./GridControls.css";
 
 const GridControls = (props: {
+    className?: string;
     isMultiplayer: boolean;
-    controllingPlayer: IPlayer;
     gameUrl: string;
 }) => (
-    <div>
+    <div className={classNames(style.root, props.className)}>
         {props.isMultiplayer ? (
-            <input
-                readOnly={true}
-                value={`${window.location.origin}/${BASE_NAME}${props.gameUrl}`}
+            <Share
+                title="Play TicTacToe with me at irix.dev"
+                url={location.href}
             />
         ) : null}
     </div>

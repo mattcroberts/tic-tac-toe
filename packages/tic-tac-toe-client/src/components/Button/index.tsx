@@ -16,9 +16,9 @@ const Button = ({
 }: {
     children?: any;
     disabled?: boolean;
-    onClick?: () => undefined;
+    onClick?: () => any;
     className?: string;
-    size: Size;
+    size?: Size;
 }) => (
     <button
         className={classNames(style.root, style[size], className)}

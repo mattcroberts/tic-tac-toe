@@ -12,7 +12,7 @@ module.exports = {
     snapshotSerializers: ["enzyme-to-json/serializer"],
     testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
     transform: {
-        ".+\\.(css|styl|less|sass|scss)$":
+        ".+\\.(css|styl|less|sass|scss|svg)$":
             "<rootDir>/node_modules/jest-css-modules-transform",
         ".+\\.(gql|graphql)$": "jest-transform-graphql",
         ".+\\.(png|jpg|ttf|woff|woff2)$": "jest-transform-stub",

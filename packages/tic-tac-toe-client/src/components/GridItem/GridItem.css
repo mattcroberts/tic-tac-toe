@@ -11,7 +11,8 @@
     justify-content: center;
     flex: 1;
     border: 1px solid var(--border-color);
-    font-size: 170px;
+    font-size: 150px;
+    height: 29vh;
 }
 
 .finished {

@@ -24,12 +24,9 @@ const GridPage: React.SFC<IProps> = props => {
         <Wrapper
             controllingPlayer={props.controllingPlayer}
             currentPlayer={props.currentPlayer}
+            gameUrl={path}
+            isMultiplayer={props.isMultiplayer}
         >
-            <GridControls
-                isMultiplayer={props.isMultiplayer}
-                controllingPlayer={props.controllingPlayer}
-                gameUrl={path}
-            />
             <Grid {...props} />
         </Wrapper>
     );
