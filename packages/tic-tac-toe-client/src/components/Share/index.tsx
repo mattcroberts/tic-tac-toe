@@ -72,6 +72,7 @@ export default class Share extends React.Component<IProps, IState> {
     constructor(props: IProps) {
         super(props);
         this.toggleActive = this.toggleActive.bind(this);
+        this.renderNativeShare = this.renderNativeShare.bind(this);
     }
 
     public render() {
@@ -92,12 +93,14 @@ export default class Share extends React.Component<IProps, IState> {
         }
     }
 
-    private renderNativeShare() {
-        navigator.share({
+    private async renderNativeShare() {
+        await navigator.share({
             title: this.props.title,
+            text: this.props.title,
             url: this.props.url
         });
 
+        this.toggleActive();
         return null;
     }
 
@@ -126,7 +129,7 @@ export default class Share extends React.Component<IProps, IState> {
                         <a
                             key={key}
                             href={link.href({
-                                shareUrl: "https://irix.dev/tictactoe/game/abc",
+                                shareUrl: this.props.url,
                                 text: this.props.title
                             })}
                             target="_blank"
