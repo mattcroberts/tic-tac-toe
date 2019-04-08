@@ -24,7 +24,7 @@ const GridPage: React.SFC<IProps> = props => {
         <Wrapper
             controllingPlayer={props.controllingPlayer}
             currentPlayer={props.currentPlayer}
-            gameUrl={path}
+            gameUrl={`${location.origin}/tictactoe${path}`}
             isMultiplayer={props.isMultiplayer}
         >
             <Grid {...props} />

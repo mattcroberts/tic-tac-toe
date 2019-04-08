@@ -73,6 +73,7 @@ export default class Share extends React.Component<IProps, IState> {
         super(props);
         this.toggleActive = this.toggleActive.bind(this);
         this.renderNativeShare = this.renderNativeShare.bind(this);
+        this.onShareButtonClick = this.onShareButtonClick.bind(this);
     }
 
     public render() {
@@ -112,9 +113,9 @@ export default class Share extends React.Component<IProps, IState> {
                     if (key === "copyToClipboard") {
                         return (
                             <Clipboard
+                                className={style.shareButton}
                                 key={key}
-                                component="a"
-                                button-href="#"
+                                onClick={() => false}
                                 data-clipboard-text={this.props.url}
                             >
                                 <img
@@ -126,20 +127,27 @@ export default class Share extends React.Component<IProps, IState> {
                     }
 
                     return (
-                        <a
+                        <button
+                            className={style.shareButton}
                             key={key}
-                            href={link.href({
-                                shareUrl: this.props.url,
-                                text: this.props.title
-                            })}
-                            target="_blank"
+                            onClick={() => this.onShareButtonClick(link)}
                         >
                             <img className={style.shareIcon} src={link.icon} />
-                        </a>
+                        </button>
                     );
                 })}
             </div>
         );
+    }
+
+    private onShareButtonClick(link) {
+        const href = link.href({
+            shareUrl: this.props.url,
+            text: this.props.title
+        });
+
+        window.open(href);
+        this.toggleActive();
     }
 
     private toggleActive() {

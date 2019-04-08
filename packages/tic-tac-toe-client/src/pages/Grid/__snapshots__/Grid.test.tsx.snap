@@ -7,7 +7,7 @@ exports[`GridPage should render 1`] = `
       "symbol": "CROSS",
     }
   }
-  gameUrl=""
+  gameUrl="http://localhost/tictactoe"
 >
   <Grid
     controllingPlayer={

@@ -71,8 +71,6 @@ services:
     environment:
       - SYSLOG_STRUCTURED_DATA=${LOGGLY_CUSTOMER_TOKEN}@41058
     command: syslog+tcp://logs-01.loggly.com:514
-    deploy:
-      mode: global
 volumes:
   volumerize-credentials:
   volumerize-cache:

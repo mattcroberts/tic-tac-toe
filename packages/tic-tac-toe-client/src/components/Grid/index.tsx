@@ -12,6 +12,7 @@ export interface IProps {
     id: string;
     grid: IGridItem[][];
     currentPlayer: IPlayer;
+    controllingPlayer: IPlayer;
     winner?: IPlayer | null;
     isDraw: boolean;
     size: number;
@@ -41,12 +42,12 @@ class Grid extends React.Component<IProps> {
     }
 
     public onItemClick(x: number, y: number) {
-        const { currentPlayer, executeTurn } = this.props;
+        const { controllingPlayer, currentPlayer, executeTurn } = this.props;
 
         if (
             this.props.grid[x][y].player === null &&
-            currentPlayer !== null &&
-            currentPlayer.symbol === this.props.currentPlayer.symbol
+            controllingPlayer !== null &&
+            controllingPlayer.symbol === this.props.currentPlayer.symbol
         ) {
             executeTurn({
                 variables: {

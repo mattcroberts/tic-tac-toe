@@ -14,6 +14,10 @@ describe("Grid", () => {
             id: "123",
             symbol: ISymbol.NAUGHT
         },
+        controllingPlayer: {
+            id: "456",
+            symbol: ISymbol.CROSS
+        },
         grid: createGrid(GRID_SIZE),
         size: GRID_SIZE,
         isDraw: false,
@@ -65,7 +69,14 @@ describe("Grid", () => {
 
     describe("onItemClick", () => {
         it("should executeTurn if square is empty", () => {
-            const grid = shallow<Grid>(<Grid {...defaultProps} />);
+            const grid = shallow<Grid>(
+                <Grid
+                    {...{
+                        ...defaultProps,
+                        currentPlayer: { id: "789", symbol: ISymbol.CROSS }
+                    }}
+                />
+            );
 
             grid.instance().onItemClick(1, 2);
 
@@ -73,7 +84,7 @@ describe("Grid", () => {
             expect(defaultProps.executeTurn).toHaveBeenCalledWith({
                 variables: {
                     id: "123",
-                    playerId: "123",
+                    playerId: "789",
                     x: 1,
                     y: 2
                 }

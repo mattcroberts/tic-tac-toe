@@ -13,7 +13,7 @@ const GridControls = (props: {
         {props.isMultiplayer ? (
             <Share
                 title="Play TicTacToe with me at irix.dev"
-                url={location.href}
+                url={props.gameUrl}
             />
         ) : null}
     </div>

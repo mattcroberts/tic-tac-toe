@@ -12,6 +12,12 @@
     margin-left: 5px;
 }
 
+.shareButton {
+    border: 0;
+    background: none;
+    padding: 0;
+}
+
 .inviteButton {
     composes: button from "../../pages/Home/Home.css";
 }
