@@ -94,8 +94,8 @@ export default class Share extends React.Component<IProps, IState> {
         }
     }
 
-    private async renderNativeShare() {
-        await navigator.share({
+    private renderNativeShare() {
+        navigator.share({
             title: this.props.title,
             text: this.props.title,
             url: this.props.url
