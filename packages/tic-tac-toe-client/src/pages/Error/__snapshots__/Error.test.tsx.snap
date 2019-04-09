@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Winner should render with message 1`] = `
+<div
+  className="root"
+>
+  <h1>
+    Unfortunately there has been an error
+  </h1>
+  <pre>
+    test error message
+  </pre>
+</div>
+`;

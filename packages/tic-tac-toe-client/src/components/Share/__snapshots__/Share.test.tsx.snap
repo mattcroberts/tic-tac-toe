@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Share should render 1`] = `
+<Button
+  className="inviteButton"
+  onClick={[Function]}
+  size="small"
+>
+  Invite
+</Button>
+`;
+
+exports[`Share should show share options on click 1`] = `
+<div
+  className="shareIconContainer"
+>
+  <span>
+    Invite another player with
+  </span>
+  <button
+    className="shareButton"
+    key="facebook"
+    onClick={[Function]}
+  >
+    <img
+      className="shareIcon"
+      src={
+        Object {
+          "": "",
+          "0": "0",
+          "00": "00",
+        }
+      }
+    />
+  </button>
+  <button
+    className="shareButton"
+    key="whatsapp"
+    onClick={[Function]}
+  >
+    <img
+      className="shareIcon"
+      src={
+        Object {
+          "": "",
+          "0": "0",
+          "00": "00",
+        }
+      }
+    />
+  </button>
+  <button
+    className="shareButton"
+    key="messenger"
+    onClick={[Function]}
+  >
+    <img
+      className="shareIcon"
+      src={
+        Object {
+          "": "",
+          "0": "0",
+          "00": "00",
+        }
+      }
+    />
+  </button>
+  <button
+    className="shareButton"
+    key="email"
+    onClick={[Function]}
+  >
+    <img
+      className="shareIcon"
+      src={
+        Object {
+          "": "",
+          "0": "0",
+          "00": "00",
+        }
+      }
+    />
+  </button>
+  <ClipboardButton
+    className="shareButton"
+    data-clipboard-text="http://example.com/test/path"
+    key="copyToClipboard"
+    onClick={[Function]}
+  >
+    <img
+      className="shareIcon"
+      src={Object {}}
+    />
+  </ClipboardButton>
+</div>
+`;

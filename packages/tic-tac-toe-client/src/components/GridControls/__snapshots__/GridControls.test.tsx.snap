@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GridControls should render for multiplayer 1`] = `
+<div
+  className="root"
+>
+  <Share
+    title="Play TicTacToe with me at irix.dev"
+    url="http://example.com/game/123"
+  />
+</div>
+`;
+
+exports[`GridControls should render for single player 1`] = `
+<div
+  className="root"
+/>
+`;

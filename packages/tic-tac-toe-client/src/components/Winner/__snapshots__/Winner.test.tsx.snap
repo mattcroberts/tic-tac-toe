@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Winner should render O win 1`] = `
+<div
+  className="root"
+>
+  <span
+    className="inner"
+  >
+    <span
+      className="naught"
+      key="winner"
+    >
+      o
+    </span>
+     has won!
+  </span>
+</div>
+`;
+
+exports[`Winner should render X win 1`] = `
+<div
+  className="root"
+>
+  <span
+    className="inner"
+  >
+    <span
+      className="cross"
+      key="winner"
+    >
+      x
+    </span>
+     has won!
+  </span>
+</div>
+`;
+
+exports[`Winner should render draw 1`] = `
+<div
+  className="root"
+>
+  <span
+    className="inner"
+  >
+    Draw
+  </span>
+</div>
+`;
