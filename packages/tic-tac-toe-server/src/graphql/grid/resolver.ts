@@ -57,6 +57,8 @@ export const Mutation = {
         }
     },
     async newGame() {
+        logger.info("Creating new grid");
+
         const grid = new Grid();
         grid.players = [
             new Player(ISymbol.NAUGHT, IPlayerType.ANONYMOUS),
