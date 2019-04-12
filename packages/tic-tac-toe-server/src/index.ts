@@ -8,12 +8,12 @@ import Router from "koa-router";
 import koaBunyanLogger from "koa-bunyan-logger";
 import { SubscriptionServer } from "subscriptions-transport-ws";
 
-import { connectWithRetry } from "./db";
 import logger from "./logger";
+logger.info("dotenv", dotenv.config());
+
+import { connectWithRetry } from "./db";
 
 import { Schema } from "./graphql";
-
-dotenv.config();
 
 const app = new Koa();
 const router = new Router();

@@ -80,7 +80,11 @@ export const Subscription = {
         subscribe: withFilter(
             () => pubsub.asyncIterator("gridUpdated"),
             (payload, variables) => {
-                return payload.gridUpdated.id === variables.id;
+                logger.info("gridUpdated", payload.gridUpdated.id);
+                return (
+                    payload.gridUpdated &&
+                    payload.gridUpdated.id === variables.id
+                );
             }
         )
     }
