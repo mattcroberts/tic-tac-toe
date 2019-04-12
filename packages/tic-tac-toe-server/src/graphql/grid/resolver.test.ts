@@ -3,8 +3,12 @@ import Grid from "../../models/Grid";
 import GridController from "../../controllers/grid";
 import PlayerController from "../../controllers/player";
 import Player, { ISymbol, IPlayerType } from "../../models/Player";
+import pubsub from "../pubsub";
+
+jest.mock("../pubsub");
 
 describe("Grid resolver", () => {
+    (pubsub.publish as jest.Mock).mockResolvedValue(undefined);
     beforeEach(() => {
         jest.clearAllMocks();
     });

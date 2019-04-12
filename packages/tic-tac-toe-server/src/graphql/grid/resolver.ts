@@ -6,7 +6,7 @@ import { default as GridItem, IGridItem } from "../../models/GridItem";
 import pubsub from "../pubsub";
 import gridController from "../../controllers/grid";
 import playerController from "../../controllers/player";
-import logger from '../../logger';
+import logger from "../../logger";
 
 export const Query = {
     async grid(_: any, { id }: { id: string }) {
