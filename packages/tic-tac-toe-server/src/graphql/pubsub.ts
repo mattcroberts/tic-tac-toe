@@ -4,10 +4,10 @@ import { PostgresPubSub } from "graphql-postgres-subscriptions";
 import logger from "../logger";
 
 const pubsub = new PostgresPubSub({
-    user: process.env.POSTGRES_USERNAME,
-    host: "postgres",
-    database: process.env.DATABASE,
-    password: process.env.POSTGRES_PASSWORD
+    user: process.env.PUBSUB_USERNAME,
+    password: process.env.PUBSUB_PASSWORD,
+    host: process.env.PUBSUB_HOST,
+    database: process.env.PUBSUB_DATABASE
 });
 
 pubsub.subscribe("error", logger.error);

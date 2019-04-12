@@ -19,6 +19,10 @@ services:
       dockerfile: ./packages/tic-tac-toe-server/Dockerfile
     restart: on-failure
     environment:
+      - PUBSUB_USERNAME=${POSTGRES_USERNAME}
+      - PUBSUB_PASSWORD=${POSTGRES_PASSWORD}
+      - PUBSUB_HOST=postgres
+      - PUBSUB_DATABASE=tictactoe
       - TYPEORM_HOST=postgres
       - TYPEORM_DATABASE=tictactoe
       - TYPEORM_USERNAME=${POSTGRES_USERNAME}
