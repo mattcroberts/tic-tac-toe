@@ -16,7 +16,7 @@ export const Query = {
         if (!id || !grid) {
             throw new Error("Grid not found");
         }
-        logger.info("grid found", grid);
+        logger.info("grid found", grid.id);
         return grid;
     }
 };
@@ -35,7 +35,7 @@ export const Mutation = {
             const grid = await gridController.findById(id);
 
             if (!grid) {
-                throw new Error("Grid not found:");
+                throw new Error("Grid not found:" + id);
             }
 
             const player = await playerController.findById(playerId);
@@ -80,11 +80,11 @@ export const Subscription = {
         subscribe: withFilter(
             () => pubsub.asyncIterator("gridUpdated"),
             (payload, variables) => {
-                logger.info("gridUpdated", payload.gridUpdated.id);
-                return (
-                    payload.gridUpdated &&
-                    payload.gridUpdated.id === variables.id
-                );
+                if (payload && payload.gridUpdated) {
+                    logger.info("gridUpdated", payload.gridUpdated.id);
+                    return payload.gridUpdated.id === variables.id;
+                }
+                return false;
             }
         )
     }

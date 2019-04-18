@@ -18,6 +18,9 @@ import { Schema } from "./graphql";
 const app = new Koa();
 const router = new Router();
 const apolloServer = new ApolloServer({
+    formatError: (err: Error) => {
+        logger.error(err);
+    },
     schema: Schema,
     playground: {
         endpoint: "/tictactoe/graphql"
