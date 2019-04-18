@@ -22,6 +22,19 @@ exports[`GridPage should render 1`] = `
       }
     }
     isDraw={false}
+    subscribeToGridUpdates={
+      [MockFunction] {
+        "calls": Array [
+          Array [],
+        ],
+        "results": Array [
+          Object {
+            "type": "return",
+            "value": [MockFunction],
+          },
+        ],
+      }
+    }
     winner={null}
   />
 </Component>

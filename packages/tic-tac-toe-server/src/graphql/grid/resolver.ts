@@ -6,7 +6,7 @@ import { default as GridItem, IGridItem } from "../../models/GridItem";
 import pubsub from "../pubsub";
 import gridController from "../../controllers/grid";
 import playerController from "../../controllers/player";
-import logger from '../../logger';
+import logger from "../../logger";
 
 export const Query = {
     async grid(_: any, { id }: { id: string }) {
@@ -16,7 +16,7 @@ export const Query = {
         if (!id || !grid) {
             throw new Error("Grid not found");
         }
-        logger.info("grid found", grid);
+        logger.info("grid found", grid.id);
         return grid;
     }
 };
@@ -35,7 +35,7 @@ export const Mutation = {
             const grid = await gridController.findById(id);
 
             if (!grid) {
-                throw new Error("Grid not found:");
+                throw new Error("Grid not found:" + id);
             }
 
             const player = await playerController.findById(playerId);
@@ -57,6 +57,8 @@ export const Mutation = {
         }
     },
     async newGame() {
+        logger.info("Creating new grid");
+
         const grid = new Grid();
         grid.players = [
             new Player(ISymbol.NAUGHT, IPlayerType.ANONYMOUS),
@@ -78,7 +80,11 @@ export const Subscription = {
         subscribe: withFilter(
             () => pubsub.asyncIterator("gridUpdated"),
             (payload, variables) => {
-                return payload.gridUpdated.id === variables.id;
+                if (payload && payload.gridUpdated) {
+                    logger.info("gridUpdated", payload.gridUpdated.id);
+                    return payload.gridUpdated.id === variables.id;
+                }
+                return false;
             }
         )
     }

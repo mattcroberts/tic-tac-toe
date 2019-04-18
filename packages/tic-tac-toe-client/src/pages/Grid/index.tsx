@@ -13,23 +13,59 @@ type IProps = IGridProps & {
     gameUrls: IGameUrls;
     isMultiplayer: boolean;
     controllingPlayer: IPlayer;
+    subscribeToGridUpdates: () => () => void;
 };
-const GridPage: React.SFC<IProps> = props => {
-    const otherSymbol =
-        props.controllingPlayer.symbol === ISymbol.CROSS
-            ? ISymbol.NAUGHT
-            : ISymbol.CROSS;
-    const path = props.gameUrls[otherSymbol];
-    return (
-        <Wrapper
-            controllingPlayer={props.controllingPlayer}
-            currentPlayer={props.currentPlayer}
-            gameUrl={`${location.origin}/tictactoe${path}`}
-            isMultiplayer={props.isMultiplayer}
-        >
-            <Grid {...props} />
-        </Wrapper>
-    );
-};
+
+interface IState {
+    unsubscribe: () => void;
+}
+
+class GridPage extends React.Component<IProps, IState> {
+    state = { unsubscribe: null };
+
+    componentDidMount() {
+        if (!this.state.unsubscribe) {
+            const unsubscribe = this.props.subscribeToGridUpdates();
+            this.setState(() => ({
+                unsubscribe
+            }));
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.state.unsubscribe) {
+            this.state.unsubscribe();
+            this.setState(() => ({
+                unsubscribe: null
+            }));
+        }
+    }
+
+    public render() {
+        const {
+            controllingPlayer,
+            currentPlayer,
+            isMultiplayer,
+            gameUrls
+        } = this.props;
+
+        const otherSymbol =
+            controllingPlayer.symbol === ISymbol.CROSS
+                ? ISymbol.NAUGHT
+                : ISymbol.CROSS;
+        const path = gameUrls[otherSymbol];
+
+        return (
+            <Wrapper
+                controllingPlayer={controllingPlayer}
+                currentPlayer={currentPlayer}
+                gameUrl={`${location.origin}/tictactoe${path}`}
+                isMultiplayer={isMultiplayer}
+            >
+                <Grid {...this.props} />
+            </Wrapper>
+        );
+    }
+}
 
 export default GridPage;

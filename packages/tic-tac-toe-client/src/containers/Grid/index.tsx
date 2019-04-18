@@ -76,20 +76,6 @@ export class GridContainer extends React.Component<IProps> {
                                   )
                                 : grid.currentPlayer;
 
-                            subscribeToMore({
-                                document: GET_GRID_SUBS,
-                                variables: { id: gameId.gameId },
-                                updateQuery: (prev, { subscriptionData }) => {
-                                    if (!subscriptionData.data) {
-                                        return prev;
-                                    }
-
-                                    return {
-                                        grid: subscriptionData.data.gridUpdated
-                                    };
-                                }
-                            });
-
                             return (
                                 <GridPage
                                     id={grid.id}
@@ -104,6 +90,26 @@ export class GridContainer extends React.Component<IProps> {
                                     gameUrls={grid.gameUrls}
                                     isMultiplayer={this.props.isMultiplayer}
                                     controllingPlayer={controllingPlayer}
+                                    subscribeToGridUpdates={() =>
+                                        subscribeToMore({
+                                            document: GET_GRID_SUBS,
+                                            variables: { id: gameId.gameId },
+                                            updateQuery: (
+                                                prev,
+                                                { subscriptionData }
+                                            ) => {
+                                                if (!subscriptionData.data) {
+                                                    return prev;
+                                                }
+
+                                                return {
+                                                    grid:
+                                                        subscriptionData.data
+                                                            .gridUpdated
+                                                };
+                                            }
+                                        })
+                                    }
                                 />
                             );
                         }}
