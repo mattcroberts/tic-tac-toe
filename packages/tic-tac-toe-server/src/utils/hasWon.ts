@@ -46,7 +46,5 @@ export default (player: IPlayer, grid: IGrid): boolean => {
     const forwardDiagWin = checkLine(player, forwardDiag);
     const backwardDiagWin = checkLine(player, backwardDiag);
 
-    // console.log({ rowWin, colWin, forwardDiagWin, backwardDiagWin });
-
     return rowWin || colWin || forwardDiagWin || backwardDiagWin;
 };

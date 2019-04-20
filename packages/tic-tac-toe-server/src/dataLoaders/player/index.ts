@@ -1,4 +1,4 @@
-import Player from "../models/Player";
+import Player from "../../models/Player";
 
 export const findById = async (id: string) => Player.findOneOrFail(id);
 

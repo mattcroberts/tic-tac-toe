@@ -1,7 +1,7 @@
 import { Query, Mutation } from "./resolver";
 import Grid from "../../models/Grid";
-import GridController from "../../controllers/grid";
-import PlayerController from "../../controllers/player";
+import gridDataLoader from "../../dataLoaders/grid";
+import playerDataLoader from "../../dataLoaders/player";
 import Player, { ISymbol, IPlayerType } from "../../models/Player";
 import pubsub from "../pubsub";
 
@@ -18,7 +18,7 @@ describe("Grid resolver", () => {
             testGrid.id = "123";
 
             const spy = jest
-                .spyOn(GridController, "findById")
+                .spyOn(gridDataLoader, "findById")
                 .mockResolvedValueOnce(testGrid);
 
             const grid = await Query.grid(undefined, { id: "123" });
@@ -28,7 +28,7 @@ describe("Grid resolver", () => {
         });
 
         it("should throw if no id is provided", () => {
-            jest.spyOn(GridController, "findById").mockRejectedValue(
+            jest.spyOn(gridDataLoader, "findById").mockRejectedValue(
                 new Error("No Id Provided")
             );
             const params: any = { id: undefined };
@@ -54,11 +54,11 @@ describe("Grid resolver", () => {
 
             jest.spyOn(testGrid, "save").mockResolvedValueOnce(testGrid);
 
-            jest.spyOn(GridController, "findById").mockResolvedValueOnce(
+            jest.spyOn(gridDataLoader, "findById").mockResolvedValueOnce(
                 testGrid
             );
 
-            jest.spyOn(PlayerController, "findById").mockResolvedValueOnce(
+            jest.spyOn(playerDataLoader, "findById").mockResolvedValueOnce(
                 testPlayer
             );
             const params: any = {
@@ -73,7 +73,7 @@ describe("Grid resolver", () => {
         });
 
         it("should throw if grid not found", async () => {
-            jest.spyOn(GridController, "findById").mockResolvedValue(undefined);
+            jest.spyOn(gridDataLoader, "findById").mockResolvedValue(undefined);
 
             const params: any = {
                 id: "123",

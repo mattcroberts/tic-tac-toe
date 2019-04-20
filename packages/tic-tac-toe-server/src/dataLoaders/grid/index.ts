@@ -1,4 +1,4 @@
-import Grid from "../models/Grid";
+import Grid from "../../models/Grid";
 
 export const findById = async (id: string) => {
     return Grid.createQueryBuilder("grid")

@@ -4,14 +4,14 @@ import Grid from "../../models/Grid";
 import Player, { ISymbol, IPlayerType } from "../../models/Player";
 import { default as GridItem, IGridItem } from "../../models/GridItem";
 import pubsub from "../pubsub";
-import gridController from "../../controllers/grid";
-import playerController from "../../controllers/player";
+import gridDataLoader from "../../dataLoaders/grid";
+import playerDataLoader from "../../dataLoaders/player";
 import logger from "../../logger";
 
 export const Query = {
     async grid(_: any, { id }: { id: string }) {
         logger.info("loading grid", id);
-        const grid = await gridController.findById(id);
+        const grid = await gridDataLoader.findById(id);
 
         if (!id || !grid) {
             throw new Error("Grid not found");
@@ -32,13 +32,13 @@ export const Mutation = {
         }: { id: string; playerId: string; x: number; y: number }
     ) {
         try {
-            const grid = await gridController.findById(id);
+            const grid = await gridDataLoader.findById(id);
 
             if (!grid) {
                 throw new Error("Grid not found:" + id);
             }
 
-            const player = await playerController.findById(playerId);
+            const player = await playerDataLoader.findById(playerId);
 
             if (grid.currentPlayer.id !== player.id) {
                 throw new VError(
@@ -77,6 +77,10 @@ export const Mutation = {
 
 export const Subscription = {
     gridUpdated: {
+        resolve: (payload: any) => {
+            logger.info("resolve subscription", payload.gridUpdated.id);
+            return gridDataLoader.findById(payload.gridUpdated.id);
+        },
         subscribe: withFilter(
             () => pubsub.asyncIterator("gridUpdated"),
             (payload, variables) => {
