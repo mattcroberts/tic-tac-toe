@@ -111,6 +111,7 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "bf:d8:27:dd:c8:41:89:5f:c3:9b:c4:c3:0f:e0:01:4e"
+            - "ad:ef:01:99:0a:31:8d:3a:83:92:cb:49:48:68:72:30"
       - checkout
       - run:
           command: |
@@ -126,11 +127,11 @@ jobs:
       - run:
           command: cp docker-compose.prod.yml docker-compose.yml
       - run:
-          command: ssh -o StrictHostKeyChecking=no ${DO_USER}@irix.dev "mkdir -p tictactoe" && scp -o StrictHostKeyChecking=no ./scripts/deploy.sh env.sh docker-compose.prod.yml ${DO_USER}@irix.dev:~/tictactoe
+          command: ssh -o StrictHostKeyChecking=no ${DO_USER}@${DO_HOST} "mkdir -p tictactoe" && scp -o StrictHostKeyChecking=no ./scripts/deploy.sh env.sh docker-compose.prod.yml ${DO_USER}@${DO_HOST}:~/tictactoe
       - run:
-          command: scp -r -o StrictHostKeyChecking=no ./nginx ./scripts/volumerize ${DO_USER}@irix.dev:~
+          command: scp -r -o StrictHostKeyChecking=no ./nginx ./scripts/volumerize ${DO_USER}@${DO_HOST}:~
       - run:
-          command: ssh -o StrictHostKeyChecking=no ${DO_USER}@irix.dev "/bin/bash ./deploy.sh"
+          command: ssh -o StrictHostKeyChecking=no ${DO_USER}@${DO_HOST} "/bin/bash ./deploy.sh"
 workflows:
   version: 2
   test:
