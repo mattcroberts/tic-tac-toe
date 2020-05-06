@@ -88,8 +88,7 @@ jobs:
             - npm-deps-{{ checksum "./package.json" }}-{{ checksum "./packages/tic-tac-toe-client/package.json" }}-{{ checksum "./packages/tic-tac-toe-server/package.json" }}
             # fallback to using the latest cache if no exact match is found
             - npm-deps-
-      - setup_remote_docker:
-          docker_layer_caching: true
+      - setup_remote_docker
       - run:
           working_directory: ~/repo
           command: docker build -t mattcroberts/tic-tac-toe-client:0.1.${CIRCLE_SHA1} -t mattcroberts/tic-tac-toe-client:latest --build-arg API_URI=/tictactoe/graphql --build-arg WS_URI=ws://irix.dev/tictactoe/ws -f ./packages/tic-tac-toe-client/Dockerfile .
