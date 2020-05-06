@@ -64,9 +64,9 @@ services:
       - volumerize-source:/source
       - ./volumerize/restore-db.sh:/postexecute/restore/restore-db.sh
       - ./volumerize/backup-db.sh:/preexecute/backup/backup-db.sh
-  nginx:
-    volumes:
-      - ./nginx/include_tictactoe:/etc/nginx/conf.d/include_tictactoe
+  # nginx:
+  #   volumes:
+  #     - ./nginx/include_tictactoe:/etc/nginx/conf.d/include_tictactoe
   logs:
     image: gliderlabs/logspout:latest
     volumes:
